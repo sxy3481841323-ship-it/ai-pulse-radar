@@ -218,3 +218,19 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Quant research: credentials and large local outputs
+.env.*
+!.env.example
+*.pem
+*.key
+01_data/raw/
+01_data/downloads/
+03_models/checkpoints/
+04_backtests/outputs/
+*.parquet
+*.feather
+*.pkl
+*.joblib
+*.zip
+.DS_Store
