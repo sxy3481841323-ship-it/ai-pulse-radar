@@ -11,13 +11,14 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: #0a0a1a;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: #f5f5f1;
+            font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
             overflow: hidden;
         }
         canvas {
             border-radius: 12px;
-            box-shadow: 0 0 60px rgba(0, 180, 255, 0.15), 0 0 120px rgba(0, 180, 255, 0.05);
+            border: 1px solid #d4d9d0;
+            background: #fafbf8;
             display: block;
         }
     </style>
@@ -222,20 +223,18 @@
                     ctx.lineTo(vertices[i].x, vertices[i].y);
                 }
                 ctx.closePath();
-                ctx.fillStyle = 'rgba(0, 180, 255, 0.06)';
+                ctx.fillStyle = 'rgba(31, 122, 84, 0.05)';
                 ctx.fill();
 
-                // Wall stroke with glow
+                // Wall stroke
                 ctx.save();
-                ctx.shadowColor = 'rgba(0, 200, 255, 0.7)';
-                ctx.shadowBlur = 18;
                 ctx.beginPath();
                 ctx.moveTo(vertices[0].x, vertices[0].y);
                 for (let i = 1; i < 6; i++) {
                     ctx.lineTo(vertices[i].x, vertices[i].y);
                 }
                 ctx.closePath();
-                ctx.strokeStyle = '#00d4ff';
+                ctx.strokeStyle = '#1e2421';
                 ctx.lineWidth = 3.5;
                 ctx.lineJoin = 'round';
                 ctx.lineCap = 'round';
@@ -249,7 +248,7 @@
                     ctx.lineTo(vertices[i].x, vertices[i].y);
                 }
                 ctx.closePath();
-                ctx.strokeStyle = 'rgba(0, 220, 255, 0.4)';
+                ctx.strokeStyle = 'rgba(30, 36, 33, 0.25)';
                 ctx.lineWidth = 1.5;
                 ctx.lineJoin = 'round';
                 ctx.stroke();
@@ -258,11 +257,11 @@
                 for (let i = 0; i < 6; i++) {
                     ctx.beginPath();
                     ctx.arc(vertices[i].x, vertices[i].y, 5, 0, Math.PI * 2);
-                    ctx.fillStyle = '#00d4ff';
+                    ctx.fillStyle = '#e04f26';
                     ctx.fill();
                     ctx.beginPath();
                     ctx.arc(vertices[i].x, vertices[i].y, 8, 0, Math.PI * 2);
-                    ctx.fillStyle = 'rgba(0, 212, 255, 0.25)';
+                    ctx.fillStyle = 'rgba(224, 79, 38, 0.22)';
                     ctx.fill();
                 }
             }
@@ -316,13 +315,13 @@
 
             // Main render function
             function render() {
-                // Clear canvas with dark background
-                ctx.fillStyle = '#0a0a1a';
+                // Clear canvas with warm paper background
+                ctx.fillStyle = '#fafbf8';
                 ctx.fillRect(0, 0, W, H);
 
                 // Subtle background grid pattern
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
-                ctx.lineWidth = 0.5;
+                ctx.strokeStyle = 'rgba(30, 36, 33, 0.06)';
+                ctx.lineWidth = 0.75;
                 const gridSize = 40;
                 for (let x = 0; x < W; x += gridSize) {
                     ctx.beginPath();
@@ -347,12 +346,12 @@
                 drawBall();
 
                 // Info text
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
-                ctx.font = '12px "Segoe UI", monospace';
-                ctx.fillText('hexagon spin: ' + (hexSpinSpeed * 57.3).toFixed(1) + '°/s', 18, 28);
-                ctx.fillText('gravity: ' + gravity + ' px/s²', 18, 46);
-                ctx.fillText('restitution: ' + restitution.toFixed(2), 18, 64);
-                ctx.fillText('wall friction: ' + wallFriction.toFixed(2), 18, 82);
+                ctx.fillStyle = '#4e5851';
+                ctx.font = '600 12px "SFMono-Regular", Consolas, monospace';
+                ctx.fillText('HEXAGON SPIN: ' + (hexSpinSpeed * 57.3).toFixed(1) + '°/s', 18, 28);
+                ctx.fillText('GRAVITY: ' + gravity + ' px/s²', 18, 46);
+                ctx.fillText('RESTITUTION e: ' + restitution.toFixed(2), 18, 64);
+                ctx.fillText('TANGENTIAL FRICTION μ: ' + wallFriction.toFixed(2), 18, 82);
             }
 
             // Animation loop

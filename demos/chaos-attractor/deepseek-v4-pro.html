@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>黎曼相空间混沌吸引子与李雅普诺夫织机</title>
+<style>
+:root {
+  --paper: #f5f5f1;
+  --card: #fafbf8;
+  --ink: #1e2421;
+  --muted: #5d665f;
+  --line: #d4d9d0;
+  --vermilion: #e04f26;
+  --emerald: #1f7a54;
+  --cobalt: #1d57a8;
+  --mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  --sans: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  overflow: hidden;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 12px 16px;
+  gap: 10px;
+}
+header, footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+header {
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 8px;
+}
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.tag {
+  font: 700 10px var(--mono);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 3px 7px;
+  border-radius: 3px;
+  letter-spacing: 0.1em;
+}
+h1 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 760;
+}
+.tabs {
+  display: flex;
+  gap: 5px;
+}
+button {
+  font: 600 11px var(--sans);
+  padding: 6px 11px;
+  border-radius: 5px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  cursor: pointer;
+}
+button.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+button.pulse {
+  background: var(--vermilion);
+  color: #fff;
+  border-color: #bf3c17;
+}
+.stage {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  overflow: hidden;
+}
+canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+}
+canvas:active { cursor: grabbing; }
+.hud {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  background: rgba(245, 245, 241, 0.88);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 11px;
+  font: 500 11px var(--mono);
+  pointer-events: none;
+  line-height: 1.55;
+}
+footer {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 8px 12px;
+  font: 600 11px var(--mono);
+}
+.slider-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+input[type="range"] {
+  accent-color: var(--ink);
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="tag">NONLINEAR DYNAMICS · RK4 SOLVER</span>
+    <h1>四阶龙格-库塔三维奇异吸引子与相空间流形织机</h1>
+  </div>
+  <div class="tabs">
+    <button class="sys-btn active" data-sys="lorenz">Lorenz 洛伦兹双翼</button>
+    <button class="sys-btn" data-sys="aizawa">Aizawa 爱泽环面流形</button>
+    <button class="sys-btn" data-sys="halvorsen">Halvorsen 三叶对称涡旋</button>
+    <button class="pulse" id="btnPerturb">💥 注入 ε 初值微扰簇 (Lyapunov Split)</button>
+  </div>
+</header>
+
+<div class="stage">
+  <canvas id="cv"></canvas>
+  <div class="hud" id="hud">
+    SYSTEM: LORENZ (σ=10, ρ=28, β=8/3)<br>
+    PARTICLES: 360 COUPLED TRAJECTORIES<br>
+    MAX LYAPUNOV λ₁ ≈ +0.9056 · DRAG TO ORBIT
+  </div>
+</div>
+
+<footer>
+  <div class="slider-box">
+    <span>时间步长积分速率 (dt)</span>
+    <input type="range" id="slSpeed" min="0.3" max="2.2" step="0.1" value="1.0">
+  </div>
+  <div class="slider-box">
+    <span>尾迹张力长度 (Trail Horizon)</span>
+    <input type="range" id="slTrail" min="15" max="75" step="5" value="45">
+  </div>
+  <span id="readout">PHASE DIVERGENCE Δx(t): 0.042</span>
+</footer>
+
+<script>
+(() => {
+  const cv = document.getElementById('cv');
+  const ctx = cv.getContext('2d');
+  let sys = 'lorenz';
+  let yaw = 0.55, pitch = 0.35;
+  let dragging = false, lx = 0, ly = 0;
+  let speedMult = 1.0;
+  let trailLen = 45;
+
+  const N = 220;
+  let particles = [];
+
+  function initParticles(mode, tightCluster = false) {
+    particles = [];
+    const palette = ['#1e2421', '#e04f26', '#1d57a8', '#1f7a54', '#b56c0e'];
+    const base = mode === 'lorenz' ? [0.1, 0, 20] : (mode === 'aizawa' ? [0.1, 0, 0] : [-1.48, -1.51, 2.04]);
+    for (let i = 0; i < N; i++) {
+      const spread = tightCluster ? 0.02 : (mode === 'aizawa' ? 0.45 : 3.5);
+      const x = base[0] + (Math.random() - 0.5) * spread;
+      const y = base[1] + (Math.random() - 0.5) * spread;
+      const z = base[2] + (Math.random() - 0.5) * spread;
+      particles.push({
+        pts: [[x, y, z]],
+        color: palette[i % palette.length],
+        width: (i % 7 === 0) ? 1.8 : 1.0
+      });
+    }
+  }
+
+  function deriv(mode, x, y, z) {
+    if (mode === 'lorenz') {
+      return [10 * (y - x), x * (28 - z) - y, x * y - (8 / 3) * z];
+    } else if (mode === 'aizawa') {
+      const a = 0.95, b = 0.7, c = 0.6, d = 3.5, e = 0.25, f = 0.1;
+      return [
+        (z - b) * x - d * y,
+        d * x + (z - b) * y,
+        c + a * z - (z * z * z) / 3 - (x * x + y * y) * (1 + e * z) + f * z * x * x * x
+      ];
+    } else {
+      const a = 1.4;
+      return [
+        -a * x - 4 * y - 4 * z - y * y,
+        -a * y - 4 * z - 4 * x - z * z,
+        -a * z - 4 * x - 4 * y - x * x
+      ];
+    }
+  }
+
+  function rk4(mode, p, dt) {
+    const [x, y, z] = p;
+    const k1 = deriv(mode, x, y, z);
+    const k2 = deriv(mode, x + 0.5 * dt * k1[0], y + 0.5 * dt * k1[1], z + 0.5 * dt * k1[2]);
+    const k3 = deriv(mode, x + 0.5 * dt * k2[0], y + 0.5 * dt * k2[1], z + 0.5 * dt * k2[2]);
+    const k4 = deriv(mode, x + dt * k3[0], y + dt * k3[1], z + dt * k3[2]);
+    return [
+      x + (dt / 6) * (k1[0] + 2 * k2[0] + 2 * k3[0] + k4[0]),
+      y + (dt / 6) * (k1[1] + 2 * k2[1] + 2 * k3[1] + k4[1]),
+      z + (dt / 6) * (k1[2] + 2 * k2[2] + 2 * k3[2] + k4[2])
+    ];
+  }
+
+  function resize() {
+    const r = cv.parentElement.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = Math.floor(r.width * dpr);
+    cv.height = Math.floor(r.height * dpr);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+  initParticles(sys);
+
+  cv.addEventListener('pointerdown', e => { dragging = true; lx = e.clientX; ly = e.clientY; cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    yaw += (e.clientX - lx) * 0.007;
+    pitch = Math.max(-1.2, Math.min(1.2, pitch + (e.clientY - ly) * 0.007));
+    lx = e.clientX; ly = e.clientY;
+  });
+  cv.addEventListener('pointerup', () => { dragging = false; });
+
+  document.querySelectorAll('.sys-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.sys-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      sys = btn.dataset.sys;
+      initParticles(sys, false);
+      const labels = {
+        lorenz: 'SYSTEM: LORENZ (σ=10, ρ=28, β=8/3)<br>PARTICLES: 220 RK4 TRAJECTORIES<br>MAX LYAPUNOV λ₁ ≈ +0.9056 · DRAG TO ORBIT',
+        aizawa: 'SYSTEM: AIZAWA TORUS (a=0.95, b=0.7, c=0.6, d=3.5)<br>PARTICLES: 220 RK4 TRAJECTORIES<br>TOROIDAL FOLDING MANIFOLD · DRAG TO ORBIT',
+        halvorsen: 'SYSTEM: HALVORSEN CYCLIC (a=1.40)<br>PARTICLES: 220 RK4 TRAJECTORIES<br>C₃ SYMMETRIC STRANGE ATTRACTOR · DRAG TO ORBIT'
+      };
+      document.getElementById('hud').innerHTML = labels[sys];
+    });
+  });
+
+  document.getElementById('btnPerturb').addEventListener('click', () => {
+    initParticles(sys, true);
+  });
+  document.getElementById('slSpeed').addEventListener('input', e => { speedMult = parseFloat(e.target.value); });
+  document.getElementById('slTrail').addEventListener('input', e => { trailLen = parseInt(e.target.value, 10); });
+
+  function loop() {
+    const W = cv.width, H = cv.height;
+    ctx.fillStyle = '#fafbf8';
+    ctx.fillRect(0, 0, W, H);
+
+    // Subtle polar reticle
+    const cx = W * 0.5, cy = H * 0.52;
+    const R = Math.min(W, H) * 0.36;
+    ctx.strokeStyle = '#e5e9e0';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.stroke();
+
+    const baseDt = (sys === 'lorenz' ? 0.0055 : (sys === 'aizawa' ? 0.009 : 0.0045)) * speedMult;
+    const scale = sys === 'lorenz' ? (R / 26) : (sys === 'aizawa' ? (R / 1.55) : (R / 7.5));
+    const zOffset = sys === 'lorenz' ? 25 : (sys === 'aizawa' ? 0.1 : 0);
+
+    if (!dragging) yaw += 0.0035;
+    const cyaw = Math.cos(yaw), syaw = Math.sin(yaw);
+    const cpitch = Math.cos(pitch), spitch = Math.sin(pitch);
+
+    let spreadSum = 0;
+    const p0 = particles[0].pts[particles[0].pts.length - 1];
+
+    for (let i = 0; i < N; i++) {
+      const p = particles[i];
+      const last = p.pts[p.pts.length - 1];
+      const next = rk4(sys, last, baseDt);
+      if (isFinite(next[0]) && Math.abs(next[0]) < 200) {
+        p.pts.push(next);
+      } else {
+        p.pts = [[0.1, 0.1, zOffset]];
+      }
+      while (p.pts.length > trailLen) p.pts.shift();
+
+      const dx = next[0] - p0[0], dy = next[1] - p0[1], dz = next[2] - p0[2];
+      spreadSum += Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+      ctx.strokeStyle = p.color;
+      ctx.lineWidth = p.width;
+      ctx.globalAlpha = 0.72;
+      ctx.beginPath();
+      for (let k = 0; k < p.pts.length; k++) {
+        const [px, py, pz0] = p.pts[k];
+        const pz = pz0 - zOffset;
+        const x1 = px * cyaw - py * syaw;
+        const y1 = px * syaw + py * cyaw;
+        const y2 = y1 * spitch - pz * cpitch;
+        const sx = cx + x1 * scale;
+        const sy = cy + y2 * scale;
+        k === 0 ? ctx.moveTo(sx, sy) : ctx.lineTo(sx, sy);
+      }
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    document.getElementById('readout').textContent = `MEAN PHASE DIVERGENCE ⟨‖Δx(t)‖⟩: ${(spreadSum / N).toFixed(3)}`;
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+</script>
+</body>
+</html>

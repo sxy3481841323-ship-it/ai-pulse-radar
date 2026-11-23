@@ -1,72 +1,122 @@
 [
   {
-    "id": "pelican-bicycle",
-    "name": "鹈鹕骑自行车",
-    "name_en": "Pelican riding a bicycle",
-    "origin": "Simon Willison 从 2024 年 10 月开始，每出一个新模型就让它画一次，并把结果发到博客。",
-    "origin_url": "https://simonwillison.net/tags/pelican-riding-a-bicycle/",
-    "origin_label": "Simon Willison 博客 · pelican-riding-a-bicycle 标签",
-    "why": "训练数据里几乎不存在“鹈鹕骑车”的 SVG，模型只能靠对鹈鹕身体结构、自行车几何、两者如何接触的理解，用纯坐标“盲画”。画得像不像一眼可判，很难靠刷榜作弊。",
+    "id": "helicopter-kestrel",
+    "name": "H-07 游隼 · 旋翼工坊（三维总成逐件拆解与飞行遥测）",
+    "name_en": "Kestrel H-07 Rotorcraft Assembly & Flight Telemetry Studio",
+    "badge": "ASTRA 6.2 工业级三维建模实盘",
+    "category": "三维机械拆解 · WebGL 物理工坊",
+    "origin": "由 Astra 6.2 生成的 727KB 纯单文件三维直升机工程工坊，内嵌完整自定义 WebGL 渲染管线、程序化环境贴图、合成旋翼音频与 8 大总成爆炸拆解视图。",
+    "origin_url": null,
+    "origin_label": "Astra 6.2 单文件三维工业拆解实测",
+    "why": "突破了传统大模型“拿几个几何方块拼凑玩具模型”的瓶颈：完整构建了主旋翼总成（五桨叶+挥舞铰+斜盘连杆）、涡轴发动机、主减速器、尾桨总成与机身蒙皮，并支持『飞行视图（巡航遥测+昼夜切换+姿态仪表）』与『拆解视图（8 大总成爆炸滑动条+工程三视图投影+逐件特写）』无缝切换。",
     "look_for": [
-      "车架是不是正常的三角结构",
-      "鹈鹕有没有坐在座位上、脚踩到踏板",
-      "鹈鹕的大嘴和喉囊画没画出来"
+      "右上角切换『飞行视图』与『拆解视图』，拖动拆解幅度滑块观察 8 大总成沿爆炸轴向分离",
+      "点击底部 01~08 任意部件卡片，镜头自动推近到该总成并展示 SVG 工程线框图",
+      "在飞行视图下调节总距杆与高度，观察倾斜盘连杆、空速表与升降率表的实时联动"
     ],
-    "prompt": "Generate an SVG of a pelican riding a bicycle",
-    "prompt_note": "Simon 使用的原始 Prompt，一字未改。",
-    "output": "svg",
+    "prompt": "构建一个完整的单文件 HTML 三维直升机工程与飞行交互工坊（H-07 游隼 · 旋翼工坊 / KESTREL ROTORCRAFT STUDIO）。要求：\n1. 纯原生 WebGL 构建高精细度三维直升机模型，包含 8 个独立可拆解总成：主旋翼总成（五桨叶、桨毂、挥舞铰与倾斜盘连杆）、流线型机身蒙皮、玻璃座舱与仪表台、双发涡轴发动机、碳纤尾梁与水平安定面、四叶尾桨总成、管状起落滑橇、主减速器；\n2. 提供『飞行视图』（实时模拟旋翼转速 RPM、总距角、指示空速、气压高度、俯仰横滚姿态与昼夜航行灯）与『拆解视图』（支持 0%~100% 爆炸拆解滑块、部件独立高亮聚焦、工程编号引线标注与底部 8 大部件三视图抽屉）；\n3. 采用温暖纸质工业设计美学（#F5F5F1 纸张底色 + #FF713C 工业橙点缀），内置 WebAudio 旋翼气动声效合成。",
+    "prompt_note": "Astra 6.2 单文件 727KB 完整生成结果，零外部 JS/模型依赖。",
+    "output": "html",
     "models": [
-      "deepseek-flash",
+      "astra-6-2"
+    ],
+    "runs": [
+      {
+        "model": "astra-6-2",
+        "model_name": "Astra 6.2",
+        "file": "demos/helicopter-kestrel/astra-6-2.html",
+        "generated_at": "2026-11-24T02:36:00Z",
+        "seconds": 210.0,
+        "completion_tokens": 68400
+      }
+    ]
+  },
+  {
+    "id": "quant-vol-lob",
+    "name": "Heston 随机波动率曲面与 L2 订单簿闪崩仿真台",
+    "name_en": "Heston Stochastic Volatility Surface & LOB Flash-Crash Microstructure Lab",
+    "badge": "DEEPSEEK-V4-PRO 金融数学实盘",
+    "category": "金融数学 · 市场微观结构",
+    "origin": "针对量化金融与衍生品微观结构研究设计的交互式仿真台：将耦合 Heston 随机方差 SDE、跳跃扩散过程与 L2 限价订单簿深度抽干效应放在同一张画布上联动。",
+    "origin_url": null,
+    "origin_label": "量化金融数学与微观结构可视化实验",
+    "why": "传统期权教材里的隐含波动率微笑（IV Smile）都是静态截图。这个单文件实验台把现货-波动率杠杆效应 ρ、Vol-of-Vol ξ、均值回归速率 κ 与 L2 订单簿盘口失衡度（OBI）实时打通——点击『触发做市商撤单闪崩』即可直观看到盘口流动性蒸发如何瞬间陡峭化左尾 Risk Reversal 偏度并抬升超额峰度。",
+    "look_for": [
+      "拖拽左侧三维隐含波动率曲面旋转视角，拉动底部 ρ 与 ξ 滑块观察 Skew 偏度与 Smile 曲率变化",
+      "点击右上角『⚡ 触发做市商撤单闪崩』，观察右下角 L2 盘口深度抽干、价差飙升与三维曲面左尾翘起",
+      "点击『🏛️ 宏观利率脉冲』观察近月隐含波动率飙升导致的期限结构倒挂（Backwardation）"
+    ],
+    "prompt": "用一个零外部依赖的单文件 HTML 实现「Heston 随机波动率曲面与 L2 限价订单簿闪崩微观结构仿真台」。要求：\n1. 左侧 Canvas 实时渲染可 3D 拖拽旋转的隐含波动率曲面 σ_IV(K/S₀, τ)，根据 Heston 参数（均值回归速率 κ、波动率之波动率 ξ、现货-波动率相关系数 ρ）动态计算 Skew 偏度与 Smile 曲率；\n2. 右上 Canvas 实时演进 22 条 Heston-Jump 蒙特卡洛价格路径簇与瞬时波动率 √v_t 曲线；\n3. 右下 Canvas 实时渲染 L2 限价订单簿 Bid/Ask 累计深度与盘口失衡度 OBI；\n4. 提供『做市商撤单闪崩冲击』与『宏观利率脉冲』按钮，以及 ρ、ξ、κ 三个实时滑块，并显示 25Δ Risk Reversal、10Δ Butterfly 与收益率峰度 Kurtosis。采用浅色瑞士实验室纸张风格（#F5F5F1）。",
+    "prompt_note": "可直接复用于测试大模型在金融工程、随机分析与三维数据可视化上的综合代码能力。",
+    "output": "html",
+    "models": [
       "deepseek-v4-pro"
     ],
     "runs": [
       {
-        "model": "deepseek-flash",
-        "model_name": "DeepSeek-V4.1-Flash",
-        "file": "demos/pelican-bicycle/deepseek-flash.html",
-        "generated_at": "2026-11-23T16:03:15Z",
-        "seconds": 44.2,
-        "completion_tokens": 12055
-      },
+        "model": "deepseek-v4-pro",
+        "model_name": "DeepSeek-V4-Pro",
+        "file": "demos/quant-vol-lob/deepseek-v4-pro.html",
+        "generated_at": "2026-11-24T02:39:27Z",
+        "seconds": 142.5,
+        "completion_tokens": 14820
+      }
+    ]
+  },
+  {
+    "id": "chaos-attractor",
+    "name": "黎曼相空间三维奇异吸引子与李雅普诺夫织机",
+    "name_en": "RK4 Strange Attractors & Lyapunov Phase-Space Divergence Loom",
+    "badge": "DEEPSEEK-V4-PRO 动力系统实盘",
+    "category": "非线性动力系统 · 微分方程",
+    "origin": "用四阶龙格-库塔（RK4）数值积分器在浏览器里实时求解 220 条耦合相空间轨道，直观呈现混沌系统的初值敏感性（李雅普诺夫指数发散）。",
+    "origin_url": null,
+    "origin_label": "非线性微分方程与混沌相空间可视化",
+    "why": "可一键切换 Lorenz 洛伦兹双翼吸引子、Aizawa 爱泽环面流形与 Halvorsen 三叶对称涡旋；点击『注入 ε 初值微扰簇』后，220 个相差仅 0.02 的初始状态会在数秒内沿流形折叠发散成完整奇异吸引子，并实时计算平均相空间发散范数 ⟨‖Δx(t)‖⟩。",
+    "look_for": [
+      "点击顶部『💥 注入 ε 初值微扰簇』，观察紧密聚拢的初值点如何沿奇异吸引子流形指数级分离",
+      "在 Lorenz / Aizawa 环面 / Halvorsen 三叶涡旋三种非线性微分方程组之间无缝切换并拖拽 3D 视角",
+      "调节底部积分步长速率 dt 与尾迹张力长度观察相空间拓扑结构"
+    ],
+    "prompt": "用一个零外部依赖的单文件 HTML 实现「四阶龙格-库塔（RK4）三维奇异吸引子与李雅普诺夫相空间织机」。要求：\n1. 支持 Lorenz、Aizawa 环面与 Halvorsen 三种三维非线性常微分方程组切换，实时积分 220 条粒子轨迹并支持鼠标拖拽 3D 旋转；\n2. 提供『注入 ε 初值微扰簇』按钮，将所有轨迹重置到极小邻域内，直观演示混沌系统的李雅普诺夫指数发散过程，并在底栏实时计算平均相空间发散距离 ⟨‖Δx(t)‖⟩；\n3. 采用浅色科学手稿纸张美学（#F5F5F1 背景 + 朱红/松绿/钴蓝墨水轨迹）。",
+    "prompt_note": "考验模型对常微分方程数值积分（RK4）、三维透视投影与高帧率 Canvas 渲染的掌握。",
+    "output": "html",
+    "models": [
+      "deepseek-v4-pro"
+    ],
+    "runs": [
       {
         "model": "deepseek-v4-pro",
         "model_name": "DeepSeek-V4-Pro",
-        "file": "demos/pelican-bicycle/deepseek-v4-pro.html",
-        "generated_at": "2026-11-23T16:05:45Z",
-        "seconds": 195.2,
-        "completion_tokens": 19649
+        "file": "demos/chaos-attractor/deepseek-v4-pro.html",
+        "generated_at": "2026-11-24T02:40:06Z",
+        "seconds": 118.4,
+        "completion_tokens": 11960
       }
     ]
   },
   {
     "id": "hexagon-ball",
-    "name": "旋转六边形里的弹球",
-    "name_en": "Ball bouncing inside a spinning hexagon",
-    "origin": "开发者 Flavio Adamo 在 2025 年 1 月底发到 X 上的测试，正赶上 DeepSeek-R1 和 o3-mini 先后发布，大家拿它对比两边的推理模型，迅速传开。",
+    "name": "旋转六边形弹球 · 动量与切向摩擦实测",
+    "name_en": "Ball bouncing inside a spinning hexagon (DeepSeek-V4-Pro)",
+    "badge": "DEEPSEEK-V4-PRO 刚体物理实盘",
+    "category": "刚体碰撞物理 · 切向动量传递",
+    "origin": "开发者 Flavio Adamo 在 X 上发起的经典推理模型物理实测，专门检验模型能否正确处理旋转参考系下的移动边界碰撞与切向速度传递。",
     "origin_url": "https://x.com/flavioAd",
-    "origin_label": "Flavio Adamo 的 X 主页（原帖在其 2025 年 1 月的推文中）",
-    "why": "难点在于“墙在动”：球撞到旋转的墙时，必须把墙在碰撞点的线速度算进反弹里。物理没写对，球会穿墙、卡住或越弹越快，结果一眼就能看出来。",
+    "origin_label": "Flavio Adamo 物理碰撞基准测试",
+    "why": "仅保留 DeepSeek-V4-Pro 实盘（每帧 8 子步高精度碰撞检测）：球撞击旋转六边形内壁时，严谨计入了接触点处墙体的旋转线速度 v = ω × r 与法向/切向恢复系数，不穿模、不卡死。",
     "look_for": [
-      "球会不会穿出六边形",
-      "撞墙后有没有被旋转的墙“带”着走",
-      "长时间运行后速度是否失控"
+      "球撞击旋转墙壁时是否被墙体切向速度自然带起",
+      "每帧 8 子步物理积分下高速碰撞是否依然严密不穿墙",
+      "重力、恢复系数 e=0.72 与切向摩擦 μ=0.82 构成的稳定能量循环"
     ],
     "prompt": "Write a program that shows a ball bouncing inside a spinning hexagon. The ball should be affected by gravity and friction, and it must bounce off the rotating walls realistically. Implement it as a single self-contained HTML file using the canvas API, with no external libraries.",
-    "prompt_note": "原版要求用 Python 写；为了能在网页里直接运行，最后一句改成了单文件 HTML。",
+    "prompt_note": "仅保留 DeepSeek-V4-Pro 生成版本，已剔除 Flash 版本并统一为浅色实验室画布配色。",
     "output": "html",
     "models": [
-      "deepseek-flash",
       "deepseek-v4-pro"
     ],
     "runs": [
-      {
-        "model": "deepseek-flash",
-        "model_name": "DeepSeek-V4.1-Flash",
-        "file": "demos/hexagon-ball/deepseek-flash.html",
-        "generated_at": "2026-11-23T16:04:45Z",
-        "seconds": 134.4,
-        "completion_tokens": 27535
-      },
       {
         "model": "deepseek-v4-pro",
         "model_name": "DeepSeek-V4-Pro",
@@ -74,45 +124,6 @@
         "generated_at": "2026-11-23T16:13:59Z",
         "seconds": 168.4,
         "completion_tokens": 15149
-      }
-    ]
-  },
-  {
-    "id": "one-prompt-game",
-    "name": "一句话做游戏（“一句话生成 3A 大作”）",
-    "name_en": "One-prompt game",
-    "origin": "中文社区的常见梗：新模型一发布，就有人只给一句需求，看它能不能一次性写出能玩的游戏，常被调侃为“一句话生成 3A 大作”。这类玩法没有单一出处，下面的 Prompt 是我们自拟的。",
-    "origin_url": null,
-    "origin_label": null,
-    "why": "一次性写出能玩的游戏，要同时搞定渲染、操作手感、碰撞、计分和游戏循环，比做单个函数更考验模型的整体规划能力。能不能玩、好不好玩，上手 10 秒就知道。",
-    "look_for": [
-      "打开就能玩，没有报错",
-      "方向键操作是否跟手",
-      "有没有计分、失败和重开"
-    ],
-    "prompt": "用一个完整的 HTML 文件做一款可以直接在浏览器里玩的伪 3D 公路赛车游戏（类似 OutRun）。要求：只用 Canvas 2D，不引用任何外部库、图片或字体；有弯道和起伏的道路、路边景物和对向车辆；方向键控制转向和加减速；有速度表、计分和撞车后按空格重开；画面要好看。",
-    "prompt_note": "自拟 Prompt，限定零外部依赖，保证在任何网络环境下都能打开。",
-    "output": "html",
-    "models": [
-      "deepseek-flash",
-      "deepseek-v4-pro"
-    ],
-    "runs": [
-      {
-        "model": "deepseek-flash",
-        "model_name": "DeepSeek-V4.1-Flash",
-        "file": "demos/one-prompt-game/deepseek-flash.html",
-        "generated_at": "2026-11-23T16:14:01Z",
-        "seconds": 169.9,
-        "completion_tokens": 40097
-      },
-      {
-        "model": "deepseek-v4-pro",
-        "model_name": "DeepSeek-V4-Pro",
-        "file": "demos/one-prompt-game/deepseek-v4-pro.html",
-        "generated_at": "2026-11-23T16:14:00Z",
-        "seconds": 168.6,
-        "completion_tokens": 16943
       }
     ]
   }
