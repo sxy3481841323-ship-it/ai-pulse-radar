@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouncing Ball in Spinning Hexagon</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #0a0a1a;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            overflow: hidden;
+        }
+        canvas {
+            border-radius: 12px;
+            box-shadow: 0 0 60px rgba(0, 180, 255, 0.15), 0 0 120px rgba(0, 180, 255, 0.05);
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <script>
+        (function() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Canvas dimensions
+            const W = canvas.width;
+            const H = canvas.height;
+
+            // Hexagon parameters
+            const hexCenterX = W / 2;
+            const hexCenterY = H / 2;
+            const hexRadius = 250;
+            const hexSpinSpeed = 0.7; // rad/s, positive = clockwise (in canvas coords)
+            let hexAngle = 0;
+
+            // Ball parameters
+            const ballRadius = 13;
+            let ballX = hexCenterX + 30;
+            let ballY = hexCenterY - 80;
+            let ballVX = 90;
+            let ballVY = -120;
+            const gravity = 550; // px/s²
+            const restitution = 0.72; // bounciness (energy preserved per bounce)
+            const wallFriction = 0.82; // tangential velocity retention during bounce
+
+            // Trail
+            const trailLength = 22;
+            const trailPositions = [];
+
+            // Physics substeps per frame
+            const SUBSTEPS = 8;
+
+            // Get hexagon vertices at a given angle
+            function getHexVertices(angle) {
+                const verts = [];
+                for (let i = 0; i < 6; i++) {
+                    const a = angle + i * Math.PI / 3;
+                    verts.push({
+                        x: hexCenterX + hexRadius * Math.cos(a),
+                        y: hexCenterY + hexRadius * Math.sin(a)
+                    });
+                }
+                return verts;
+            }
+
+            // Compute inward normal for an edge (points toward hexagon center)
+            function getInwardNormal(v1, v2) {
+                const dx = v2.x - v1.x;
+                const dy = v2.y - v1.y;
+                const len = Math.sqrt(dx * dx + dy * dy);
+                if (len < 1e-10) return { x: 0, y: -1 };
+
+                // Two candidate perpendiculars
+                const nx1 = -dy / len,
+                    ny1 = dx / len;
+                const nx2 = dy / len,
+                    ny2 = -dx / len;
+
+                // Midpoint of edge
+                const mx = (v1.x + v2.x) / 2;
+                const my = (v1.y + v2.y) / 2;
+
+                // Vector from midpoint to center
+                const cxDir = hexCenterX - mx;
+                const cyDir = hexCenterY - my;
+
+                // Pick the normal that points toward the center
+                if (nx1 * cxDir + ny1 * cyDir > 0) {
+                    return { x: nx1, y: ny1 };
+                } else {
+                    return { x: nx2, y: ny2 };
+                }
+            }
+
+            // Closest point on segment from ball position
+            function closestPointOnSegment(px, py, v1, v2) {
+                const dx = v2.x - v1.x;
+                const dy = v2.y - v1.y;
+                const lenSq = dx * dx + dy * dy;
+                if (lenSq < 1e-12) return { x: v1.x, y: v1.y };
+                let t = ((px - v1.x) * dx + (py - v1.y) * dy) / lenSq;
+                t = Math.max(0, Math.min(1, t));
+                return { x: v1.x + t * dx, y: v1.y + t * dy };
+            }
+
+            // Wall velocity at a point due to hexagon rotation
+            function getWallVelocity(px, py, angularVel) {
+                return {
+                    x: -angularVel * (py - hexCenterY),
+                    y: angularVel * (px - hexCenterX)
+                };
+            }
+
+            // Resolve collisions with all hexagon walls
+            function resolveCollisions() {
+                const vertices = getHexVertices(hexAngle);
+                const epsilon = 0.05;
+
+                for (let i = 0; i < 6; i++) {
+                    const v1 = vertices[i];
+                    const v2 = vertices[(i + 1) % 6];
+                    const normal = getInwardNormal(v1, v2);
+
+                    // Signed distance from ball center to edge line (positive = inside)
+                    const dist = normal.x * (ballX - v1.x) + normal.y * (ballY - v1.y);
+
+                    if (dist < ballRadius - epsilon) {
+                        // Find closest point on the edge segment
+                        const closest = closestPointOnSegment(ballX, ballY, v1, v2);
+
+                        // Wall velocity at contact point
+                        const wallVel = getWallVelocity(closest.x, closest.y, hexSpinSpeed);
+
+                        // Relative velocity of ball w.r.t. wall
+                        const relVX = ballVX - wallVel.x;
+                        const relVY = ballVY - wallVel.y;
+
+                        // Decompose relative velocity
+                        const relNormal = relVX * normal.x + relVY * normal.y;
+                        const relTangentialX = relVX - relNormal * normal.x;
+                        const relTangentialY = relVY - relNormal * normal.y;
+
+                        // Only bounce if moving toward the wall (prevents sticking)
+                        if (relNormal < 0) {
+                            // Reflect normal component with restitution
+                            const newRelNormal = -restitution * relNormal;
+                            // Apply friction to tangential component
+                            const newRelTangentialX = wallFriction * relTangentialX;
+                            const newRelTangentialY = wallFriction * relTangentialY;
+
+                            // New relative velocity
+                            const newRelVX = newRelNormal * normal.x + newRelTangentialX;
+                            const newRelVY = newRelNormal * normal.y + newRelTangentialY;
+
+                            // New absolute ball velocity
+                            ballVX = newRelVX + wallVel.x;
+                            ballVY = newRelVY + wallVel.y;
+                        } else {
+                            // Ball is already moving away, just use relative velocity
+                            // (this handles the case where the wall is pushing the ball)
+                            ballVX = relVX + wallVel.x;
+                            ballVY = relVY + wallVel.y;
+                        }
+
+                        // Push ball out of the wall
+                        const pushDist = ballRadius - dist;
+                        ballX += normal.x * pushDist;
+                        ballY += normal.y * pushDist;
+                    }
+                }
+
+                // Safety: if ball somehow escapes, pull it back toward center
+                const dx = ballX - hexCenterX;
+                const dy = ballY - hexCenterY;
+                const distFromCenter = Math.sqrt(dx * dx + dy * dy);
+                const maxDist = hexRadius * 1.15;
+                if (distFromCenter > maxDist) {
+                    const scale = maxDist / distFromCenter;
+                    ballX = hexCenterX + dx * scale;
+                    ballY = hexCenterY + dy * scale;
+                    // Dampen velocity to prevent re-escaping
+                    ballVX *= 0.5;
+                    ballVY *= 0.5;
+                }
+            }
+
+            // Update physics for one substep
+            function physicsStep(subDt) {
+                // Update hexagon angle
+                hexAngle += hexSpinSpeed * subDt;
+
+                // Normalize angle to avoid floating point drift
+                if (hexAngle > Math.PI * 2) hexAngle -= Math.PI * 2;
+                if (hexAngle < 0) hexAngle += Math.PI * 2;
+
+                // Apply gravity
+                ballVY += gravity * subDt;
+
+                // Update ball position
+                ballX += ballVX * subDt;
+                ballY += ballVY * subDt;
+
+                // Resolve collisions
+                resolveCollisions();
+            }
+
+            // Draw the hexagon with glowing walls
+            function drawHexagon() {
+                const vertices = getHexVertices(hexAngle);
+
+                // Fill
+                ctx.beginPath();
+                ctx.moveTo(vertices[0].x, vertices[0].y);
+                for (let i = 1; i < 6; i++) {
+                    ctx.lineTo(vertices[i].x, vertices[i].y);
+                }
+                ctx.closePath();
+                ctx.fillStyle = 'rgba(0, 180, 255, 0.06)';
+                ctx.fill();
+
+                // Wall stroke with glow
+                ctx.save();
+                ctx.shadowColor = 'rgba(0, 200, 255, 0.7)';
+                ctx.shadowBlur = 18;
+                ctx.beginPath();
+                ctx.moveTo(vertices[0].x, vertices[0].y);
+                for (let i = 1; i < 6; i++) {
+                    ctx.lineTo(vertices[i].x, vertices[i].y);
+                }
+                ctx.closePath();
+                ctx.strokeStyle = '#00d4ff';
+                ctx.lineWidth = 3.5;
+                ctx.lineJoin = 'round';
+                ctx.lineCap = 'round';
+                ctx.stroke();
+                ctx.restore();
+
+                // Secondary inner stroke for depth
+                ctx.beginPath();
+                ctx.moveTo(vertices[0].x, vertices[0].y);
+                for (let i = 1; i < 6; i++) {
+                    ctx.lineTo(vertices[i].x, vertices[i].y);
+                }
+                ctx.closePath();
+                ctx.strokeStyle = 'rgba(0, 220, 255, 0.4)';
+                ctx.lineWidth = 1.5;
+                ctx.lineJoin = 'round';
+                ctx.stroke();
+
+                // Draw vertex markers
+                for (let i = 0; i < 6; i++) {
+                    ctx.beginPath();
+                    ctx.arc(vertices[i].x, vertices[i].y, 5, 0, Math.PI * 2);
+                    ctx.fillStyle = '#00d4ff';
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.arc(vertices[i].x, vertices[i].y, 8, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(0, 212, 255, 0.25)';
+                    ctx.fill();
+                }
+            }
+
+            // Draw the ball trail
+            function drawTrail() {
+                for (let i = 0; i < trailPositions.length; i++) {
+                    const t = i / trailPositions.length;
+                    const alpha = t * t * 0.5;
+                    const radius = ballRadius * (0.3 + 0.7 * t);
+                    const pos = trailPositions[i];
+                    ctx.beginPath();
+                    ctx.arc(pos.x, pos.y, radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 120, 50, ${alpha})`;
+                    ctx.fill();
+                }
+            }
+
+            // Draw the ball with a gradient and glow
+            function drawBall() {
+                // Glow
+                ctx.save();
+                ctx.shadowColor = 'rgba(255, 140, 60, 0.8)';
+                ctx.shadowBlur = 25;
+                ctx.beginPath();
+                ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
+                ctx.fillStyle = '#ff7043';
+                ctx.fill();
+                ctx.restore();
+
+                // Main ball body with radial gradient
+                const gradient = ctx.createRadialGradient(
+                    ballX - ballRadius * 0.35, ballY - ballRadius * 0.35, ballRadius * 0.1,
+                    ballX, ballY, ballRadius
+                );
+                gradient.addColorStop(0, '#ffcc80');
+                gradient.addColorStop(0.4, '#ff8a50');
+                gradient.addColorStop(0.8, '#e64a19');
+                gradient.addColorStop(1, '#bf360c');
+                ctx.beginPath();
+                ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+
+                // Specular highlight
+                ctx.beginPath();
+                ctx.arc(ballX - ballRadius * 0.3, ballY - ballRadius * 0.35, ballRadius * 0.3, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.55)';
+                ctx.fill();
+            }
+
+            // Main render function
+            function render() {
+                // Clear canvas with dark background
+                ctx.fillStyle = '#0a0a1a';
+                ctx.fillRect(0, 0, W, H);
+
+                // Subtle background grid pattern
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+                ctx.lineWidth = 0.5;
+                const gridSize = 40;
+                for (let x = 0; x < W; x += gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, H);
+                    ctx.stroke();
+                }
+                for (let y = 0; y < H; y += gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(W, y);
+                    ctx.stroke();
+                }
+
+                // Draw trail (behind hexagon)
+                drawTrail();
+
+                // Draw hexagon
+                drawHexagon();
+
+                // Draw ball (on top)
+                drawBall();
+
+                // Info text
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
+                ctx.font = '12px "Segoe UI", monospace';
+                ctx.fillText('hexagon spin: ' + (hexSpinSpeed * 57.3).toFixed(1) + '°/s', 18, 28);
+                ctx.fillText('gravity: ' + gravity + ' px/s²', 18, 46);
+                ctx.fillText('restitution: ' + restitution.toFixed(2), 18, 64);
+                ctx.fillText('wall friction: ' + wallFriction.toFixed(2), 18, 82);
+            }
+
+            // Animation loop
+            let lastTimestamp = 0;
+
+            function animate(timestamp) {
+                if (lastTimestamp === 0) {
+                    lastTimestamp = timestamp;
+                }
+
+                // Calculate delta time in seconds, clamp to avoid large jumps
+                let dt = (timestamp - lastTimestamp) / 1000;
+                lastTimestamp = timestamp;
+                dt = Math.min(dt, 0.05);
+                dt = Math.max(dt, 0.001);
+
+                // Physics substeps
+                const subDt = dt / SUBSTEPS;
+                for (let i = 0; i < SUBSTEPS; i++) {
+                    physicsStep(subDt);
+                }
+
+                // Update trail
+                trailPositions.push({ x: ballX, y: ballY });
+                if (trailPositions.length > trailLength) {
+                    trailPositions.shift();
+                }
+
+                // Render
+                render();
+
+                requestAnimationFrame(animate);
+            }
+
+            // Handle canvas resize for responsive display
+            function handleResize() {
+                const maxWidth = window.innerWidth - 40;
+                const maxHeight = window.innerHeight - 40;
+                const scale = Math.min(maxWidth / W, maxHeight / H, 1.2);
+                canvas.style.width = (W * scale) + 'px';
+                canvas.style.height = (H * scale) + 'px';
+            }
+            window.addEventListener('resize', handleResize);
+            handleResize();
+
+            // Start animation
+            requestAnimationFrame(animate);
+        })();
+    </script>
+</body>
+</html>

@@ -1,34 +1,39 @@
-# AI 极客雷达 (AI Pulse Radar) - 跨 AI 协作与维护规范 (`AI_GUIDE.md`)
+# AI 雷达 (AI Pulse Radar) · 架构说明与跨 AI 维护指南
 
-> **给其他 AI 助手（Claude / Cursor / ChatGPT / Windsurf / Antigravity）的特别说明**：
-> 当用户要求你修改此项目（如增加卡片、修改样式、增加抓取源）时，请遵循以下极简架构契约：
+> **给其他 AI（Claude / Cursor / ChatGPT / Windsurf / Antigravity）的维护契约**：
+> 当用户要求你修改此项目时，请先阅读本文件，保持以下原则和数据结构。
 
-## 1. 极简零依赖架构
-- **前端界面 (`index.html`)**：单文件纯原生 HTML + CSS + Vanilla JS，无 Webpack/Vite/React 编译步骤，方便用户随时在本地直接打开或托管到 GitHub Pages。
-- **双模数据源 (`data/feed.js` 与 `data/feed.json`)**：
-  - 为了让用户既能直接双击 `index.html`（`file://` 协议无法 `fetch` 本地 JSON）又能通过 HTTP 访问，`index.html` 通过 `<script src="./data/feed.js"></script>` 读取 `window.AI_RADAR_DATA`。
-  - 每次修改数据或运行 `python3 fetch_and_digest.py` 时，请确保 `data/feed.js` 和 `data/feed.json` 保持同步。
+## 1. 核心铁律（严禁违反）
+1. **绝不编造链接、热度、日期或出处**：
+   - 任何社区条目或官方发布的 `url`、`discuss_url`、`published_at`、`points`、`comments` 必须 100% 来自原始 API / RSS 数据。
+   - 在 `fetch_and_digest.py` 中，DeepSeek 模型只能通过整数 `ref` 引用原始条目并撰写中文标题（`title_zh`）、看点解释（`why`）与分类标签，**不允许模型输出任何 URL 或数字**。
+2. **所有 Demo 必须真实可访问**：
+   - 「经典测试实验室」中的 Demo 存放在 `demos/<classic-id>/<model>.html`，是由 `make_demos.py` 实际调用模型 API 生成并保存在仓库本地的独立 HTML 文件，保证在任何网络环境下 100% 可打开、可交互。
+3. **浅色编辑风格 UI**：
+   - 样式集中在 `assets/style.css`，采用温暖的纸感浅色主题（`#f6f5f1` 背景 + `#ffffff` 卡片 + `#ea580c` 陶土橙点缀），不要改回暗黑霓虹风。
+4. **零前端构建依赖 & 防 XSS**：
+   - 纯原生 HTML (`index.html`) + CSS (`assets/style.css`) + JS (`assets/app.js`)。
+   - 数据同时写入 `data/feed.json` 和 `data/feed.js`（`window.RADAR = ...`），支持直接双击 `index.html` 打开或通过 GitHub Pages 访问。
+   - `assets/app.js` 渲染任何外部字段时必须经过 `esc()` 转义。
 
-## 2. 卡片数据结构契约 (`community_projects` 数组项)
-```json
-{
-  "id": "unique-slug-id",
-  "title": "项目中文标题",
-  "category": "benchmark | game | fun | tool",
-  "category_label": "#野生基准测试 | #一镜到底/3A小游戏 | #极客整活 | #开源神仙小玩具",
-  "source_name": "来源社区 (如 Simon Willison's Blog / Reddit r/LocalLLaMA)",
-  "source_url": "https://一手原帖地址",
-  "demo_url": "https://在线试玩或演示地址",
-  "published_at": "发布时间或标签",
-  "heat_score": "🔥 热度描述",
-  "model_tested": "被测试或使用的模型",
-  "tldr": "一句话极客看点（大白话解释它好玩在哪、测出了什么水位）",
-  "svg_preview": "可选：内联 <svg>...</svg> 预览代码",
-  "prompt_recipe": "复现秘籍：可直接复制的测试 Prompt 或玩法说明",
-  "tags": ["标签1", "标签2"]
-}
+## 2. 目录结构
+- `index.html`：主页面（包含「今日雷达」「经典测试实验室」「关于」三个视图）
+- `assets/style.css`：浅色主题样式表
+- `assets/app.js`：前端渲染与交互逻辑
+- `fetch_and_digest.py`：并发抓取一手源（Hacker News、Simon Willison、Lobsters、GitHub 新仓库、Hugging Face Spaces、V2EX、OpenAI/Anthropic/Google/DeepMind 官方及 HF 厂商模型发布）并调用 DeepSeek 提纯
+- `make_demos.py`：实际调用 DeepSeek 模型运行 `data/classics.json` 中的经典民间测试，将输出保存为 `demos/<id>/<model>.html`
+- `data/classics.json`：经典测试定义与实测运行元数据
+- `data/feed.json` & `data/feed.js`：抓取与提纯后的完整数据
+
+## 3. 常用命令
+```bash
+# 1. 抓取全部一手源并用 DeepSeek 提纯（需在环境变量或 .env 中配置 DEEPSEEK_API_KEY）
+python3 fetch_and_digest.py
+
+# 2. 仅抓取一手源，不调用大模型
+python3 fetch_and_digest.py --no-llm
+
+# 3. 生成或重跑经典测试实验室的真实 Demo
+python3 make_demos.py
+python3 make_demos.py --force
 ```
-
-## 3. 安全准则
-- **严禁**将用户的 `DEEPSEEK_API_KEY` 硬编码进 `index.html`、`data/feed.js` 或任何会被 Git 追踪的文件中。
-- 本地运行请放在 `.env`（已被 `.gitignore` 忽略），GitHub Actions 定时运行请使用仓库的 `secrets.DEEPSEEK_API_KEY`。

@@ -1,27 +1,25 @@
-# Quant Research Lab
+# AI 雷达 (AI Pulse Radar)
 
-我的量化金融学习与研究记录。这里保存可复查的研究问题、代码、运行说明与结果；当前仓库刚建立，历史项目尚未导入。
+**一手 AI 社区在玩什么** · 在线访问：**[https://sxy3481841323-ship-it.github.io/ai-pulse-radar/](https://sxy3481841323-ship-it.github.io/ai-pulse-radar/)**
 
-## 研究方向
+每天自动抓取一手 AI 极客社区（Hacker News、Simon Willison 博客、Lobsters、GitHub 新仓库、Hugging Face Spaces、V2EX）的整活、野生评测与好玩项目，以及国内外大厂（OpenAI、Anthropic、Google / DeepMind、DeepSeek、通义千问 Qwen、Kimi、智谱等）的官方发布，并用 DeepSeek 提纯中文标题与看点。
 
-- 因子研究：真实数据上的因子构建、IC / Rank IC、分组、稳健性与样本外检验。
-- 模型比较：在相同数据、标签、切分和交易假设下比较线性模型、MLP 与 CNN。
-- 研究方法：记录失败结果、未来信息风险、交易成本和下一步实验，而不只保存收益曲线。
+## 页面模块
+1. **今日雷达 (`#radar`)**：
+   - **今日一手社区简报**：自动归纳社区最近两天热议的核心脉络，点击引用编号可直接定位到对应原帖卡片。
+   - **主信息流**：按「整活 / 好玩」「野生评测」「开源工具 / Demo」「社区热议」分类筛选，所有链接、热度数据、发布日期均来自原始 API / RSS，零人工编造。
+   - **右侧栏**：国内外官方发布时间线 + Hugging Face 实时热门模型榜。
+2. **经典测试实验室 (`#lab`)**：
+   - 收录社区最著名的民间测试（Simon Willison 的**「鹈鹕骑自行车 SVG 测试」**、Flavio Adamo 的**「旋转六边形弹球物理测试」**、以及**「一句话生成伪 3D 公路赛车游戏」**）。
+   - 每道题均使用 `make_demos.py` 实际调用 `DeepSeek-V4.1-Flash` 与 `DeepSeek-V4-Pro` 生成并保存在 `demos/` 目录下，可在网页内直接运行试玩、切换模型对比、复制原始 Prompt。
 
-## 目录
+## 本地运行与更新
+```bash
+# 抓取全部一手源并用 DeepSeek 提纯（需配置 DEEPSEEK_API_KEY）
+python3 fetch_and_digest.py
 
-| 目录 | 放什么 |
-| --- | --- |
-| `01_data/` | 数据来源、获取流程、字段与日期说明；不放账号凭据和无授权的原始数据 |
-| `02_factors/` | 因子定义、计算代码与单因子检验 |
-| `03_models/` | 特征、标签、训练与模型比较 |
-| `04_backtests/` | 调仓规则、成本假设与回测代码 |
-| `05_reports/` | 可复查的实验记录、结果和图表 |
+# 重新生成经典测试实验室 Demo
+python3 make_demos.py --force
+```
 
-## 开始一次实验
-
-1. 复制 [`05_reports/experiment_template.md`](05_reports/experiment_template.md)，先写研究假设和数据时点。
-2. 记录运行环境、命令和预期输出，再运行代码。
-3. 把实际结果、失败原因和下一次要验证的问题写回实验记录。
-
-历史项目（例如 RiceQuant 数据准备和 CNN / MLP / 线性模型比较）会在逐项确认源码、数据权限与运行方式后导入。未导入或未复现的结果不标记为已验证。
+给其他 AI 助手的修改说明见 [`AI_GUIDE.md`](./AI_GUIDE.md)。

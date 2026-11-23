@@ -1,0 +1,119 @@
+[
+  {
+    "id": "pelican-bicycle",
+    "name": "鹈鹕骑自行车",
+    "name_en": "Pelican riding a bicycle",
+    "origin": "Simon Willison 从 2024 年 10 月开始，每出一个新模型就让它画一次，并把结果发到博客。",
+    "origin_url": "https://simonwillison.net/tags/pelican-riding-a-bicycle/",
+    "origin_label": "Simon Willison 博客 · pelican-riding-a-bicycle 标签",
+    "why": "训练数据里几乎不存在“鹈鹕骑车”的 SVG，模型只能靠对鹈鹕身体结构、自行车几何、两者如何接触的理解，用纯坐标“盲画”。画得像不像一眼可判，很难靠刷榜作弊。",
+    "look_for": [
+      "车架是不是正常的三角结构",
+      "鹈鹕有没有坐在座位上、脚踩到踏板",
+      "鹈鹕的大嘴和喉囊画没画出来"
+    ],
+    "prompt": "Generate an SVG of a pelican riding a bicycle",
+    "prompt_note": "Simon 使用的原始 Prompt，一字未改。",
+    "output": "svg",
+    "models": [
+      "deepseek-flash",
+      "deepseek-v4-pro"
+    ],
+    "runs": [
+      {
+        "model": "deepseek-flash",
+        "model_name": "DeepSeek-V4.1-Flash",
+        "file": "demos/pelican-bicycle/deepseek-flash.html",
+        "generated_at": "2026-11-23T16:03:15Z",
+        "seconds": 44.2,
+        "completion_tokens": 12055
+      },
+      {
+        "model": "deepseek-v4-pro",
+        "model_name": "DeepSeek-V4-Pro",
+        "file": "demos/pelican-bicycle/deepseek-v4-pro.html",
+        "generated_at": "2026-11-23T16:05:45Z",
+        "seconds": 195.2,
+        "completion_tokens": 19649
+      }
+    ]
+  },
+  {
+    "id": "hexagon-ball",
+    "name": "旋转六边形里的弹球",
+    "name_en": "Ball bouncing inside a spinning hexagon",
+    "origin": "开发者 Flavio Adamo 在 2025 年 1 月底发到 X 上的测试，正赶上 DeepSeek-R1 和 o3-mini 先后发布，大家拿它对比两边的推理模型，迅速传开。",
+    "origin_url": "https://x.com/flavioAd",
+    "origin_label": "Flavio Adamo 的 X 主页（原帖在其 2025 年 1 月的推文中）",
+    "why": "难点在于“墙在动”：球撞到旋转的墙时，必须把墙在碰撞点的线速度算进反弹里。物理没写对，球会穿墙、卡住或越弹越快，结果一眼就能看出来。",
+    "look_for": [
+      "球会不会穿出六边形",
+      "撞墙后有没有被旋转的墙“带”着走",
+      "长时间运行后速度是否失控"
+    ],
+    "prompt": "Write a program that shows a ball bouncing inside a spinning hexagon. The ball should be affected by gravity and friction, and it must bounce off the rotating walls realistically. Implement it as a single self-contained HTML file using the canvas API, with no external libraries.",
+    "prompt_note": "原版要求用 Python 写；为了能在网页里直接运行，最后一句改成了单文件 HTML。",
+    "output": "html",
+    "models": [
+      "deepseek-flash",
+      "deepseek-v4-pro"
+    ],
+    "runs": [
+      {
+        "model": "deepseek-flash",
+        "model_name": "DeepSeek-V4.1-Flash",
+        "file": "demos/hexagon-ball/deepseek-flash.html",
+        "generated_at": "2026-11-23T16:04:45Z",
+        "seconds": 134.4,
+        "completion_tokens": 27535
+      },
+      {
+        "model": "deepseek-v4-pro",
+        "model_name": "DeepSeek-V4-Pro",
+        "file": "demos/hexagon-ball/deepseek-v4-pro.html",
+        "generated_at": "2026-11-23T16:13:59Z",
+        "seconds": 168.4,
+        "completion_tokens": 15149
+      }
+    ]
+  },
+  {
+    "id": "one-prompt-game",
+    "name": "一句话做游戏（“一句话生成 3A 大作”）",
+    "name_en": "One-prompt game",
+    "origin": "中文社区的常见梗：新模型一发布，就有人只给一句需求，看它能不能一次性写出能玩的游戏，常被调侃为“一句话生成 3A 大作”。这类玩法没有单一出处，下面的 Prompt 是我们自拟的。",
+    "origin_url": null,
+    "origin_label": null,
+    "why": "一次性写出能玩的游戏，要同时搞定渲染、操作手感、碰撞、计分和游戏循环，比做单个函数更考验模型的整体规划能力。能不能玩、好不好玩，上手 10 秒就知道。",
+    "look_for": [
+      "打开就能玩，没有报错",
+      "方向键操作是否跟手",
+      "有没有计分、失败和重开"
+    ],
+    "prompt": "用一个完整的 HTML 文件做一款可以直接在浏览器里玩的伪 3D 公路赛车游戏（类似 OutRun）。要求：只用 Canvas 2D，不引用任何外部库、图片或字体；有弯道和起伏的道路、路边景物和对向车辆；方向键控制转向和加减速；有速度表、计分和撞车后按空格重开；画面要好看。",
+    "prompt_note": "自拟 Prompt，限定零外部依赖，保证在任何网络环境下都能打开。",
+    "output": "html",
+    "models": [
+      "deepseek-flash",
+      "deepseek-v4-pro"
+    ],
+    "runs": [
+      {
+        "model": "deepseek-flash",
+        "model_name": "DeepSeek-V4.1-Flash",
+        "file": "demos/one-prompt-game/deepseek-flash.html",
+        "generated_at": "2026-11-23T16:14:01Z",
+        "seconds": 169.9,
+        "completion_tokens": 40097
+      },
+      {
+        "model": "deepseek-v4-pro",
+        "model_name": "DeepSeek-V4-Pro",
+        "file": "demos/one-prompt-game/deepseek-v4-pro.html",
+        "generated_at": "2026-11-23T16:14:00Z",
+        "seconds": 168.6,
+        "completion_tokens": 16943
+      }
+    ]
+  }
+]
