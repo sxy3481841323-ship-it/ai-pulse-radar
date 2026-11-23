@@ -431,12 +431,14 @@ h1, h2, h3, h4, p { margin: 0; }
   align-items: center;
   gap: 8px;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 10.5px;
+  flex-wrap: wrap;
 }
 .q-disc-tag {
   font-weight: 800;
   padding: 2px 7px;
   border: 1px solid currentColor;
+  white-space: nowrap;
 }
 .q-disc-tag.quant_fin { color: var(--emerald); background: var(--emerald-tint); }
 .q-disc-tag.market { color: var(--vermilion); background: var(--vermilion-tint); }
@@ -448,9 +450,11 @@ h1, h2, h3, h4, p { margin: 0; }
 .q-repo-meta {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   color: var(--muted);
   font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .q-stars {
   color: var(--ink);
@@ -458,6 +462,7 @@ h1, h2, h3, h4, p { margin: 0; }
   background: var(--paper-warm);
   padding: 1px 6px;
   border: 1px solid var(--rule-thin);
+  white-space: nowrap;
 }
 
 .q-title-row {
