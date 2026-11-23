@@ -1,23 +1,24 @@
-/* AI 雷达 · 前端交互逻辑 (零外部框架，全部 DOM 安全转义，无 XSS 风险) */
+/* 野生 AI 雷达 · 前端交互逻辑 (Guided by antialgorithm, 零外部框架，全字段转义) */
 (function () {
   "use strict";
 
   const DATA = window.RADAR || {};
-  const CAT_LABELS = {
-    all: "全部",
-    play: "整活 / 好玩",
-    bench: "野生评测",
-    tool: "开源工具 / Demo",
-    talk: "社区热议",
+  const CAT_META = {
+    all: { label: "全部", stamp: "ALL" },
+    play: { label: "整活 / 好玩", stamp: "整活·PLAY" },
+    bench: { label: "野生评测", stamp: "野测·BENCH" },
+    tool: { label: "开源工具", stamp: "工具·TOOL" },
+    talk: { label: "社区论战", stamp: "论战·TALK" },
   };
 
   let state = {
-    view: "radar",
     cat: "all",
     region: "ALL",
     sort: "pick",
     query: "",
     limit: 24,
+    classicIdx: 0,
+    compareMode: "split", // "split" | "flash" | "pro"
   };
 
   function esc(str) {
@@ -29,6 +30,10 @@
       .replace(/'/g, "&#39;");
   }
 
+  function pad2(n) {
+    return String(n).padStart(2, "0");
+  }
+
   function fmtDate(isoStr) {
     if (!isoStr) return "";
     const d = new Date(isoStr);
@@ -36,11 +41,8 @@
     const now = new Date();
     const diffH = (now - d) / 3600000;
     if (diffH >= 0 && diffH < 1) return "刚刚";
-    if (diffH >= 1 && diffH < 24) return Math.floor(diffH) + " 小时前";
-    const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, "0");
-    const day = String(d.getDate()).padStart(2, "0");
-    return (y === now.getFullYear() ? "" : y + "-") + m + "-" + day;
+    if (diffH >= 1 && diffH < 24) return Math.floor(diffH) + "h 前";
+    return pad2(d.getMonth() + 1) + "-" + pad2(d.getDate());
   }
 
   function dayKey(isoStr) {
@@ -60,7 +62,7 @@
   function copyText(text) {
     if (!text) return;
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(() => toast("已复制到剪贴板"));
+      navigator.clipboard.writeText(text).then(() => toast("已复制 Prompt 到剪贴板"));
     } else {
       const ta = document.createElement("textarea");
       ta.value = text;
@@ -68,101 +70,195 @@
       ta.select();
       document.execCommand("copy");
       ta.remove();
-      toast("已复制到剪贴板");
+      toast("已复制 Prompt 到剪贴板");
     }
   }
 
-  // ---------- 顶部状态栏 ----------
-  function renderStatus() {
-    const btnText = document.getElementById("updated-text");
-    const dot = document.getElementById("status-dot");
-    const panel = document.getElementById("status-panel");
+  // ---------- 报头右侧：直连数据源监测表 ----------
+  function renderTelemetry() {
+    const updatedEl = document.getElementById("updated-text");
+    const sumEl = document.getElementById("telemetry-summary");
+    const gridEl = document.getElementById("telemetry-grid");
+
     const sources = DATA.sources || [];
     const okCount = sources.filter((s) => s.ok).length;
-    const total = sources.length;
+    updatedEl.textContent =
+      "最新采集: " +
+      (DATA.generated_at ? DATA.generated_at.replace("T", " ").slice(0, 16) + " UTC" : "刚刚") +
+      (DATA.model ? ` · 提纯引擎: ${DATA.model}` : "");
 
-    btnText.textContent =
-      (DATA.generated_at ? "更新于 " + fmtDate(DATA.generated_at) : "已加载") +
-      (total ? ` · ${okCount}/${total} 源正常` : "");
+    sumEl.textContent = `${okCount}/${sources.length} 源正常`;
 
-    if (okCount < total) dot.classList.add("warn");
-
-    const rows = sources
-      .map(
-        (s) =>
-          `<li><span>${esc(s.name)}</span><span class="${s.ok ? "" : "bad"}">${
-            s.ok ? s.count + " 条" : "失败: " + esc(s.error || "未知")
-          }</span></li>`
-      )
-      .join("");
-
-    const unavail = (DATA.unavailable || [])
-      .map(
-        (u) =>
-          `<li><span>${esc(u.name)}</span><span class="na">${esc(
-            u.reason
-          )}</span></li>`
-      )
-      .join("");
-
-    panel.innerHTML = `
-      <h4>实时抓取源状态</h4>
-      <ul>${rows}</ul>
-      ${unavail ? `<h4>暂未收录说明</h4><ul>${unavail}</ul>` : ""}
-      <div class="meta">生成时间：${esc(DATA.generated_at || "-")} · 提纯模型：${esc(
-      DATA.model || "规则排序"
-    )}</div>
-    `;
-
-    const aboutSources = document.getElementById("about-sources");
-    if (aboutSources) {
-      aboutSources.innerHTML = `<table class="src-table"><tbody>${sources
-        .map(
-          (s) =>
-            `<tr><td>${esc(s.name)}</td><td>${
-              s.ok ? `已抓取 ${s.count} 条最新内容` : esc(s.error)
-            }</td></tr>`
-        )
-        .join("")}${(DATA.unavailable || [])
-        .map(
-          (u) =>
-            `<tr><td>${esc(u.name)}</td><td>${esc(u.reason)}</td></tr>`
-        )
-        .join("")}</tbody></table>`;
-    }
+    const cells = sources.map(
+      (s) =>
+        `<div class="tel-cell" title="${esc(s.error || s.name)}">
+           <span class="tel-name">${esc(s.name)}</span>
+           <span class="tel-val">${s.ok ? s.count + "条" : "ERR"}</span>
+         </div>`
+    );
+    (DATA.unavailable || []).forEach((u) => {
+      cells.push(
+        `<div class="tel-cell na" title="${esc(u.reason)}">
+           <span class="tel-name">${esc(u.name)}</span>
+           <span class="tel-val">403反爬</span>
+         </div>`
+      );
+    });
+    gridEl.innerHTML = cells.join("");
   }
 
-  // ---------- 今日简报 ----------
+  // ---------- 01 头版简报 Poster-Scale Briefing ----------
   function renderBriefing() {
-    const box = document.getElementById("briefing");
+    const sec = document.getElementById("sec-briefing");
     const b = DATA.briefing;
     if (!b || !b.headline) {
-      box.hidden = true;
+      sec.hidden = true;
       return;
     }
-    box.hidden = false;
-    const pts = (b.points || [])
-      .map((p) => {
+    sec.hidden = false;
+
+    const idToRank = {};
+    (DATA.community || []).forEach((it, idx) => {
+      idToRank[it.id] = pad2(idx + 1);
+    });
+
+    const cells = (b.points || [])
+      .slice(0, 5)
+      .map((p, i) => {
         const refs = (p.ids || [])
+          .filter((id) => idToRank[id])
           .map(
-            (id, idx) =>
-              `<button type="button" data-jump="${esc(id)}">[${idx + 1}]</button>`
+            (id) =>
+              `<button type="button" class="ref-jump" data-jump="${esc(id)}">#${esc(
+                idToRank[id]
+              )}</button>`
           )
           .join("");
-        return `<li><span>${esc(p.text)} ${
-          refs ? `<span class="refs">${refs}</span>` : ""
-        }</span></li>`;
+        return `
+          <div class="brief-cell">
+            <div class="brief-idx">${pad2(i + 1)}</div>
+            <div class="brief-text">${esc(p.text)}</div>
+            ${refs ? `<div class="brief-refs">${refs}</div>` : ""}
+          </div>
+        `;
       })
       .join("");
 
-    box.innerHTML = `
-      <div class="briefing-label">今日一手社区简报</div>
-      <h1>${esc(b.headline)}</h1>
-      ${pts ? `<ol>${pts}</ol>` : ""}
+    sec.innerHTML = `
+      <div class="briefing-banner">
+        <span class="sec-num">01</span>
+        <span class="briefing-kicker">HEADLINE DISPATCH // 今日一手社区焦点脉络（点击 #编号 直接定位至下方原帖）</span>
+        <h2 class="briefing-headline">${esc(b.headline)}</h2>
+      </div>
+      <div class="briefing-strip">${cells}</div>
     `;
   }
 
-  // ---------- 分类按钮 ----------
+  // ---------- 02 民间必考题 · 双模型同台对决台 ----------
+  function renderArena() {
+    const list = DATA.classics || [];
+    const tabsEl = document.getElementById("classic-tabs");
+    const bodyEl = document.getElementById("arena-body");
+    if (!list.length) return;
+
+    tabsEl.innerHTML = list
+      .map(
+        (c, idx) =>
+          `<button type="button" class="${
+            state.classicIdx === idx ? "on" : ""
+          }" data-classic-tab="${idx}">考题 ${pad2(idx + 1)} · ${esc(c.name.split("（")[0])}</button>`
+      )
+      .join("");
+
+    document.querySelectorAll("#compare-mode button").forEach((b) => {
+      b.classList.toggle("on", b.getAttribute("data-mode") === state.compareMode);
+    });
+
+    const c = list[state.classicIdx] || list[0];
+    const runs = c.runs || [];
+    let visibleRuns = runs;
+    if (state.compareMode === "flash") {
+      visibleRuns = runs.filter((r) => r.model.includes("flash"));
+    } else if (state.compareMode === "pro") {
+      visibleRuns = runs.filter((r) => r.model.includes("pro"));
+    }
+    if (!visibleRuns.length) visibleRuns = runs;
+
+    const stagesHtml = visibleRuns
+      .map(
+        (r) => `
+        <div class="stage-col">
+          <div class="stage-col-head">
+            <div>
+              <span class="stage-model-tag">${esc(r.model_name || r.model)}</span>
+              <span class="stage-stats"> · 实测耗时 ${esc(r.seconds)}s · ${esc(
+          r.completion_tokens || "-"
+        )} tokens</span>
+            </div>
+            <a class="stage-open" href="${esc(r.file)}" target="_blank" rel="noopener">全屏运行 ↗</a>
+          </div>
+          <div class="stage-viewport">
+            <iframe src="${esc(r.file)}" title="${esc(c.name)} - ${esc(
+          r.model_name
+        )}" loading="lazy"></iframe>
+          </div>
+        </div>
+      `
+      )
+      .join("");
+
+    bodyEl.innerHTML = `
+      <div class="arena-grid">
+        <div class="arena-dossier">
+          <div>
+            <div class="dossier-en">TESTBENCH #${pad2(state.classicIdx + 1)} // ${esc(
+      c.name_en || ""
+    )}</div>
+            <h3 class="dossier-title">${esc(c.name)}</h3>
+          </div>
+          <div class="dossier-block">
+            <h4>考题来历</h4>
+            <p>${esc(c.origin)}</p>
+            ${
+              c.origin_url
+                ? `<a class="dossier-origin-link" href="${esc(
+                    c.origin_url
+                  )}" target="_blank" rel="noopener">${esc(
+                    c.origin_label || c.origin_url
+                  )} ↗</a>`
+                : ""
+            }
+          </div>
+          <div class="dossier-block">
+            <h4>为什么极客认这道题</h4>
+            <p>${esc(c.why)}</p>
+          </div>
+          ${
+            c.look_for && c.look_for.length
+              ? `<div class="dossier-block">
+                   <h4>一眼判高下（观察要点）</h4>
+                   <ul>${c.look_for.map((l) => `<li>${esc(l)}</li>`).join("")}</ul>
+                 </div>`
+              : ""
+          }
+          <div class="prompt-stamp">
+            <div class="prompt-stamp-head">
+              <span>实测 Prompt ${c.prompt_note ? `· ${esc(c.prompt_note)}` : ""}</span>
+              <button type="button" class="act-btn" data-copy="${esc(
+                c.prompt
+              )}">复制 Prompt</button>
+            </div>
+            <pre>${esc(c.prompt)}</pre>
+          </div>
+        </div>
+        <div class="arena-stages ${visibleRuns.length === 1 ? "single" : ""}">
+          ${stagesHtml}
+        </div>
+      </div>
+    `;
+  }
+
+  // ---------- 03 一手社区情报总表 ----------
   function renderChips() {
     const items = DATA.community || [];
     const counts = { all: items.length, play: 0, bench: 0, tool: 0, talk: 0 };
@@ -172,25 +268,30 @@
     });
 
     const wrap = document.getElementById("cat-chips");
-    wrap.innerHTML = Object.keys(CAT_LABELS)
+    wrap.innerHTML = Object.keys(CAT_META)
       .map(
         (k) =>
           `<button type="button" class="chip ${
             state.cat === k ? "on" : ""
-          }" data-cat="${k}">${esc(CAT_LABELS[k])}<span class="n">${
+          }" data-cat="${k}">${esc(CAT_META[k].label)}<span class="n">${
             counts[k] || 0
           }</span></button>`
       )
       .join("");
   }
 
-  // ---------- 主信息流 ----------
   function renderFeed() {
     const container = document.getElementById("feed");
     const moreBtn = document.getElementById("more-btn");
     const q = state.query.trim().toLowerCase();
 
-    let list = (DATA.community || []).filter((it) => {
+    const allItems = DATA.community || [];
+    const maxPts = Math.max(
+      100,
+      ...allItems.map((it) => Number(it.points || it.comments || 0))
+    );
+
+    let list = allItems.filter((it) => {
       if (state.cat !== "all" && it.category !== state.cat) return false;
       if (!q) return true;
       const hay = [
@@ -221,241 +322,100 @@
     }
 
     if (!list.length) {
-      container.innerHTML = `<div class="empty">没有匹配的条目，试试切换分类或清空搜索词。</div>`;
+      container.innerHTML = `<div class="empty">当前筛选条件下无匹配条目。</div>`;
       moreBtn.hidden = true;
       return;
     }
 
     const visible = list.slice(0, state.limit);
     moreBtn.hidden = list.length <= state.limit;
-    moreBtn.textContent = `显示更多（还有 ${list.length - visible.length} 条）`;
+    moreBtn.textContent = `展开剩余 ${list.length - visible.length} 条一手情报`;
 
-    let html = "";
-    for (const it of visible) {
-      const cat = it.category || "talk";
-      const catName = CAT_LABELS[cat] || "社区";
-      const titleMain = it.title_zh || it.title;
-      const showOrig = it.title_zh && it.title && it.title_zh !== it.title;
-      const stats = [];
-      if (it.points != null) {
-        stats.push(`${it.points} ${it.points_label || "points"}`);
-      }
-      if (it.comments != null) {
-        stats.push(`${it.comments} 评论`);
-      }
-      if (it.published_at) {
-        stats.push(fmtDate(it.published_at));
-      }
+    container.innerHTML = visible
+      .map((it, idx) => {
+        const cat = it.category || "talk";
+        const catInfo = CAT_META[cat] || CAT_META.talk;
+        const titleMain = it.title_zh || it.title;
+        const showOrig = it.title_zh && it.title && it.title_zh !== it.title;
+        const isLead = idx < 3 && state.cat === "all" && !q && state.sort === "pick";
 
-      const tagsHtml = (it.tags || [])
-        .map((t) => `<span class="tag">${esc(t)}</span>`)
-        .join("");
+        const rawScore = Number(it.points || it.comments || 0);
+        const pct = Math.min(100, Math.max(8, Math.round((rawScore / maxPts) * 100)));
 
-      const promptHtml = it.prompt
-        ? `<div class="prompt-box">
-             <div class="prompt-head">
-               <span>原帖 Prompt</span>
-               <button type="button" class="btn small" data-copy="${esc(
-                 it.prompt
-               )}">复制 Prompt</button>
-             </div>
-             <pre>${esc(it.prompt)}</pre>
-           </div>`
-        : "";
+        const metrics = [];
+        if (it.points != null) {
+          metrics.push(
+            `<span class="heat-meter"><span class="heat-bar"><span class="heat-fill" style="width:${pct}%"></span></span>${esc(
+              it.points
+            )} ${esc(it.points_label || "PTS")}</span>`
+          );
+        }
+        if (it.comments != null) {
+          metrics.push(`<span>${esc(it.comments)} 评</span>`);
+        }
+        if (it.published_at) {
+          metrics.push(`<span>${esc(fmtDate(it.published_at))}</span>`);
+        }
 
-      const actions = [];
-      if (it.playable) {
-        actions.push(
-          `<a class="btn play" href="${esc(
-            it.url
-          )}" target="_blank" rel="noopener">在线试玩 ↗</a>`
-        );
-      } else {
-        actions.push(
-          `<a class="btn" href="${esc(
-            it.url
-          )}" target="_blank" rel="noopener">查看原文 ↗</a>`
-        );
-      }
-      if (it.discuss_url && it.discuss_url !== it.url) {
-        actions.push(
-          `<a class="btn" href="${esc(
-            it.discuss_url
-          )}" target="_blank" rel="noopener">社区讨论 ↗</a>`
-        );
-      }
+        const promptHtml = it.prompt
+          ? `<div class="prompt-stamp" style="margin:4px 0;">
+               <div class="prompt-stamp-head">
+                 <span>原帖附带 Prompt</span>
+                 <button type="button" class="act-btn" data-copy="${esc(
+                   it.prompt
+                 )}">复制 Prompt</button>
+               </div>
+               <pre>${esc(it.prompt)}</pre>
+             </div>`
+          : "";
 
-      html += `
-        <article class="card" id="item-${esc(it.id)}">
-          <div class="card-meta">
-            <span class="cat ${esc(cat)}">${esc(catName)}</span>
-            <span class="src">${esc(it.source_label || it.source)}</span>
-            ${stats.map((s) => `<span class="stat">· ${esc(s)}</span>`).join("")}
-          </div>
-          <h3><a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(
-        titleMain
-      )}</a></h3>
-          ${showOrig ? `<div class="orig">${esc(it.title)}</div>` : ""}
-          ${it.why ? `<p class="why">${esc(it.why)}</p>` : ""}
-          ${promptHtml}
-          <div class="card-foot">
-            <div class="tags">${tagsHtml}</div>
-            <div class="actions">${actions.join("")}</div>
-          </div>
-        </article>
-      `;
-    }
-    container.innerHTML = html;
-  }
-
-  // ---------- 右侧：官方动态 ----------
-  function renderOfficial() {
-    const box = document.getElementById("official");
-    const list = (DATA.official || []).filter(
-      (it) => state.region === "ALL" || it.region === state.region
-    );
-    if (!list.length) {
-      box.innerHTML = `<div class="empty">暂无符合筛选的官方动态</div>`;
-      return;
-    }
-    let lastDay = "";
-    let html = "";
-    for (const it of list.slice(0, 22)) {
-      const day = dayKey(it.published_at);
-      if (day !== lastDay) {
-        html += `<div class="tl-date">${esc(day)}</div>`;
-        lastDay = day;
-      }
-      const title = it.title_zh || it.title;
-      html += `
-        <a class="tl-item" href="${esc(it.url)}" target="_blank" rel="noopener">
-          <div class="tl-top">
-            <span class="org">${esc(it.org)}</span>
-            <span class="flag">${it.region === "CN" ? "国内" : "海外"}</span>
-            ${it.importance >= 3 ? `<span class="imp">重要发布</span>` : ""}
-          </div>
-          <div class="tl-title">${esc(title)}</div>
-          ${it.summary_zh ? `<div class="tl-sum">${esc(it.summary_zh)}</div>` : ""}
-        </a>
-      `;
-    }
-    box.innerHTML = html;
-  }
-
-  // ---------- 右侧：Hugging Face 热门模型 ----------
-  function renderHfTrending() {
-    const box = document.getElementById("hf-trending");
-    const list = DATA.hf_trending || [];
-    box.innerHTML = list
-      .slice(0, 10)
-      .map(
-        (m) =>
-          `<li><a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(
-            m.id
-          )}</a><span>♥ ${esc(m.likes || 0)}</span></li>`
-      )
-      .join("");
-  }
-
-  // ---------- 经典测试实验室（真实可玩 Demo） ----------
-  function renderClassics() {
-    const box = document.getElementById("classics");
-    const list = DATA.classics || [];
-    if (!list.length) {
-      box.innerHTML = `<div class="empty">暂无实验室数据</div>`;
-      return;
-    }
-
-    box.innerHTML = list
-      .map((c, idx) => {
-        const runs = c.runs || [];
-        const firstRun = runs[0] || null;
-        const btns = runs
-          .map(
-            (r, i) =>
-              `<button type="button" class="${
-                i === 0 ? "on" : ""
-              }" data-classic-idx="${idx}" data-run-idx="${i}">${esc(
-                r.model_name || r.model
-              )}</button>`
-          )
-          .join("");
-
-        const metaText = firstRun
-          ? `DeepSeek 实测生成 · 耗时 ${firstRun.seconds}s · ${
-              firstRun.completion_tokens || "-"
-            } tokens`
-          : "等待生成";
+        const actions = [];
+        if (it.playable) {
+          actions.push(
+            `<a class="act-btn playable" href="${esc(
+              it.url
+            )}" target="_blank" rel="noopener">在线试玩 Space ↗</a>`
+          );
+        } else {
+          actions.push(
+            `<a class="act-btn" href="${esc(
+              it.url
+            )}" target="_blank" rel="noopener">直达原文 ↗</a>`
+          );
+        }
+        if (it.discuss_url && it.discuss_url !== it.url) {
+          actions.push(
+            `<a class="act-btn" href="${esc(
+              it.discuss_url
+            )}" target="_blank" rel="noopener">原帖评论区 ↗</a>`
+          );
+        }
 
         return `
-          <article class="classic" data-classic="${idx}">
-            <div class="classic-info">
-              <div>
-                <h2>${esc(c.name)}</h2>
-                <div class="en">${esc(c.name_en || "")}</div>
-              </div>
-              <div>
-                <h4>出处</h4>
-                <p>${esc(c.origin)}</p>
-                ${
-                  c.origin_url
-                    ? `<a class="origin-link" href="${esc(
-                        c.origin_url
-                      )}" target="_blank" rel="noopener">${esc(
-                        c.origin_label || c.origin_url
-                      )} ↗</a>`
-                    : ""
-                }
-              </div>
-              <div>
-                <h4>为什么大家爱拿它考模型</h4>
-                <p>${esc(c.why)}</p>
-              </div>
-              ${
-                c.look_for && c.look_for.length
-                  ? `<div><h4>看哪里判断高下</h4><ul>${c.look_for
-                      .map((l) => `<li>${esc(l)}</li>`)
-                      .join("")}</ul></div>`
-                  : ""
-              }
-              <div class="prompt-box" style="margin-top:auto">
-                <div class="prompt-head">
-                  <span>测试 Prompt ${
-                    c.prompt_note ? `（${esc(c.prompt_note)}）` : ""
-                  }</span>
-                  <button type="button" class="btn small" data-copy="${esc(
-                    c.prompt
-                  )}">复制 Prompt</button>
-                </div>
-                <pre>${esc(c.prompt)}</pre>
-              </div>
+          <article class="ledger-item cat-${esc(cat)} ${
+          isLead ? "lead" : ""
+        }" id="item-${esc(it.id)}">
+            <div class="item-index-col">
+              <span class="rank-num">${pad2(idx + 1)}</span>
+              <span class="cat-stamp ${esc(cat)}">${esc(catInfo.stamp)}</span>
             </div>
-            <div class="classic-stage">
-              <div class="stage-bar">
-                <div class="seg">${btns}</div>
-                <div style="display:flex;align-items:center;gap:8px;">
-                  <span class="stage-meta" id="stage-meta-${idx}">${esc(
-          metaText
-        )}</span>
-                  ${
-                    firstRun
-                      ? `<a class="btn small" id="stage-open-${idx}" href="${esc(
-                          firstRun.file
-                        )}" target="_blank" rel="noopener">新窗口全屏打开 ↗</a>`
-                      : ""
-                  }
-                </div>
+            <div class="item-main-col">
+              <div class="item-top-bar">
+                <span class="item-source">${esc(it.source_label || it.source)}</span>
+                <div class="item-metrics">${metrics.join(" · ")}</div>
               </div>
-              <div class="stage-frame" id="stage-frame-${idx}">
-                ${
-                  firstRun
-                    ? `<iframe src="${esc(
-                        firstRun.file
-                      )}" title="${esc(c.name)}" loading="lazy"></iframe>`
-                    : `<div class="stage-empty">正在生成真实模型输出…</div>`
-                }
+              <h3 class="item-title"><a href="${esc(
+                it.url
+              )}" target="_blank" rel="noopener">${esc(titleMain)}</a></h3>
+              ${showOrig ? `<div class="item-orig">${esc(it.title)}</div>` : ""}
+              ${it.why ? `<p class="item-why">${esc(it.why)}</p>` : ""}
+              ${promptHtml}
+              <div class="item-foot">
+                <div class="tag-row">${(it.tags || [])
+                  .map((t) => `<span>#${esc(t)}</span>`)
+                  .join("")}</div>
+                <div class="action-row">${actions.join("")}</div>
               </div>
-              <div class="stage-hint">上面展示的是用左侧 Prompt 直接调用 DeepSeek API 一次生成的原始结果，未经人工修图或改代码。点击顶部按钮可切换不同模型对比。</div>
             </div>
           </article>
         `;
@@ -463,33 +423,82 @@
       .join("");
   }
 
-  // ---------- 视图切换 ----------
-  function setView(view) {
-    if (!["radar", "lab", "about"].includes(view)) view = "radar";
-    state.view = view;
-    document.getElementById("view-radar").hidden = view !== "radar";
-    document.getElementById("view-lab").hidden = view !== "lab";
-    document.getElementById("view-about").hidden = view !== "about";
-    document.querySelectorAll("[data-view-link]").forEach((a) => {
-      a.classList.toggle(
-        "on",
-        a.getAttribute("data-view-link") === view &&
-          a.closest(".view-tabs") != null
-      );
-    });
+  // ---------- 04 右侧：大厂官方发布电报 ----------
+  function renderOfficial() {
+    const box = document.getElementById("official");
+    const list = (DATA.official || []).filter(
+      (it) => state.region === "ALL" || it.region === state.region
+    );
+    if (!list.length) {
+      box.innerHTML = `<div class="empty">暂无符合条件的大厂发布</div>`;
+      return;
+    }
+    let lastDay = "";
+    let html = "";
+    for (const it of list.slice(0, 22)) {
+      const day = dayKey(it.published_at);
+      if (day !== lastDay) {
+        html += `<div class="wire-date-header">${esc(day)}</div>`;
+        lastDay = day;
+      }
+      html += `
+        <a class="wire-entry" href="${esc(it.url)}" target="_blank" rel="noopener">
+          <div class="wire-meta">
+            <span class="wire-org">${esc(it.org)}</span>
+            <span class="wire-region">${it.region === "CN" ? "国内" : "海外"}</span>
+            ${it.importance >= 3 ? `<span class="wire-major">★ 重要发布</span>` : ""}
+          </div>
+          <div class="wire-entry-title">${esc(it.title_zh || it.title)}</div>
+          ${
+            it.summary_zh
+              ? `<div class="wire-entry-sum">${esc(it.summary_zh)}</div>`
+              : ""
+          }
+        </a>
+      `;
+    }
+    box.innerHTML = html;
+  }
+
+  // ---------- 04 右侧：Hugging Face 飙升榜 ----------
+  function renderHfTrending() {
+    const box = document.getElementById("hf-trending");
+    const list = DATA.hf_trending || [];
+    box.innerHTML = list
+      .slice(0, 10)
+      .map(
+        (m, i) =>
+          `<li>
+             <span class="hf-rank">${pad2(i + 1)}</span>
+             <a class="hf-name" href="${esc(m.url)}" target="_blank" rel="noopener">${esc(
+            m.id
+          )}</a>
+             <span class="hf-likes">♥ ${esc(m.likes || 0)}</span>
+           </li>`
+      )
+      .join("");
   }
 
   // ---------- 事件绑定 ----------
   function bindEvents() {
-    window.addEventListener("hashchange", () => {
-      const h = (location.hash || "#radar").replace("#", "");
-      setView(h);
-    });
-
     document.addEventListener("click", (e) => {
       const copyBtn = e.target.closest("[data-copy]");
       if (copyBtn) {
         copyText(copyBtn.getAttribute("data-copy"));
+        return;
+      }
+
+      const classicTab = e.target.closest("[data-classic-tab]");
+      if (classicTab) {
+        state.classicIdx = Number(classicTab.getAttribute("data-classic-tab"));
+        renderArena();
+        return;
+      }
+
+      const modeBtn = e.target.closest("[data-mode]");
+      if (modeBtn) {
+        state.compareMode = modeBtn.getAttribute("data-mode");
+        renderArena();
         return;
       }
 
@@ -522,56 +531,13 @@
         state.limit = 90;
         renderChips();
         renderFeed();
-        const card = document.getElementById("item-" + id);
-        if (card) {
-          card.scrollIntoView({ behavior: "smooth", block: "center" });
-          card.classList.remove("flash");
-          void card.offsetWidth;
-          card.classList.add("flash");
+        const row = document.getElementById("item-" + id);
+        if (row) {
+          row.scrollIntoView({ behavior: "smooth", block: "center" });
+          row.classList.remove("flash");
+          void row.offsetWidth;
+          row.classList.add("flash");
         }
-        return;
-      }
-
-      const runBtn = e.target.closest("[data-classic-idx]");
-      if (runBtn) {
-        const cIdx = Number(runBtn.getAttribute("data-classic-idx"));
-        const rIdx = Number(runBtn.getAttribute("data-run-idx"));
-        const classic = (DATA.classics || [])[cIdx];
-        const run = classic && (classic.runs || [])[rIdx];
-        if (!run) return;
-        runBtn
-          .parentElement
-          .querySelectorAll("button")
-          .forEach((b, i) => b.classList.toggle("on", i === rIdx));
-        const frameWrap = document.getElementById("stage-frame-" + cIdx);
-        const metaEl = document.getElementById("stage-meta-" + cIdx);
-        const openEl = document.getElementById("stage-open-" + cIdx);
-        if (frameWrap) {
-          frameWrap.innerHTML = `<iframe src="${esc(run.file)}" title="${esc(
-            classic.name
-          )}"></iframe>`;
-        }
-        if (metaEl) {
-          metaEl.textContent = `DeepSeek 实测生成 · 耗时 ${run.seconds}s · ${
-            run.completion_tokens || "-"
-          } tokens`;
-        }
-        if (openEl) {
-          openEl.setAttribute("href", run.file);
-        }
-        return;
-      }
-
-      const statusBtn = e.target.closest("#status-btn");
-      const statusPanel = document.getElementById("status-panel");
-      if (statusBtn) {
-        const open = statusPanel.hidden;
-        statusPanel.hidden = !open;
-        statusBtn.setAttribute("aria-expanded", String(open));
-        return;
-      }
-      if (statusPanel && !statusPanel.hidden && !e.target.closest("#status-panel")) {
-        statusPanel.hidden = true;
       }
     });
 
@@ -592,16 +558,14 @@
   }
 
   function init() {
-    renderStatus();
+    renderTelemetry();
     renderBriefing();
+    renderArena();
     renderChips();
     renderFeed();
     renderOfficial();
     renderHfTrending();
-    renderClassics();
     bindEvents();
-    const initialView = (location.hash || "#radar").replace("#", "");
-    setView(initialView);
   }
 
   init();
