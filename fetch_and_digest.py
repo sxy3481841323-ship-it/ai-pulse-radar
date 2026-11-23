@@ -98,27 +98,31 @@ def fetch_hacker_news_ai(limit: int = 8) -> list:
     return items
 
 
-def fetch_reddit_feeds(limit_per_sub: int = 5) -> list:
-    """抓取 Reddit r/LocalLLaMA 和 r/ClaudeAI 高热一手帖"""
+def fetch_reddit_feeds(limit_per_sub: int = 4) -> list:
+    """通过 Reddit Atom/RSS 订阅源抓取 r/LocalLLaMA 和 r/ClaudeAI 高热一手帖（免 API Key 且防 403）"""
     items = []
     subs = ["LocalLLaMA", "ClaudeAI", "singularity"]
+    ns = {"atom": "http://www.w3.org/2005/Atom"}
     for sub in subs:
         try:
-            url = f"https://www.reddit.com/r/{sub}/hot.json?limit={limit_per_sub}"
-            raw = http_get(url)
-            data = json.loads(raw)
-            for child in data.get("data", {}).get("children", []):
-                post = child.get("data", {})
-                if post.get("stickied"):
-                    continue
-                items.append({
-                    "source": f"Reddit r/{sub}",
-                    "title": post.get("title", ""),
-                    "url": "https://www.reddit.com" + post.get("permalink", ""),
-                    "snippet": (post.get("selftext", "") or "")[:450],
-                })
+            url = f"https://www.reddit.com/r/{sub}/hot/.rss?limit={limit_per_sub}"
+            xml_text = http_get(url)
+            root = ET.fromstring(xml_text)
+            for entry in root.findall("atom:entry", ns)[:limit_per_sub]:
+                title = (entry.findtext("atom:title", default="", namespaces=ns) or "").strip()
+                link_el = entry.find("atom:link", ns)
+                link = link_el.attrib.get("href", "") if link_el is not None else ""
+                content = (entry.findtext("atom:content", default="", namespaces=ns) or "")
+                content_clean = re.sub(r"<[^>]+>", " ", content).strip()[:400]
+                if title:
+                    items.append({
+                        "source": f"Reddit r/{sub}",
+                        "title": title,
+                        "url": link,
+                        "snippet": content_clean,
+                    })
         except Exception as e:
-            print(f"[WARN] Reddit r/{sub} 抓取跳过: {e}")
+            print(f"[WARN] Reddit r/{sub} RSS 抓取跳过: {e}")
     return items
 
 

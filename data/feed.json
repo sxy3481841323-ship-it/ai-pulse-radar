@@ -2,7 +2,7 @@
   "meta": {
     "title": "AI 极客雷达 // GEEK PULSE LAB",
     "subtitle": "一手野生评测 · 极客整活实验室 · 大厂硬核电报",
-    "last_updated": "2026-11-23 23:42",
+    "last_updated": "2026-11-24 00:29",
     "sources_monitored": [
       "Simon Willison's Weblog",
       "Reddit r/LocalLLaMA",
@@ -60,28 +60,8 @@
       ]
     },
     {
-      "id": "select-styling-specimens",
-      "title": "Claude 5.2 一键生成跨浏览器 Select 样式大全，截图党狂喜",
-      "category": "tool",
-      "category_label": "#开源神仙小玩具",
-      "source_name": "Simon Willison's Blog",
-      "source_url": "https://simonwillison.net/2026/Nov/22/select-styling/",
-      "demo_url": "https://simonwillison.net/2026/Nov/22/select-styling/",
-      "published_at": "今日一手实时抓取",
-      "heat_score": "🔥 社区高赞实测",
-      "model_tested": "Claude Fable 5.2",
-      "tldr": "Simon 被 Chrome 里丑哭的 <select> 逼疯，直接让 Claude 5.2 写了个页面，穷举所有 CSS 样式方案，方便他跨桌面/移动端截图对比。实测 Claude 能精准理解“穷举所有样式”的模糊需求，生成可运行的 HTML，但审美仍需人类把关——最终 Simon 自己选了最顺眼的 CSS。",
-      "prompt_recipe": "Build an HTML page that shows all of the ways a select box can be styled, I plan to take screenshots in every desktop and mobile browser",
-      "tags": [
-        "前端",
-        "CSS",
-        "Claude",
-        "UI"
-      ]
-    },
-    {
-      "id": "muru-rust-python-server",
-      "title": "mod_wsgi 之父用 AI 辅助写 Rust 服务器 Muru，要革 Python 部署的命",
+      "id": "muru-rust-asgi-server",
+      "title": "20年Python老炮用AI辅助写Rust服务器：Muru",
       "category": "tool",
       "category_label": "#开源神仙小玩具",
       "source_name": "Simon Willison's Blog",
@@ -89,34 +69,34 @@
       "demo_url": "https://simonwillison.net/2026/Nov/21/muru/",
       "published_at": "今日一手实时抓取",
       "heat_score": "🔥 社区高赞实测",
-      "model_tested": "未指定（AI 辅助开发）",
-      "tldr": "Graham Dumpleton 憋了 20 年的大招：用 Rust 写了个 ASGI/WSGI 服务器 Muru，全程 AI 辅助并公开开发日志。这玩意儿要是成了，Python 生产部署可能不再需要 Gunicorn/uWSGI 那套老古董。社区最兴奋的是他“边写边发长文”的硬核开发模式，比代码本身还有教学价值。",
-      "prompt_recipe": "无固定 prompt，但可借鉴其开发日志：让 AI 辅助设计 Rust 异步服务器架构，并逐模块生成代码与测试。",
+      "model_tested": "AI-assisted（未指明具体模型）",
+      "tldr": "mod_wsgi 作者 Graham Dumpleton 用 AI 辅助开发了 Rust 服务器 Muru，目标是为 ASGI/WSGI Python 应用提供开发和生产的最佳运行环境。他全程公开开发日志，展示了 AI 如何帮资深工程师快速切入新语言并保持工程严谨性，是 AI 辅助系统编程的真实样本。",
+      "prompt_recipe": "无固定 prompt，核心是让 AI 辅助编写 Rust 异步服务器，并持续要求解释设计决策、生成测试和文档。",
       "tags": [
         "Rust",
-        "Python",
-        "ASGI",
-        "服务器"
+        "Python服务器",
+        "AI辅助编程",
+        "开源"
       ]
     },
     {
-      "id": "token-fraud-chatprd",
-      "title": "ChatPRD 创始人亲述：白嫖党用免费试用薅走海量 token 转卖",
+      "id": "llm-gemini-xhigh",
+      "title": "Gemini 4 Hydrogen 隐藏 xhigh 推理档：效果炸裂",
       "category": "benchmark",
       "category_label": "#野生基准测试",
       "source_name": "Simon Willison's Blog",
-      "source_url": "https://simonwillison.net/2026/Nov/20/token-fraud-is-here-and-its-bad/",
-      "demo_url": "https://simonwillison.net/2026/Nov/20/token-fraud-is-here-and-its-bad/",
+      "source_url": "https://simonwillison.net/2026/Nov/20/llm-gemini/",
+      "demo_url": "https://simonwillison.net/2026/Nov/20/llm-gemini/",
       "published_at": "今日一手实时抓取",
       "heat_score": "🔥 社区高赞实测",
-      "model_tested": "GPT-4 系列（ChatPRD 后端）",
-      "tldr": "Claire Vo 曝光自家产品被 token 欺诈团伙盯上：利用免费试用疯狂薅 AI 额度，要么自己用，要么转卖 token 牟利。这其实是给所有 AI 产品的一记警钟——免费试用就是攻击面，风控不做好，模型越强亏得越狠。社区讨论焦点：如何在不误伤正常用户的前提下识别批量注册和异常调用。",
-      "prompt_recipe": "无固定 prompt，但可复现测试思路：用脚本批量注册免费账号，模拟正常用户调用 API，观察平台风控触发阈值。",
+      "model_tested": "Gemini 4 Hydrogen / Neon / Carbon",
+      "tldr": "Simon 发现 Gemini 4 Hydrogen 和 Neon 支持额外的 xhigh 推理等级，而 Carbon 只有 low/medium/high。开启 xhigh 后输出 token 和成本显著变化，对比网格显示 Hydrogen 在 high 档用 5311 token 花 3.99 美分，xhigh 更猛。测出了不同档位对推理深度和钱包的真实影响。",
+      "prompt_recipe": "使用 llm-gemini 插件调用 Gemini 4 Hydrogen，设置 reasoning level 为 xhigh，对比 high 档的输出长度与费用。",
       "tags": [
-        "安全",
-        "风控",
-        "Token",
-        "SaaS"
+        "Gemini",
+        "推理等级",
+        "成本对比",
+        "LLM插件"
       ]
     },
     {
@@ -187,9 +167,169 @@
         "r/LocalLLaMA",
         "防穿模"
       ]
+    },
+    {
+      "id": "llm-gemini-xhigh-reasoning",
+      "title": "Gemini 4 Hydrogen 的 xhigh 推理档位实测：多烧 5 倍 token 值不值？",
+      "category": "benchmark",
+      "category_label": "#野生基准测试",
+      "source_name": "Simon Willison's Blog",
+      "source_url": "https://simonwillison.net/2026/Nov/20/llm-gemini/",
+      "demo_url": "https://simonwillison.net/2026/Nov/20/llm-gemini/",
+      "published_at": "今日一手实时抓取",
+      "heat_score": "🔥 社区高赞实测",
+      "model_tested": "Gemini 4 Carbon / Hydrogen / Neon",
+      "tldr": "Simon 发现 Gemini 4 三兄弟的推理档位不一样：Carbon 只有 low/medium/high，Hydrogen 和 Neon 多出 xhigh。他实测 Hydrogen 开 xhigh 后输出 token 从 5,311 飙到更高、成本从 3.99 美分往上翻，但效果“显著不同”。这是最接地气的推理档位性价比测试——告诉你什么时候该为 xhigh 买单，什么时候纯属烧钱。",
+      "prompt_recipe": "在 llm-gemini 插件里对 Gemini 4 Hydrogen 分别设置 high 与 xhigh 推理档位，跑同一组复杂推理题，记录输出 token 数与成本并对比答案质量。",
+      "tags": [
+        "Gemini",
+        "推理档位",
+        "成本测试",
+        "llm-gemini"
+      ]
+    },
+    {
+      "id": "riemann-hypothesis-claude",
+      "title": "有人宣称和 Claude 一起证出了黎曼猜想，数学圈炸了",
+      "category": "fun",
+      "category_label": "#极客整活",
+      "source_name": "Simon Willison's Blog",
+      "source_url": "https://simonwillison.net/2026/Nov/20/levent-alpoge/",
+      "demo_url": "https://simonwillison.net/2026/Nov/20/levent-alpoge/",
+      "published_at": "今日一手实时抓取",
+      "heat_score": "🔥 社区高赞实测",
+      "model_tested": "Claude",
+      "tldr": "Levent Alpöge 声称和 Claude 合作发现了黎曼猜想的证明，还顺手推广到广义黎曼猜想，并说论证已无假设形式化。同一天 Ravi Vakil 又强调另一份人类纯手工的 GRH 证明草案“没有 AI”。两条放在一起看，就是当下 AI 数学能力的真实水位：要么是历史级突破，要么是史上最贵的幻觉，社区正在疯狂验货。",
+      "prompt_recipe": "（复现挑战：让 Claude 形式化黎曼猜想证明步骤，逐步检查每一步的数学严谨性，重点验证“无假设形式化”是否成立。）",
+      "tags": [
+        "黎曼猜想",
+        "Claude",
+        "数学",
+        "AI幻觉"
+      ]
+    },
+    {
+      "id": "select-styling-specimens",
+      "title": "Claude 5.2 一键生成跨浏览器 Select 样式大全，截图党狂喜",
+      "category": "tool",
+      "category_label": "#开源神仙小玩具",
+      "source_name": "Simon Willison's Blog",
+      "source_url": "https://simonwillison.net/2026/Nov/22/select-styling/",
+      "demo_url": "https://simonwillison.net/2026/Nov/22/select-styling/",
+      "published_at": "今日一手实时抓取",
+      "heat_score": "🔥 社区高赞实测",
+      "model_tested": "Claude Fable 5.2",
+      "tldr": "Simon 被 Chrome 里丑哭的 <select> 逼疯，直接让 Claude 5.2 写了个页面，穷举所有 CSS 样式方案，方便他跨桌面/移动端截图对比。实测 Claude 能精准理解“穷举所有样式”的模糊需求，生成可运行的 HTML，但审美仍需人类把关——最终 Simon 自己选了最顺眼的 CSS。",
+      "prompt_recipe": "Build an HTML page that shows all of the ways a select box can be styled, I plan to take screenshots in every desktop and mobile browser",
+      "tags": [
+        "前端",
+        "CSS",
+        "Claude",
+        "UI"
+      ]
+    },
+    {
+      "id": "muru-rust-python-server",
+      "title": "mod_wsgi 之父用 AI 辅助写 Rust 服务器 Muru，要革 Python 部署的命",
+      "category": "tool",
+      "category_label": "#开源神仙小玩具",
+      "source_name": "Simon Willison's Blog",
+      "source_url": "https://simonwillison.net/2026/Nov/21/muru/",
+      "demo_url": "https://simonwillison.net/2026/Nov/21/muru/",
+      "published_at": "今日一手实时抓取",
+      "heat_score": "🔥 社区高赞实测",
+      "model_tested": "未指定（AI 辅助开发）",
+      "tldr": "Graham Dumpleton 憋了 20 年的大招：用 Rust 写了个 ASGI/WSGI 服务器 Muru，全程 AI 辅助并公开开发日志。这玩意儿要是成了，Python 生产部署可能不再需要 Gunicorn/uWSGI 那套老古董。社区最兴奋的是他“边写边发长文”的硬核开发模式，比代码本身还有教学价值。",
+      "prompt_recipe": "无固定 prompt，但可借鉴其开发日志：让 AI 辅助设计 Rust 异步服务器架构，并逐模块生成代码与测试。",
+      "tags": [
+        "Rust",
+        "Python",
+        "ASGI",
+        "服务器"
+      ]
+    },
+    {
+      "id": "token-fraud-chatprd",
+      "title": "ChatPRD 创始人亲述：白嫖党用免费试用薅走海量 token 转卖",
+      "category": "benchmark",
+      "category_label": "#野生基准测试",
+      "source_name": "Simon Willison's Blog",
+      "source_url": "https://simonwillison.net/2026/Nov/20/token-fraud-is-here-and-its-bad/",
+      "demo_url": "https://simonwillison.net/2026/Nov/20/token-fraud-is-here-and-its-bad/",
+      "published_at": "今日一手实时抓取",
+      "heat_score": "🔥 社区高赞实测",
+      "model_tested": "GPT-4 系列（ChatPRD 后端）",
+      "tldr": "Claire Vo 曝光自家产品被 token 欺诈团伙盯上：利用免费试用疯狂薅 AI 额度，要么自己用，要么转卖 token 牟利。这其实是给所有 AI 产品的一记警钟——免费试用就是攻击面，风控不做好，模型越强亏得越狠。社区讨论焦点：如何在不误伤正常用户的前提下识别批量注册和异常调用。",
+      "prompt_recipe": "无固定 prompt，但可复现测试思路：用脚本批量注册免费账号，模拟正常用户调用 API，观察平台风控触发阈值。",
+      "tags": [
+        "安全",
+        "风控",
+        "Token",
+        "SaaS"
+      ]
     }
   ],
   "company_timeline": [
+    {
+      "id": "gemini-4-xhigh-release",
+      "company": "Google",
+      "region": "US",
+      "badge_color": "#38bdf8",
+      "date": "最新动态",
+      "title": "Gemini 4 Hydrogen/Neon 新增 xhigh 推理等级",
+      "summary": "开发者现在可以通过 llm-gemini 插件启用 xhigh 档，获得更深推理但成本更高，需按需选择。",
+      "url": "https://simonwillison.net/2026/Nov/20/llm-gemini/"
+    },
+    {
+      "id": "claude-math-proof-claim",
+      "company": "Anthropic",
+      "region": "US",
+      "badge_color": "#c084fc",
+      "date": "最新动态",
+      "title": "Claude 被指参与黎曼猜想证明，引发 AI 数学能力热议",
+      "summary": "若证明成立，将标志 LLM 首次在顶级数学难题上做出实质贡献；社区正等待形式化验证。",
+      "url": "https://simonwillison.net/2026/Nov/20/levent-alpoge/"
+    },
+    {
+      "id": "token-fraud-warning",
+      "company": "OpenAI",
+      "region": "US",
+      "badge_color": "#fb923c",
+      "date": "最新动态",
+      "title": "ChatPRD 曝光 token 欺诈产业链，免费试用成重灾区",
+      "summary": "AI 产品需加强免费层风控，否则算力被黑产薅走转卖，直接影响服务成本和稳定性。",
+      "url": "https://simonwillison.net/2026/Nov/20/token-fraud-is-here-and-its-bad/"
+    },
+    {
+      "id": "gemini-4-reasoning-tiers",
+      "company": "Google",
+      "region": "US",
+      "badge_color": "#38bdf8",
+      "date": "最新动态",
+      "title": "Gemini 4 三档模型推理档位分化，Hydrogen/Neon 独享 xhigh",
+      "summary": "开发者需按模型分别调推理档位，xhigh 能显著改变输出但成本翻倍，选型时得重新算性价比。",
+      "url": "https://simonwillison.net/2026/Nov/20/llm-gemini/"
+    },
+    {
+      "id": "claude-riemann-claim",
+      "company": "Anthropic",
+      "region": "US",
+      "badge_color": "#c084fc",
+      "date": "最新动态",
+      "title": "研究者宣称与 Claude 合作证明黎曼猜想，社区紧急验货",
+      "summary": "若为真则是 AI 数学里程碑，若为幻觉则暴露当前模型在超难推理上的自信陷阱，直接影响对 Claude 科研可信度的判断。",
+      "url": "https://simonwillison.net/2026/Nov/20/levent-alpoge/"
+    },
+    {
+      "id": "token-fraud-ai-products",
+      "company": "OpenAI",
+      "region": "US",
+      "badge_color": "#fb923c",
+      "date": "最新动态",
+      "title": "AI 产品免费试用遭 token 欺诈泛滥，ChatPRD 公开实录",
+      "summary": "从 GPT-4 时代活到现在的产品都被薅，说明免费额度风控是所有 AI 应用开发者的必修课，不是模型问题是产品问题。",
+      "url": "https://simonwillison.net/2026/Nov/20/token-fraud-is-here-and-its-bad/"
+    },
     {
       "id": "gemini-4-reasoning-levels",
       "company": "Google",
