@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 极客雷达 // GEEK PULSE LAB</title>
+  <style>
+    :root {
+      --bg-base: #070a10;
+      --bg-surface: #0e1420;
+      --bg-card: #121a2a;
+      --bg-card-hover: #172136;
+      --bg-code: #080c14;
+      --border-subtle: rgba(148, 163, 184, 0.14);
+      --border-glow: rgba(56, 189, 248, 0.45);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-cyan: #38bdf8;
+      --accent-purple: #a855f7;
+      --accent-green: #22c55e;
+      --accent-amber: #f59e0b;
+      --accent-pink: #ec4899;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-mono: "JetBrains Mono", "Fira Code", "SFMono-Regular", Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(56, 189, 248, 0.08) 0%, transparent 35%),
+        radial-gradient(circle at 85% 15%, rgba(168, 85, 247, 0.08) 0%, transparent 35%),
+        linear-gradient(rgba(148, 163, 184, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.03) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Top Header */
+    .top-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: rgba(7, 10, 16, 0.85);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 28px;
+    }
+
+    .header-inner {
+      max-width: 1520px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .radar-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      box-shadow: 0 0 12px var(--accent-green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.25); opacity: 0.65; }
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      background: linear-gradient(90deg, #38bdf8, #c084fc, #38bdf8);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-sub {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .status-pill {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 12px;
+      border-radius: 999px;
+    }
+
+    .btn-action {
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-cyan);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-action:hover {
+      background: rgba(56, 189, 248, 0.24);
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .btn-action.purple {
+      border-color: rgba(168, 85, 247, 0.45);
+      background: rgba(168, 85, 247, 0.14);
+      color: #d8b4fe;
+    }
+
+    .btn-action.purple:hover {
+      background: rgba(168, 85, 247, 0.26);
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+    }
+
+    /* Source radar ribbon */
+    .source-ribbon {
+      max-width: 1520px;
+      margin: 18px auto 0;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .source-list {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .source-chip {
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: rgba(30, 41, 59, 0.65);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+
+    .search-box {
+      position: relative;
+      min-width: 260px;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent-cyan);
+    }
+
+    /* Main 70 / 30 Dual Column Layout */
+    .dashboard-container {
+      max-width: 1520px;
+      margin: 20px auto 60px;
+      padding: 0 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(300px, 3fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (max-width: 1080px) {
+      .dashboard-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Left Main Stage (70%) */
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    /* Filter Tabs */
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .filter-btn {
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      transition: all 0.18s ease;
+    }
+
+    .filter-btn:hover {
+      color: var(--text-primary);
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+
+    .filter-btn.active {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(168, 85, 247, 0.2));
+      color: #fff;
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
+    }
+
+    /* Project Cards Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
+      gap: 22px;
+    }
+
+    @media (max-width: 640px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-glow);
+      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.7), 0 0 18px rgba(56, 189, 248, 0.12);
+    }
+
+    /* Card Component C: Direct Visual / SVG / Demo Showcase */
+    .card-visual {
+      position: relative;
+      background: #090d16;
+      border-bottom: 1px solid var(--border-subtle);
+      min-height: 190px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card-visual-overlay {
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      right: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .cat-tag {
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: rgba(7, 10, 16, 0.82);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      color: var(--accent-cyan);
+      backdrop-filter: blur(6px);
+    }
+
+    .heat-tag {
+      font-size: 0.73rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: rgba(7, 10, 16, 0.82);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+      backdrop-filter: blur(6px);
+    }
+
+    .card-body {
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 14px;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .model-pill {
+      color: #d8b4fe;
+      background: rgba(168, 85, 247, 0.14);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      padding: 1px 8px;
+      border-radius: 4px;
+    }
+
+    .card-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .card-tldr {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* Card Component A: Prompt / Reproduction Recipe */
+    .recipe-box {
+      background: var(--bg-code);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-top: auto;
+    }
+
+    .recipe-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .recipe-title {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .copy-btn {
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 3px 9px;
+      border-radius: 5px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(30, 41, 59, 0.75);
+      color: var(--text-primary);
+      transition: all 0.15s;
+    }
+
+    .copy-btn:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    .recipe-code {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 92px;
+      overflow-y: auto;
+      line-height: 1.5;
+    }
+
+    /* Card Footer Links (C: Direct Demo & Source Links) */
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+    }
+
+    .tag-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .mini-tag {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.7);
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .link-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-link {
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 5px 11px;
+      border-radius: 6px;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-demo {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+    }
+
+    .btn-demo:hover {
+      background: rgba(34, 197, 94, 0.28);
+    }
+
+    .btn-source {
+      background: rgba(148, 163, 184, 0.1);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-source:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    /* Right Sidebar (30%): Big Tech Timeline */
+    .timeline-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 20px;
+      position: sticky;
+      top: 84px;
+    }
+
+    .region-filter {
+      display: flex;
+      gap: 6px;
+    }
+
+    .region-btn {
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 5px;
+      border: 1px solid var(--border-subtle);
+      background: transparent;
+      color: var(--text-secondary);
+    }
+
+    .region-btn.active {
+      border-color: var(--accent-purple);
+      color: #e9d5ff;
+      background: rgba(168, 85, 247, 0.18);
+    }
+
+    .timeline-list {
+      position: relative;
+      margin-top: 14px;
+      padding-left: 18px;
+      border-left: 2px solid rgba(148, 163, 184, 0.18);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .timeline-item {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 13px 15px;
+      transition: border-color 0.2s;
+    }
+
+    .timeline-item:hover {
+      border-color: rgba(168, 85, 247, 0.45);
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -24px;
+      top: 16px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 8px var(--accent-cyan);
+    }
+
+    .timeline-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+    }
+
+    .company-badge {
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .timeline-title {
+      font-size: 0.93rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+    }
+
+    .timeline-summary {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .timeline-link {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--accent-cyan);
+      text-decoration: none;
+    }
+
+    .timeline-link:hover {
+      text-decoration: underline;
+    }
+
+    /* DeepSeek Modal */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glow);
+      border-radius: 14px;
+      max-width: 620px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .modal-close {
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .form-group input, .form-group textarea {
+      width: 100%;
+      background: var(--bg-code);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+    }
+
+    .code-snippet {
+      background: var(--bg-code);
+      border: 1px solid var(--border-subtle);
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: #4ade80;
+      margin-top: 8px;
+      user-select: all;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="top-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="radar-dot"></div>
+        <div>
+          <div class="brand-title" id="app-title">AI 极客雷达 // GEEK PULSE LAB</div>
+          <div class="brand-sub" id="app-subtitle">一手野生评测 · 极客整活实验室 · 大厂硬核电报</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="status-pill" id="last-updated-pill">最后同步: 加载中...</span>
+        <button class="btn-action" onclick="openDeepSeekModal()">⚡ DeepSeek 实时抓取 / 实验室设置</button>
+        <button class="btn-action purple" onclick="openSubmitModal()">➕ 手动收录好玩的野生项目</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Monitored Primary Sources Ribbon -->
+  <div class="source-ribbon">
+    <div class="source-list" id="source-chips"></div>
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="🔍 搜索鹈鹕、小鹿、3A游戏、模型或 Prompt..." oninput="renderAll()" />
+    </div>
+  </div>
+
+  <!-- Main 70 / 30 Dashboard -->
+  <main class="dashboard-container">
+    <!-- Left 70%: Wild Community Projects & Benchmarks -->
+    <section>
+      <div class="section-header">
+        <div class="section-title">
+          <span>🧪 社区野生评测 &amp; 极客整活主舞台</span>
+          <span class="section-badge" id="project-count-badge">0 个精选样本</span>
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="filter-tabs" id="category-tabs">
+        <button class="filter-btn active" data-cat="all" onclick="setCategory('all')">全部一手精选</button>
+        <button class="filter-btn" data-cat="benchmark" onclick="setCategory('benchmark')">🦆 #野生基准测试 (鹈鹕/小鹿骑车)</button>
+        <button class="filter-btn" data-cat="game" onclick="setCategory('game')">🎮 #一镜到底/3A小游戏</button>
+        <button class="filter-btn" data-cat="fun" onclick="setCategory('fun')">⚡ #极客整活 &amp; 物理沙盒</button>
+        <button class="filter-btn" data-cat="tool" onclick="setCategory('tool')">🛠️ #开源神仙小玩具</button>
+      </div>
+
+      <!-- Projects Waterfall Grid -->
+      <div class="projects-grid" id="projects-container"></div>
+    </section>
+
+    <!-- Right 30%: Big Tech Hardcore Timeline -->
+    <aside class="timeline-panel">
+      <div class="section-header" style="margin-bottom: 12px;">
+        <div class="section-title" style="font-size: 1rem;">
+          <span>📡 头部大厂硬核大事记</span>
+        </div>
+        <div class="region-filter">
+          <button class="region-btn active" data-reg="ALL" onclick="setRegion('ALL')">全球</button>
+          <button class="region-btn" data-reg="US" onclick="setRegion('US')">海外</button>
+          <button class="region-btn" data-reg="CN" onclick="setRegion('CN')">国内</button>
+        </div>
+      </div>
+      <p style="font-size: 0.76rem; color: var(--text-muted); margin-bottom: 14px;">
+        剔除公关软文，只看 OpenAI / Anthropic / Google / DeepSeek / Qwen 真正影响玩家水位的一手动态。
+      </p>
+      <div class="timeline-list" id="timeline-container"></div>
+    </aside>
+  </main>
+
+  <!-- Modal 1: DeepSeek Automation & Live Test Lab -->
+  <div class="modal-backdrop" id="deepseek-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 style="font-size: 1.05rem;">⚡ DeepSeek 情报猎手引擎 &amp; 在线提纯</h3>
+        <button class="modal-close" onclick="closeModals()">✕</button>
+      </div>
+      <p style="font-size: 0.84rem; color: var(--text-secondary); margin-bottom: 14px;">
+        本看板支持两种更新方式：<br/>
+        1️⃣ <strong>全自动定时抓取</strong>：运行项目根目录下的 <code>python3 fetch_and_digest.py</code>（或通过 GitHub Actions 每天定时跑），自动拉取 Simon Willison、Reddit、Hacker News 一手源并用 DeepSeek 提纯。<br/>
+        2️⃣ <strong>网页端直接粘贴一手英文帖秒变卡片</strong>：在下方填入你的 DeepSeek API Key（仅保存在你浏览器本地 <code>localStorage</code>，绝不上传），粘贴任何 Reddit/X 帖子原文即可当场提纯加入看板！
+      </p>
+      <div class="form-group">
+        <label>DeepSeek API Key (本地浏览器保存，可随时清除)</label>
+        <input type="password" id="ds-api-key" placeholder="sk-..." />
+      </div>
+      <div class="form-group">
+        <label>粘贴你在 Reddit / X / Hacker News 看到的一手帖子内容或链接描述：</label>
+        <textarea id="ds-raw-input" rows="3" placeholder="例如：Someone on r/LocalLLaMA just tested Qwen3 and DeepSeek on generating a 3D physics pinball game in a single HTML file..."></textarea>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: center; justify-content: space-between;">
+        <button class="btn-action" id="ds-run-btn" onclick="digestWithDeepSeekInBrowser()">🚀 用 DeepSeek 提纯并加入看板</button>
+        <span id="ds-status" style="font-size: 0.78rem; color: var(--accent-cyan); font-family: var(--font-mono);"></span>
+      </div>
+      <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border-subtle);">
+        <div style="font-size: 0.76rem; color: var(--text-muted);">终端一键自动抓取全球一手社区指令：</div>
+        <div class="code-snippet">DEEPSEEK_API_KEY="你的Key" python3 fetch_and_digest.py</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Quick Manual Add Project -->
+  <div class="modal-backdrop" id="submit-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 style="font-size: 1.05rem;">➕ 手动收录野生好项目</h3>
+        <button class="modal-close" onclick="closeModals()">✕</button>
+      </div>
+      <div class="form-group">
+        <label>项目标题</label>
+        <input type="text" id="add-title" placeholder="例如：单段 Prompt 生成带光追的网页版《星际拓荒》" />
+      </div>
+      <div class="form-group">
+        <label>一句话核心看点 (TL;DR)</label>
+        <textarea id="add-tldr" rows="2" placeholder="这哥们用什么模型干了什么离谱的事？"></textarea>
+      </div>
+      <div class="form-group">
+        <label>复现秘籍 (Prompt 或玩法指令)</label>
+        <textarea id="add-prompt" rows="2" placeholder="把原帖的测试 Prompt 贴在这里，方便随时复制复现..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>原帖 / 在线试玩链接</label>
+        <input type="text" id="add-url" placeholder="https://..." />
+      </div>
+      <button class="btn-action purple" onclick="manualAddCard()">💾 保存到当前看板</button>
+    </div>
+  </div>
+
+  <!-- Load Feed Data (works offline via file:// and online via GitHub Pages) -->
+  <script src="./data/feed.js"></script>
+  <script>
+    let currentCategory = 'all';
+    let currentRegion = 'ALL';
+    let radarData = window.AI_RADAR_DATA || { meta: {}, community_projects: [], company_timeline: [] };
+
+    // Merge any locally added custom cards from localStorage
+    function loadCustomCards() {
+      try {
+        const saved = localStorage.getItem('ai_radar_custom_projects');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          const existingIds = new Set(radarData.community_projects.map(p => p.id));
+          parsed.forEach(item => {
+            if (!existingIds.has(item.id)) {
+              radarData.community_projects.unshift(item);
+            }
+          });
+        }
+        const savedKey = localStorage.getItem('ai_radar_deepseek_key');
+        if (savedKey) {
+          document.getElementById('ds-api-key').value = savedKey;
+        }
+      } catch (e) {
+        console.warn(e);
+      }
+    }
+
+    function setCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('#category-tabs .filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.cat === cat);
+      });
+      renderProjects();
+    }
+
+    function setRegion(reg) {
+      currentRegion = reg;
+      document.querySelectorAll('.region-filter .region-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.reg === reg);
+      });
+      renderTimeline();
+    }
+
+    function copyPrompt(btn, encodedPrompt) {
+      const text = decodeURIComponent(encodedPrompt);
+      navigator.clipboard.writeText(text).then(() => {
+        const old = btn.innerHTML;
+        btn.innerHTML = '✅ 已复制 Prompt!';
+        btn.style.borderColor = '#22c55e';
+        btn.style.color = '#4ade80';
+        setTimeout(() => {
+          btn.innerHTML = old;
+          btn.style.borderColor = '';
+          btn.style.color = '';
+        }, 1800);
+      });
+    }
+
+    function renderMeta() {
+      if (radarData.meta) {
+        document.getElementById('last-updated-pill').textContent = '最后同步: ' + (radarData.meta.last_updated || '刚刚');
+        const chipsContainer = document.getElementById('source-chips');
+        const sources = radarData.meta.sources_monitored || [];
+        chipsContainer.innerHTML = '<span style="font-size:0.75rem;color:var(--text-muted);font-family:var(--font-mono);">一手监控源:</span>' +
+          sources.map(s => `<span class="source-chip">📡 ${s}</span>`).join('');
+      }
+    }
+
+    function renderProjects() {
+      const container = document.getElementById('projects-container');
+      const query = (document.getElementById('search-input').value || '').trim().toLowerCase();
+
+      const filtered = (radarData.community_projects || []).filter(item => {
+        const matchCat = currentCategory === 'all' || item.category === currentCategory;
+        const matchQuery = !query ||
+          (item.title && item.title.toLowerCase().includes(query)) ||
+          (item.tldr && item.tldr.toLowerCase().includes(query)) ||
+          (item.prompt_recipe && item.prompt_recipe.toLowerCase().includes(query)) ||
+          (item.model_tested && item.model_tested.toLowerCase().includes(query)) ||
+          ((item.tags || []).some(t => t.toLowerCase().includes(query)));
+        return matchCat && matchQuery;
+      });
+
+      document.getElementById('project-count-badge').textContent = `${filtered.length} 个一手样本`;
+
+      container.innerHTML = filtered.map(item => {
+        const encodedPrompt = encodeURIComponent(item.prompt_recipe || '');
+        const visualHtml = item.svg_preview
+          ? item.svg_preview
+          : `<div style="padding:30px;text-align:center;color:var(--text-muted);font-family:var(--font-mono);font-size:0.82rem;">[ 极客社区一手实测项目 // ${item.source_name || 'Community'} ]</div>`;
+
+        return `
+          <article class="project-card">
+            <!-- C: 效果直出与视觉预览区 -->
+            <div class="card-visual">
+              ${visualHtml}
+              <div class="card-visual-overlay">
+                <span class="cat-tag">${item.category_label || '#社区精选'}</span>
+                <span class="heat-tag">${item.heat_score || '🔥 社区热议'}</span>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <div class="card-meta-row">
+                <span>来源: ${item.source_name || 'Geek Community'} · ${item.published_at || '最新'}</span>
+                <span class="model-pill">${item.model_tested || '多模型实测'}</span>
+              </div>
+
+              <h2 class="card-title">${item.title}</h2>
+              <p class="card-tldr">${item.tldr}</p>
+
+              <!-- A: 复现秘籍 (Prompt / 玩法) -->
+              ${item.prompt_recipe ? `
+              <div class="recipe-box">
+                <div class="recipe-header">
+                  <span class="recipe-title">🧪 复现秘籍 // PROMPT &amp; 玩法</span>
+                  <button class="copy-btn" onclick="copyPrompt(this, '${encodedPrompt}')">📋 一键复制 Prompt</button>
+                </div>
+                <div class="recipe-code">${item.prompt_recipe}</div>
+              </div>
+              ` : ''}
+
+              <!-- C: 在线试玩 Demo 与一手原帖直达 -->
+              <div class="card-footer">
+                <div class="tag-group">
+                  ${(item.tags || []).map(t => `<span class="mini-tag">#${t}</span>`).join('')}
+                </div>
+                <div class="link-group">
+                  ${item.demo_url ? `<a class="btn-link btn-demo" href="${item.demo_url}" target="_blank" rel="noopener">🚀 效果/Demo</a>` : ''}
+                  ${item.source_url ? `<a class="btn-link btn-source" href="${item.source_url}" target="_blank" rel="noopener">🔗 一手原帖 ↗</a>` : ''}
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function renderTimeline() {
+      const container = document.getElementById('timeline-container');
+      const query = (document.getElementById('search-input').value || '').trim().toLowerCase();
+
+      const filtered = (radarData.company_timeline || []).filter(item => {
+        const matchReg = currentRegion === 'ALL' || item.region === currentRegion;
+        const matchQuery = !query ||
+          (item.company && item.company.toLowerCase().includes(query)) ||
+          (item.title && item.title.toLowerCase().includes(query)) ||
+          (item.summary && item.summary.toLowerCase().includes(query));
+        return matchReg && matchQuery;
+      });
+
+      container.innerHTML = filtered.map(item => `
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:${item.badge_color || '#38bdf8'};box-shadow:0 0 8px ${item.badge_color || '#38bdf8'};"></div>
+          <div class="timeline-top">
+            <span class="company-badge" style="color:${item.badge_color || '#38bdf8'};">${item.company}</span>
+            <span style="color:var(--text-muted);">${item.date || ''}</span>
+          </div>
+          <div class="timeline-title">${item.title}</div>
+          <div class="timeline-summary">${item.summary}</div>
+          ${item.url ? `<a class="timeline-link" href="${item.url}" target="_blank" rel="noopener">查看官方一手通告 ↗</a>` : ''}
+        </div>
+      `).join('');
+    }
+
+    function renderAll() {
+      renderMeta();
+      renderProjects();
+      renderTimeline();
+    }
+
+    function openDeepSeekModal() {
+      document.getElementById('deepseek-modal').classList.add('open');
+    }
+
+    function openSubmitModal() {
+      document.getElementById('submit-modal').classList.add('open');
+    }
+
+    function closeModals() {
+      document.querySelectorAll('.modal-backdrop').forEach(m => m.classList.remove('open'));
+    }
+
+    async function digestWithDeepSeekInBrowser() {
+      const apiKey = document.getElementById('ds-api-key').value.trim();
+      const rawText = document.getElementById('ds-raw-input').value.trim();
+      const statusEl = document.getElementById('ds-status');
+
+      if (!apiKey) {
+        statusEl.textContent = '⚠️ 请先填写 DeepSeek API Key';
+        return;
+      }
+      if (!rawText) {
+        statusEl.textContent = '⚠️ 请粘贴要提纯的社区帖子内容';
+        return;
+      }
+
+      localStorage.setItem('ai_radar_deepseek_key', apiKey);
+      statusEl.textContent = '⏳ DeepSeek 正在提纯极客看点与复现 Prompt...';
+
+      try {
+        const resp = await fetch('https://api.deepseek.com/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+          },
+          body: JSON.stringify({
+            model: 'deepseek-chat',
+            response_format: { type: 'json_object' },
+            messages: [
+              {
+                role: 'system',
+                content: '你是一个混迹于 Reddit r/LocalLLaMA、Simon Willison 博客和 Hacker News 的硬核 AI 极客猎手。请将用户提供的一手社区帖子提纯为 JSON 对象，字段包括：title (吸引人的中文极客标题), category ("benchmark"|"game"|"fun"|"tool"), category_label ("#野生基准测试"|"#一镜到底/3A小游戏"|"#极客整活"|"#开源神仙小玩具"), model_tested (涉及的模型), heat_score (简短热度标签), tldr (用接地气的极客大白话讲清楚它测出了什么或者好玩在哪，100字左右), prompt_recipe (提取或还原可用于复现该测试的 Prompt 指令), tags (3-4个短标签数组)。'
+              },
+              {
+                role: 'user',
+                content: rawText
+              }
+            ]
+          })
+        });
+
+        const data = await resp.json();
+        if (!resp.ok) {
+          throw new Error((data.error && data.error.message) || 'API 调用失败');
+        }
+
+        const parsed = JSON.parse(data.choices[0].message.content);
+        const newCard = {
+          id: 'custom-' + Date.now(),
+          title: parsed.title || '社区新锐野生评测项目',
+          category: parsed.category || 'fun',
+          category_label: parsed.category_label || '#极客整活',
+          source_name: 'DeepSeek 实时提纯收录',
+          source_url: 'https://www.reddit.com/r/LocalLLaMA/',
+          demo_url: '',
+          published_at: '刚刚提纯',
+          heat_score: parsed.heat_score || '⚡ 实时收录',
+          model_tested: parsed.model_tested || '前沿模型',
+          tldr: parsed.tldr || rawText,
+          prompt_recipe: parsed.prompt_recipe || '尝试复现该项目的核心指令',
+          tags: parsed.tags || ['一手实测', 'DeepSeek提纯']
+        };
+
+        saveCustomCard(newCard);
+        statusEl.textContent = '✅ 提纯成功！已加入主舞台顶部';
+        setTimeout(() => {
+          closeModals();
+          statusEl.textContent = '';
+        }, 900);
+      } catch (err) {
+        statusEl.textContent = '❌ 失败: ' + err.message;
+      }
+    }
+
+    function manualAddCard() {
+      const title = document.getElementById('add-title').value.trim();
+      const tldr = document.getElementById('add-tldr').value.trim();
+      const prompt = document.getElementById('add-prompt').value.trim();
+      const url = document.getElementById('add-url').value.trim();
+
+      if (!title || !tldr) return;
+
+      const newCard = {
+        id: 'manual-' + Date.now(),
+        title,
+        category: 'fun',
+        category_label: '#极客整活',
+        source_name: '手动一手收录',
+        source_url: url || '#',
+        demo_url: url || '',
+        published_at: '刚刚',
+        heat_score: '🌟 玩家严选',
+        model_tested: '综合实测',
+        tldr,
+        prompt_recipe: prompt,
+        tags: ['玩家收录', '野生评测']
+      };
+
+      saveCustomCard(newCard);
+      closeModals();
+    }
+
+    function saveCustomCard(card) {
+      radarData.community_projects.unshift(card);
+      try {
+        const saved = JSON.parse(localStorage.getItem('ai_radar_custom_projects') || '[]');
+        saved.unshift(card);
+        localStorage.setItem('ai_radar_custom_projects', JSON.stringify(saved));
+      } catch (e) {}
+      renderProjects();
+    }
+
+    loadCustomCards();
+    renderAll();
+  </script>
+</body>
+</html>

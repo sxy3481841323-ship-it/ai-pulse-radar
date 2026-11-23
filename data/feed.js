@@ -1,0 +1,275 @@
+// AI Pulse Radar - 自动生成的数据源 (请勿破坏 JSON 结构)
+window.AI_RADAR_DATA = {
+  "meta": {
+    "title": "AI 极客雷达 // GEEK PULSE LAB",
+    "subtitle": "一手野生评测 · 极客整活实验室 · 大厂硬核电报",
+    "last_updated": "2026-11-23 23:42",
+    "sources_monitored": [
+      "Simon Willison's Weblog",
+      "Reddit r/LocalLLaMA",
+      "Reddit r/ClaudeAI & r/Singularity",
+      "Hacker News (Show HN)",
+      "GitHub Trending AI",
+      "OpenAI / Anthropic / Google / DeepSeek Releases"
+    ]
+  },
+  "community_projects": [
+    {
+      "id": "pelican-riding-bicycle-svg",
+      "title": "经典镇馆之宝：鹈鹕骑自行车 (Pelican Riding a Bicycle SVG Benchmark)",
+      "category": "benchmark",
+      "category_label": "#野生基准测试",
+      "source_name": "Simon Willison's Blog",
+      "source_url": "https://simonwillison.net/tags/pelican-riding-a-bicycle/",
+      "demo_url": "https://simonwillison.net/tags/pelican-riding-a-bicycle/",
+      "author": "Simon Willison",
+      "published_at": "社区长青基准 · 持续更新至最新模型",
+      "heat_score": "🔥 极客圈公认图灵测试",
+      "model_tested": "Claude / GPT / DeepSeek / Qwen 全家桶对比",
+      "tldr": "为什么大厂跑分全是刷榜，极客却只认一只骑自行车的鹈鹕？因为训练集里几乎没有“鹈鹕骑自行车”的现成 SVG 代码！模型必须同时理解「鹈鹕的大嘴和身体解剖结构」+「自行车的三角车架与车轮几何关系」+「脚踩踏板、翅膀握车把的空间拓扑」，再用纯代码坐标盲画出来。这是检验新模型空间推理与代码直出能力的最残酷照妖镜。",
+      "media_type": "svg_showcase",
+      "svg_preview": "<svg viewBox=\"0 0 360 220\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;height:190px;background:radial-gradient(circle at 50% 40%, #162238 0%, #0a0e17 100%);border-radius:10px;\"><g stroke=\"#38bdf8\" stroke-width=\"2.5\" fill=\"none\" opacity=\"0.25\"><line x1=\"0\" y1=\"185\" x2=\"360\" y2=\"185\" stroke-dasharray=\"6 6\"/></g><!-- Wheels --><circle cx=\"105\" cy=\"150\" r=\"34\" stroke=\"#22d3ee\" stroke-width=\"4\" fill=\"none\"/><circle cx=\"105\" cy=\"150\" r=\"4\" fill=\"#22d3ee\"/><circle cx=\"245\" cy=\"150\" r=\"34\" stroke=\"#22d3ee\" stroke-width=\"4\" fill=\"none\"/><circle cx=\"245\" cy=\"150\" r=\"4\" fill=\"#22d3ee\"/><!-- Spokes --><g stroke=\"#22d3ee\" stroke-width=\"1\" opacity=\"0.45\"><line x1=\"105\" y1=\"116\" x2=\"105\" y2=\"184\"/><line x1=\"71\" y1=\"150\" x2=\"139\" y2=\"150\"/><line x1=\"245\" y1=\"116\" x2=\"245\" y2=\"184\"/><line x1=\"211\" y1=\"150\" x2=\"279\" y2=\"150\"/></g><!-- Bike Frame --><polygon points=\"105,150 155,105 215,105 168,150\" stroke=\"#a855f7\" stroke-width=\"4\" fill=\"none\" stroke-linejoin=\"round\"/><line x1=\"215\" y1=\"105\" x2=\"245\" y2=\"150\" stroke=\"#a855f7\" stroke-width=\"4\"/><line x1=\"215\" y1=\"105\" x2=\"208\" y2=\"82\" stroke=\"#a855f7\" stroke-width=\"4\"/><path d=\"M198,82 Q215,78 223,88\" stroke=\"#f472b6\" stroke-width=\"4\" fill=\"none\" stroke-linecap=\"round\"/><!-- Seat --><line x1=\"155\" y1=\"105\" x2=\"148\" y2=\"88\" stroke=\"#a855f7\" stroke-width=\"4\"/><ellipse cx=\"146\" cy=\"86\" rx=\"14\" ry=\"4\" fill=\"#f472b6\"/><!-- Pelican Body --><ellipse cx=\"160\" cy=\"66\" rx=\"28\" ry=\"20\" fill=\"#f8fafc\" transform=\"rotate(-12 160 66)\"/><!-- Pelican Neck & Head --><path d=\"M180,55 Q196,35 192,24\" stroke=\"#f8fafc\" stroke-width=\"13\" fill=\"none\" stroke-linecap=\"round\"/><circle cx=\"194\" cy=\"22\" r=\"10\" fill=\"#f8fafc\"/><circle cx=\"197\" cy=\"20\" r=\"2.2\" fill=\"#0f172a\"/><!-- Giant Pelican Beak & Pouch --><path d=\"M202,20 L252,26 L202,31 Z\" fill=\"#fbbf24\"/><path d=\"M202,26 Q228,50 248,26 Z\" fill=\"#f59e0b\" opacity=\"0.9\"/><!-- Wing holding handlebar --><path d=\"M165,62 Q190,72 212,82\" stroke=\"#e2e8f0\" stroke-width=\"8\" fill=\"none\" stroke-linecap=\"round\"/><!-- Legs on pedals --><path d=\"M154,82 L175,126 L168,150\" stroke=\"#fb923c\" stroke-width=\"3.5\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><text x=\"16\" y=\"26\" fill=\"#94a3b8\" font-family=\"monospace\" font-size=\"11\">SVG BENCHMARK // ZERO-SHOT GEOMETRY</text></svg>",
+      "prompt_recipe": "Generate an SVG of a pelican riding a bicycle. Return only valid raw SVG code, with clear geometry for the bicycle frame, two wheels, handlebars, pedals, and the pelican's distinctive beak pouch.",
+      "tags": [
+        "SVG盲画",
+        "空间几何推理",
+        "Simon Willison",
+        "防刷榜测试"
+      ]
+    },
+    {
+      "id": "deer-riding-bicycle-biomechanics",
+      "title": "野生进阶变体：小鹿骑车与四足动物单车物理测试 (Deer on a Bicycle SVG / Physics)",
+      "category": "benchmark",
+      "category_label": "#野生基准测试",
+      "source_name": "Reddit r/LocalLLaMA & X 社区变体",
+      "source_url": "https://www.reddit.com/r/LocalLLaMA/search/?q=bicycle+svg+benchmark&restrict_sr=1",
+      "demo_url": "https://www.reddit.com/r/LocalLLaMA/",
+      "author": "r/LocalLLaMA 社区极客",
+      "published_at": "社区热门变体挑战",
+      "heat_score": "⚡ 专治模型死记硬背鹈鹕",
+      "model_tested": "DeepSeek-V3 / Claude Sonnet / Qwen-Coder",
+      "tldr": "自从“鹈鹕骑车”火了之后，社区怀疑部分新模型在后训练里专门针对鹈鹕做了过拟合。于是玩家们衍生出了「梅花鹿骑自行车」「章鱼骑独轮车」等进阶测试：鹿有分叉的鹿角、细长的四肢蹄子，模型不仅要画对车架，还要处理长腿怎么折叠踩踏板、前蹄怎么扶车把，甚至有玩家要求生成带 Canvas 物理关节蹬车动画的版本。",
+      "media_type": "svg_showcase",
+      "svg_preview": "<svg viewBox=\"0 0 360 220\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;height:190px;background:radial-gradient(circle at 50% 40%, #1e1b38 0%, #0a0e17 100%);border-radius:10px;\"><line x1=\"0\" y1=\"185\" x2=\"360\" y2=\"185\" stroke=\"#818cf8\" stroke-width=\"2\" stroke-dasharray=\"5 5\" opacity=\"0.3\"/><!-- Wheels --><circle cx=\"105\" cy=\"150\" r=\"33\" stroke=\"#34d399\" stroke-width=\"4\" fill=\"none\"/><circle cx=\"245\" cy=\"150\" r=\"33\" stroke=\"#34d399\" stroke-width=\"4\" fill=\"none\"/><!-- Frame --><polygon points=\"105,150 152,106 212,106 168,150\" stroke=\"#fbbf24\" stroke-width=\"3.5\" fill=\"none\"/><line x1=\"212\" y1=\"106\" x2=\"245\" y2=\"150\" stroke=\"#fbbf24\" stroke-width=\"3.5\"/><line x1=\"212\" y1=\"106\" x2=\"206\" y2=\"80\" stroke=\"#fbbf24\" stroke-width=\"3.5\"/><!-- Deer Body --><ellipse cx=\"158\" cy=\"68\" rx=\"26\" ry=\"16\" fill=\"#d97706\" transform=\"rotate(-18 158 68)\"/><circle cx=\"148\" cy=\"65\" r=\"2.5\" fill=\"#fef3c7\"/><circle cx=\"160\" cy=\"62\" r=\"2.5\" fill=\"#fef3c7\"/><circle cx=\"154\" cy=\"72\" r=\"2\" fill=\"#fef3c7\"/><!-- Deer Neck & Head --><path d=\"M176,56 L195,28\" stroke=\"#d97706\" stroke-width=\"11\" stroke-linecap=\"round\"/><ellipse cx=\"202\" cy=\"26\" rx=\"11\" ry=\"7\" fill=\"#d97706\"/><circle cx=\"212\" cy=\"25\" r=\"2.5\" fill=\"#1e293b\"/><circle cx=\"204\" cy=\"24\" r=\"2\" fill=\"#0f172a\"/><!-- Antlers --><path d=\"M195,20 L188,6 M191,13 L182,11 M198,19 L202,5 M200,12 L209,9\" stroke=\"#fde68a\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><!-- Limbs --><path d=\"M175,65 L206,80\" stroke=\"#b45309\" stroke-width=\"4.5\" stroke-linecap=\"round\"/><path d=\"M148,78 L160,118 L168,150\" stroke=\"#b45309\" stroke-width=\"4.5\" fill=\"none\" stroke-linecap=\"round\"/><text x=\"16\" y=\"26\" fill=\"#a5b4fc\" font-family=\"monospace\" font-size=\"11\">VARIANT // DEER ANTLERS &amp; QUAD-LIMB KINEMATICS</text></svg>",
+      "prompt_recipe": "生成一个单文件 HTML，使用 SVG 或 Canvas 绘制一只长着分叉鹿角的梅花鹿正在骑自行车。要求：车轮与踏板具有联动旋转动画，鹿的后腿随踏板做曲柄连杆往复蹬车运动，前蹄稳握车把。",
+      "tags": [
+        "防过拟合测试",
+        "小鹿骑车",
+        "运动学动画",
+        "单文件HTML"
+      ]
+    },
+    {
+      "id": "select-styling-specimens",
+      "title": "Claude 5.2 一键生成跨浏览器 Select 样式大全，截图党狂喜",
+      "category": "tool",
+      "category_label": "#开源神仙小玩具",
+      "source_name": "Simon Willison's Blog",
+      "source_url": "https://simonwillison.net/2026/Nov/22/select-styling/",
+      "demo_url": "https://simonwillison.net/2026/Nov/22/select-styling/",
+      "published_at": "今日一手实时抓取",
+      "heat_score": "🔥 社区高赞实测",
+      "model_tested": "Claude Fable 5.2",
+      "tldr": "Simon 被 Chrome 里丑哭的 <select> 逼疯，直接让 Claude 5.2 写了个页面，穷举所有 CSS 样式方案，方便他跨桌面/移动端截图对比。实测 Claude 能精准理解“穷举所有样式”的模糊需求，生成可运行的 HTML，但审美仍需人类把关——最终 Simon 自己选了最顺眼的 CSS。",
+      "prompt_recipe": "Build an HTML page that shows all of the ways a select box can be styled, I plan to take screenshots in every desktop and mobile browser",
+      "tags": [
+        "前端",
+        "CSS",
+        "Claude",
+        "UI"
+      ]
+    },
+    {
+      "id": "muru-rust-python-server",
+      "title": "mod_wsgi 之父用 AI 辅助写 Rust 服务器 Muru，要革 Python 部署的命",
+      "category": "tool",
+      "category_label": "#开源神仙小玩具",
+      "source_name": "Simon Willison's Blog",
+      "source_url": "https://simonwillison.net/2026/Nov/21/muru/",
+      "demo_url": "https://simonwillison.net/2026/Nov/21/muru/",
+      "published_at": "今日一手实时抓取",
+      "heat_score": "🔥 社区高赞实测",
+      "model_tested": "未指定（AI 辅助开发）",
+      "tldr": "Graham Dumpleton 憋了 20 年的大招：用 Rust 写了个 ASGI/WSGI 服务器 Muru，全程 AI 辅助并公开开发日志。这玩意儿要是成了，Python 生产部署可能不再需要 Gunicorn/uWSGI 那套老古董。社区最兴奋的是他“边写边发长文”的硬核开发模式，比代码本身还有教学价值。",
+      "prompt_recipe": "无固定 prompt，但可借鉴其开发日志：让 AI 辅助设计 Rust 异步服务器架构，并逐模块生成代码与测试。",
+      "tags": [
+        "Rust",
+        "Python",
+        "ASGI",
+        "服务器"
+      ]
+    },
+    {
+      "id": "token-fraud-chatprd",
+      "title": "ChatPRD 创始人亲述：白嫖党用免费试用薅走海量 token 转卖",
+      "category": "benchmark",
+      "category_label": "#野生基准测试",
+      "source_name": "Simon Willison's Blog",
+      "source_url": "https://simonwillison.net/2026/Nov/20/token-fraud-is-here-and-its-bad/",
+      "demo_url": "https://simonwillison.net/2026/Nov/20/token-fraud-is-here-and-its-bad/",
+      "published_at": "今日一手实时抓取",
+      "heat_score": "🔥 社区高赞实测",
+      "model_tested": "GPT-4 系列（ChatPRD 后端）",
+      "tldr": "Claire Vo 曝光自家产品被 token 欺诈团伙盯上：利用免费试用疯狂薅 AI 额度，要么自己用，要么转卖 token 牟利。这其实是给所有 AI 产品的一记警钟——免费试用就是攻击面，风控不做好，模型越强亏得越狠。社区讨论焦点：如何在不误伤正常用户的前提下识别批量注册和异常调用。",
+      "prompt_recipe": "无固定 prompt，但可复现测试思路：用脚本批量注册免费账号，模拟正常用户调用 API，观察平台风控触发阈值。",
+      "tags": [
+        "安全",
+        "风控",
+        "Token",
+        "SaaS"
+      ]
+    },
+    {
+      "id": "one-shot-3a-threejs-flight-game",
+      "title": "单段 Prompt 直出「伪3A大作」：零外部素材 Three.js 3D 峡谷空战与流体着色器",
+      "category": "game",
+      "category_label": "#一镜到底/3A小游戏",
+      "source_name": "Reddit r/ClaudeAI & Hacker News Show HN",
+      "source_url": "https://news.ycombinator.com/from?site=threejs.org",
+      "demo_url": "https://threejs.org/examples/#webgl_terrain_dynamic",
+      "author": "Indie AI Game Jam 玩家",
+      "published_at": "社区高赞整活范式",
+      "heat_score": "🎮 零美术资产 · 纯代码生成光影材质",
+      "model_tested": "Claude Opus / DeepSeek-R1 / Gemini Pro",
+      "tldr": "极客圈最火的“一镜到底 3A 挑战”：禁止引入任何外部 3D 模型（.glb）或贴图图片，强迫大模型在一个 HTML 文件里用纯数学（Perlin 噪声算法生成高山峡谷地形、GLSL 程序化水面反射着色器、WebAudio 合成引擎轰鸣声）搓出一款支持键盘/鼠标操控、带体积雾和晚霞光追感的 3D 飞行射击游戏。",
+      "media_type": "code_badge",
+      "svg_preview": "<svg viewBox=\"0 0 360 220\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;height:190px;background:linear-gradient(180deg, #0f172a 0%, #311042 55%, #f97316 100%);border-radius:10px;\"><!-- Sun --><circle cx=\"180\" cy=\"115\" r=\"36\" fill=\"#fde047\" opacity=\"0.85\"/><!-- Wireframe Mountains --><polygon points=\"0,190 55,110 120,190\" fill=\"#1e1b4b\" stroke=\"#c084fc\" stroke-width=\"1.2\"/><polygon points=\"230,190 295,100 360,190\" fill=\"#1e1b4b\" stroke=\"#c084fc\" stroke-width=\"1.2\"/><!-- Perspective Grid --><g stroke=\"#f472b6\" stroke-width=\"1\" opacity=\"0.55\"><line x1=\"0\" y1=\"155\" x2=\"360\" y2=\"155\"/><line x1=\"0\" y1=\"172\" x2=\"360\" y2=\"172\"/><line x1=\"0\" y1=\"192\" x2=\"360\" y2=\"192\"/><line x1=\"0\" y1=\"215\" x2=\"360\" y2=\"215\"/><line x1=\"180\" y1=\"140\" x2=\"-40\" y2=\"220\"/><line x1=\"180\" y1=\"140\" x2=\"60\" y2=\"220\"/><line x1=\"180\" y1=\"140\" x2=\"140\" y2=\"220\"/><line x1=\"180\" y1=\"140\" x2=\"220\" y2=\"220\"/><line x1=\"180\" y1=\"140\" x2=\"300\" y2=\"220\"/><line x1=\"180\" y1=\"140\" x2=\"400\" y2=\"220\"/></g><!-- Jet Fighter Silhouette --><polygon points=\"180,115 152,142 174,136 180,146 186,136 208,142\" fill=\"#0f172a\" stroke=\"#38bdf8\" stroke-width=\"2\"/><circle cx=\"180\" cy=\"139\" r=\"3.5\" fill=\"#38bdf8\"/><text x=\"16\" y=\"26\" fill=\"#f8fafc\" font-family=\"monospace\" font-size=\"11\">SINGLE-FILE 3D // PROCEDURAL SHADER &amp; AUDIO</text></svg>",
+      "prompt_recipe": "Write a complete, single-file HTML 3D canyon flight game using Three.js CDN. No external assets allowed: generate procedural terrain with Simplex noise, atmospheric sunset fog, dynamic camera banking on WASD/Arrow keys, laser projectiles with bloom, and procedural engine sound effects using Web Audio API.",
+      "tags": [
+        "Three.js",
+        "单HTML游戏",
+        "程序化生成",
+        "零外部素材"
+      ]
+    },
+    {
+      "id": "llm-minecraft-voxel-sandbox",
+      "title": "浏览器单文件《我的世界》光影体素引擎 + AI 自动建房脚本",
+      "category": "game",
+      "category_label": "#一镜到底/3A小游戏",
+      "source_name": "GitHub Trending / Reddit r/Singularity",
+      "source_url": "https://www.reddit.com/r/singularity/",
+      "demo_url": "https://threejs.org/examples/#webgl_geometry_minecraft",
+      "author": "VoxelHack 社区挑战",
+      "published_at": "社区热门挑战",
+      "heat_score": "🧱 600行代码复刻体素光影",
+      "model_tested": "DeepSeek-V3 / Claude Sonnet",
+      "tldr": "社区玩家用一段结构化 Prompt 让模型在单个 HTML 里写出带 AO（环境光遮蔽）、昼夜交替、水面透明折射和方块破坏/放置的微型 Minecraft，更绝的是在右上角内置了一个“建筑指令框”，输入形状描述就能用 JS 算法在游戏里自动盖出城堡。",
+      "media_type": "svg_showcase",
+      "svg_preview": "<svg viewBox=\"0 0 360 220\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;height:190px;background:radial-gradient(circle at 50% 30%, #132a13 0%, #070b12 100%);border-radius:10px;\"><!-- Isometric Voxel Cubes --><g stroke=\"#0f172a\" stroke-width=\"1.5\" stroke-linejoin=\"round\"><polygon points=\"180,55 220,75 180,95 140,75\" fill=\"#4ade80\"/><polygon points=\"140,75 180,95 180,140 140,120\" fill=\"#854d0e\"/><polygon points=\"220,75 180,95 180,140 220,120\" fill=\"#713f12\"/><polygon points=\"140,120 180,140 140,160 100,140\" fill=\"#22c55e\"/><polygon points=\"220,120 260,140 220,160 180,140\" fill=\"#38bdf8\" opacity=\"0.85\"/></g><text x=\"16\" y=\"26\" fill=\"#86efac\" font-family=\"monospace\" font-size=\"11\">VOXEL ENGINE // 600 LINES PURE JS</text></svg>",
+      "prompt_recipe": "Create a single-file HTML voxel sandbox game using Three.js with instanced mesh rendering, pointer-lock FPS controls, left/right click block break/place, procedural biome colors, and a built-in structure generator button that builds a spiral tower.",
+      "tags": [
+        "体素引擎",
+        "Minecraft复刻",
+        "InstancedMesh",
+        "极客整活"
+      ]
+    },
+    {
+      "id": "local-llm-rotating-hexagon-ball-test",
+      "title": "继鹈鹕之后的物理噩梦：旋转六边形内的 20 个彩色弹力球碰撞 + 尾迹",
+      "category": "fun",
+      "category_label": "#极客整活",
+      "source_name": "Reddit r/LocalLLaMA 物理基准贴",
+      "source_url": "https://www.reddit.com/r/LocalLLaMA/search/?q=rotating+hexagon+bouncing+ball&restrict_sr=1",
+      "demo_url": "https://www.reddit.com/r/LocalLLaMA/",
+      "author": "r/LocalLLaMA Benchmark Gang",
+      "published_at": "开源社区标配测试",
+      "heat_score": "🧪 检验代码物理数学的试金石",
+      "model_tested": "DeepSeek / Qwen / Llama 本地量化版",
+      "tldr": "在 r/LocalLLaMA 社区，每当有新开源模型发布，大家除了测鹈鹕，必测的就是“旋转六边形里的弹力球”。很多模型写出来的球会直接穿墙飞出去，或者旋转外壁没有给球施加切向动量。能一把写出不穿模、带重力、空气阻力、壁面旋转角速度动量传递和霓虹粒子尾迹的模型，才算真正及格。",
+      "media_type": "svg_showcase",
+      "svg_preview": "<svg viewBox=\"0 0 360 220\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;height:190px;background:radial-gradient(circle at 50% 50%, #1e1b4b 0%, #090d16 100%);border-radius:10px;\"><polygon points=\"180,32 248,71 248,149 180,188 112,149 112,71\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"3.5\"/><circle cx=\"165\" cy=\"105\" r=\"9\" fill=\"#f43f5e\"/><circle cx=\"202\" cy=\"125\" r=\"8\" fill=\"#eab308\"/><circle cx=\"155\" cy=\"138\" r=\"7\" fill=\"#22c55e\"/><circle cx=\"190\" cy=\"85\" r=\"8\" fill=\"#a855f7\"/><path d=\"M165,105 Q145,85 130,95\" stroke=\"#f43f5e\" stroke-width=\"2\" fill=\"none\" stroke-dasharray=\"3 3\"/><path d=\"M202,125 Q225,110 236,118\" stroke=\"#eab308\" stroke-width=\"2\" fill=\"none\" stroke-dasharray=\"3 3\"/><text x=\"16\" y=\"26\" fill=\"#38bdf8\" font-family=\"monospace\" font-size=\"11\">PHYSICS TEST // TANGENTIAL WALL COLLISION</text></svg>",
+      "prompt_recipe": "Write a single HTML file with a Canvas simulation of 15 glowing neon balls bouncing inside a continuously rotating regular hexagon. Include gravity, ball-to-ball elastic collisions, accurate moving-wall normal + tangential impulse response so balls never tunnel through edges, and fading motion trails.",
+      "tags": [
+        "旋转六边形",
+        "碰撞物理测试",
+        "r/LocalLLaMA",
+        "防穿模"
+      ]
+    }
+  ],
+  "company_timeline": [
+    {
+      "id": "gemini-4-reasoning-levels",
+      "company": "Google",
+      "region": "US",
+      "badge_color": "#38bdf8",
+      "date": "最新动态",
+      "title": "llm-gemini 插件更新：Gemini 4 Hydrogen/Neon 支持 xhigh 推理档位",
+      "summary": "Simon Willison 的 llm-gemini 插件修复了遗漏的 xhigh 推理级别，Hydrogen 在 xhigh 下输出 token 和成本显著变化，开发者可更精细控制推理开销。",
+      "url": "https://simonwillison.net/2026/Nov/20/llm-gemini/"
+    },
+    {
+      "id": "riemann-hypothesis-ai-proof",
+      "company": "Anthropic",
+      "region": "US",
+      "badge_color": "#c084fc",
+      "date": "最新动态",
+      "title": "Levent Alpöge 宣称与 Claude 合作发现黎曼猜想证明，数学界紧急围观",
+      "summary": "若证明成立，将是 AI 辅助数学的重大里程碑；但目前仅为个人宣称，需经同行严格审查，社区态度谨慎乐观。",
+      "url": "https://simonwillison.net/2026/Nov/20/levent-alpoge/"
+    },
+    {
+      "id": "human-only-grh-proof",
+      "company": "Stanford",
+      "region": "US",
+      "badge_color": "#4ade80",
+      "date": "最新动态",
+      "title": "Ravi Vakil 强调另一项广义黎曼猜想证明“纯人类，无 AI”",
+      "summary": "在 AI 数学宣称满天飞时，传统数学家划清界限：Alessandro Masullo 的 GRH 证明草案完全由人类完成，AI 暂时靠边站。",
+      "url": "https://simonwillison.net/2026/Nov/20/ravi-vakil/"
+    },
+    {
+      "id": "deepseek-latest",
+      "company": "DeepSeek (深度求索)",
+      "region": "CN",
+      "badge_color": "#38bdf8",
+      "date": "核心关注",
+      "title": "DeepSeek 代码与推理能力持续霸榜开源社区 r/LocalLLaMA",
+      "summary": "在单文件 HTML 游戏生成、SVG 几何盲画（鹈鹕骑车）与旋转六边形物理模拟中，DeepSeek 系列凭借极高的性价比和严密的数学代码推理，成为海内外极客跑自动化脚本与野生 Benchmark 的首选主力 API。",
+      "url": "https://github.com/deepseek-ai"
+    },
+    {
+      "id": "anthropic-claude",
+      "company": "Anthropic",
+      "region": "US",
+      "badge_color": "#fb923c",
+      "date": "前沿动态",
+      "title": "Claude Artifacts 与 Agentic Coding 持续引领“一镜到底”前端生成",
+      "summary": "Anthropic 的 Claude 模型在前端审美、单次 Prompt 生成复杂交互组件与 SVG 细节表现力上依然是 Simon Willison 鹈鹕测试中的高分常客。",
+      "url": "https://www.anthropic.com/news"
+    },
+    {
+      "id": "openai-updates",
+      "company": "OpenAI",
+      "region": "US",
+      "badge_color": "#4ade80",
+      "date": "前沿动态",
+      "title": "OpenAI 强化推理模型对复杂工具链与长程代码任务的执行力",
+      "summary": "从单点对话走向多步自主规划，社区重点关注其在长时间自主 Debug 与完整 WebGL 物理沙盒生成中的稳定性。",
+      "url": "https://openai.com/news/"
+    },
+    {
+      "id": "google-deepmind",
+      "company": "Google DeepMind",
+      "region": "US",
+      "badge_color": "#60a5fa",
+      "date": "前沿动态",
+      "title": "Gemini 多模态与超长上下文在原生前端/3D 场景生成中的突破",
+      "summary": "凭借百万级上下文和强大的多模态视觉理解，极客社区常用来直接看图复刻完整 UI 或一次性塞入整个开源库文档进行整活开发。",
+      "url": "https://deepmind.google/discover/blog/"
+    },
+    {
+      "id": "qwen-alibaba",
+      "company": "Qwen (通义千问)",
+      "region": "CN",
+      "badge_color": "#c084fc",
+      "date": "开源生态",
+      "title": "Qwen-Coder 与全尺寸开源矩阵成为本地显卡玩家的装机标配",
+      "summary": "从几B的小尺寸端侧模型到旗舰级代码模型，在 HuggingFace 与 Reddit 本地部署圈长期占据下载榜前列。",
+      "url": "https://github.com/QwenLM"
+    }
+  ]
+};
