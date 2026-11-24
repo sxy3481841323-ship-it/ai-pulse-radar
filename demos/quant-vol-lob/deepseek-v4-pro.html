@@ -202,8 +202,8 @@ input[type="range"] {
     <!-- 左：指数净值 + HMM 三态背景色带 + 卡尔曼滤波均线 -->
     <section class="panel">
       <div class="panel-head">
-        <span>01 · 指数价格与卡尔曼滤波趋势线（底色：HMM 隐马尔可夫牛/熊/震荡状态）</span>
-        <span class="meta" id="hmmStatus">HMM 隐状态: 震荡整固 | 仓位信号: 50%</span>
+        <span>01 · 指数价格与卡尔曼滤波（底色：HMM 牛/熊/震荡）</span>
+        <span class="meta" id="hmmStatus">HMM: 震荡 | 仓位: 50%</span>
       </div>
       <div class="canvas-box">
         <canvas id="cvMain"></canvas>
@@ -214,8 +214,8 @@ input[type="range"] {
       <!-- 右上：RSRS 右偏修正标准分 & 择时阈值线 -->
       <section class="panel">
         <div class="panel-head">
-          <span>02 · RSRS 右偏修正标准分（突破 +S 买入 / 跌破 -S 空仓）</span>
-          <span class="meta" id="rsrsReadout">RSRS_r = +0.32 | R² = 0.84</span>
+          <span>02 · RSRS 右偏标准分（±S 阈值）</span>
+          <span class="meta" id="rsrsReadout">RSRS = +0.32 | R² = 0.84</span>
         </div>
         <div class="canvas-box">
           <canvas id="cvRsrs"></canvas>
@@ -225,8 +225,8 @@ input[type="range"] {
       <!-- 右下：Level-2 逐笔订单流足迹 (主买成交 / 主卖成交 / 逐笔撤单率) -->
       <section class="panel">
         <div class="panel-head">
-          <span>03 · Level-2 逐笔订单流 Orderflow（红=主动买大单 · 绿=主动卖 · 橙框=撤单激增）</span>
-          <span class="meta" id="l2Readout">净主买: +12.4% | 撤单率: 18%</span>
+          <span>03 · Level-2 逐笔订单流（红买/绿卖/橙撤单）</span>
+          <span class="meta" id="l2Readout">净主买: +12.4% | 撤单: 18%</span>
         </div>
         <div class="canvas-box">
           <canvas id="cvL2"></canvas>
@@ -409,14 +409,14 @@ input[type="range"] {
     });
     ctxM.stroke();
 
-    // 图例
-    ctxM.font = `600 ${Math.max(10, Math.round(W * 0.017))}px "JetBrains Mono", monospace`;
+    // 图例（按画布宽度自适应间距，绝不重叠）
+    ctxM.font = `600 ${Math.max(11, Math.round(W * 0.016))}px "JetBrains Mono", monospace`;
     ctxM.fillStyle = '#d9481e';
-    ctxM.fillText('━ RSRS+HMM 择时策略净值', 14, 22);
+    ctxM.fillText('━ RSRS+HMM 策略净值', W * 0.02, 24);
     ctxM.fillStyle = '#1e2421';
-    ctxM.fillText('━ 基准指数 (中证1000)', 200, 22);
+    ctxM.fillText('━ 基准指数 (中证1000)', W * 0.35, 24);
     ctxM.fillStyle = '#1d57a8';
-    ctxM.fillText('┅ 卡尔曼滤波动态均值', 365, 22);
+    ctxM.fillText('┅ 卡尔曼滤波均线', W * 0.68, 24);
   }
 
   function drawRsrs() {

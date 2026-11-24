@@ -283,6 +283,8 @@ h1, h2, h3, h4, p { margin: 0; }
   padding: 2px 8px;
   background: var(--ink);
   color: #fff;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .play-card.active .model-pill {
   background: var(--vermilion);
@@ -611,6 +613,7 @@ h1, h2, h3, h4, p { margin: 0; }
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  gap: 12px;
   padding-bottom: 10px;
   border-bottom: 1.5px solid var(--ink);
 }
@@ -618,6 +621,8 @@ h1, h2, h3, h4, p { margin: 0; }
   font-family: var(--serif);
   font-size: 19px;
   font-weight: 900;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .col-subhead span {
   font-family: var(--mono);
