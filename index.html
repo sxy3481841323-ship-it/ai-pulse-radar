@@ -3,40 +3,37 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>量化与一手 AI 雷达 · Quant Skills · 可视化神作 · 实时极客情报</title>
-  <meta name="description" content="按投研权重构建的一手情报工作台：01 统计学/金融市场/金融数学/计量经济学/量化金融/宏观经济学效率 Skills 与工具；02 Astra 6.2 直升机拆解、Heston 随机波动率曲面与 DeepSeek-V4-Pro 可视化实盘；03 去同质化的一手极客社区与大厂通告。" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='2' y='2' width='28' height='28' fill='%23f5f5f1' stroke='%23181d1a' stroke-width='2.5'/><path d='M6 23 L12 14 L18 18 L26 8' fill='none' stroke='%23d9481e' stroke-width='2.8'/></svg>" />
+  <title>野生 AI 雷达 · 每周好玩项目 · 一句话极客情报 · 实用 Skill 专区</title>
+  <meta name="description" content="以玩转 AI 为核心的一手极客工作台：01 每周推陈出新的好玩可视化实盘项目；02 一句话讲清价值的社群热帖与企业大事记；03 覆盖大学工科、创业、日常生活与量化课实战的可点开 Skill 专区。" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='2' y='2' width='28' height='28' rx='4' fill='%23f5f5f1' stroke='%23181d1a' stroke-width='2.5'/><circle cx='16' cy='16' r='6' fill='%23d9481e'/></svg>" />
   <style>
 /* ==========================================================================
-   量化与一手 AI 雷达 · 瑞士科学仪器与投研总表美学 (Guided by antialgorithm)
-   - 严格浅色纸张风格 (#F4F3EE / #FAFBF8)，拒绝暗黑模式与廉价毛玻璃模板
-   - 信息权重架构：
-     [首屏左 64%] 01 量化与数理研究效率 Skills (统计/金融市场/金融数学/计量/量化/宏观)
-     [首屏右 36%] 02 24h 实时大厂大事记与极客一手快讯流（保障最高时效性，永不被常青 Demo 挤出首屏）
-     [中段标本舱] 03 好玩的可视化项目与提示词标本架（胶片标本卡片 + 按需展开/收起实盘交互剧场）
-     [下段全量表] 04 去同质化的一手社区深度情报总表
+   野生 AI 雷达 · 舒展、松弛、呼吸感纸质工作台 (Guided by antialgorithm)
+   - 保持温暖浅色纸张与油墨质感 (#F4F3EE / #FAFBF8)，告别局促拥挤
+   - 结构顺序：
+     01 本周好玩的可视化项目（每周推陈出新 + 内联零断连全屏实盘）
+     02 社群一手热帖 & 企业大事记（每条必须一句话讲清楚价值在哪）
+     03 可点开的实用 Skill 专区（大学工科 · 创业开发 · 日常生活 · 你的量化课助手）
    ========================================================================== */
 
 :root {
-  --paper: #eeede7;
+  --paper: #efeee8;
   --paper-bright: #fafbf8;
   --paper-warm: #f3f2ec;
-  --paper-deep: #e3e2da;
+  --paper-deep: #e4e3db;
   --ink: #181d1a;
-  --ink-2: #323a35;
-  --muted: #616a63;
-  --faint: #8c948d;
+  --ink-2: #343c37;
+  --muted: #646d66;
   --rule-bold: 1.5px solid #181d1a;
-  --rule-thin: 1px solid #cdd2c9;
+  --rule-thin: 1px solid #d2d6ce;
 
-  /* 语义学科与信号色 */
-  --vermilion: #d9481e;      /* 视觉神作 / 高优信号 / 金融风险偏度 */
+  --vermilion: #d9481e;
   --vermilion-tint: #fbeae4;
-  --emerald: #196b48;        /* 量化金融 / 开源效率工具 */
-  --emerald-tint: #e3f3eb;
-  --cobalt: #1b4fa0;         /* 计量经济学 / 金融数学 / 评测 */
-  --cobalt-tint: #e7effc;
-  --amber: #9e6108;          /* 宏观经济学 / 统计学 */
+  --emerald: #196b48;
+  --emerald-tint: #e4f3ec;
+  --cobalt: #1b4fa0;
+  --cobalt-tint: #e8effc;
+  --amber: #9e6108;
   --amber-tint: #f8eedc;
 
   --serif: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", Georgia, serif;
@@ -49,25 +46,26 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   background-color: var(--paper);
-  background-image: radial-gradient(rgba(24, 29, 26, 0.045) 0.75px, transparent 0.75px);
-  background-size: 16px 16px;
+  background-image: radial-gradient(rgba(24, 29, 26, 0.04) 0.75px, transparent 0.75px);
+  background-size: 20px 20px;
   color: var(--ink);
-  font: 14.5px/1.58 var(--sans);
+  font: 15.5px/1.68 var(--sans);
   -webkit-font-smoothing: antialiased;
 }
 a { color: inherit; }
-button, input, select { font: inherit; color: inherit; border-radius: 0; }
+button, input, select { font: inherit; color: inherit; }
 h1, h2, h3, h4, p { margin: 0; }
 
+/* 宽敞的主画布容器，留足四周呼吸空间 */
 .sheet {
-  max-width: 1520px;
-  margin: 14px auto 44px;
+  max-width: 1380px;
+  margin: 24px auto 64px;
   background: var(--paper-bright);
   border: var(--rule-bold);
-  box-shadow: 0 10px 30px rgba(24, 29, 26, 0.05);
+  box-shadow: 0 14px 36px rgba(24, 29, 26, 0.05);
 }
 
-/* ---------- 顶部报头 Masthead ---------- */
+/* ---------- 顶部报头 Masthead（清爽不拥挤） ---------- */
 .masthead {
   border-bottom: var(--rule-bold);
 }
@@ -76,1243 +74,935 @@ h1, h2, h3, h4, p { margin: 0; }
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
-  padding: 7px 18px;
+  gap: 12px;
+  padding: 10px 28px;
   background: var(--ink);
   color: var(--paper-bright);
   font-family: var(--mono);
-  font-size: 11.5px;
-  letter-spacing: 0.02em;
+  font-size: 12px;
 }
 .masthead-meta {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
 }
-.issue-tag {
-  color: #ff9e7d;
-  font-weight: 700;
+.week-pill {
+  background: var(--vermilion);
+  color: #fff;
+  font-weight: 800;
+  padding: 2px 9px;
 }
-.sep { opacity: 0.38; }
 .jump-nav {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 14px;
+  gap: 20px;
 }
-.jump-nav a {
+.jump-nav a, .jump-nav button {
   text-decoration: none;
   color: var(--paper);
+  background: transparent;
+  border: 0;
   padding: 2px 0;
   border-bottom: 1.5px solid transparent;
   font-weight: 600;
+  cursor: pointer;
 }
-.jump-nav a:hover {
+.jump-nav a:hover, .jump-nav button:hover {
   color: #fff;
   border-bottom-color: var(--vermilion);
 }
-
-.masthead-main {
-  display: grid;
-  grid-template-columns: minmax(0, 7.2fr) minmax(320px, 2.8fr);
+.jump-nav .skill-nav-btn {
+  background: #2c3530;
+  border: 1px solid #647068;
+  padding: 4px 11px;
+  color: #ffbfa8;
 }
-.masthead-brand {
-  padding: 18px 22px;
+.jump-nav .skill-nav-btn:hover {
+  background: var(--vermilion);
+  color: #fff;
+  border-color: var(--vermilion);
+}
+
+.masthead-hero {
+  padding: 28px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  background: var(--paper-bright);
+}
+.brand-left {
   display: flex;
   align-items: center;
-  gap: 18px;
-  border-right: var(--rule-bold);
+  gap: 20px;
 }
-.crest-wrap {
-  flex: none;
-  width: 68px;
-  height: 68px;
+.logo-box {
+  width: 64px;
+  height: 64px;
   border: 1.5px solid var(--ink);
   background: var(--paper-warm);
   display: grid;
   place-items: center;
-}
-.title-block {
-  min-width: 0;
-  flex: 1;
+  flex: none;
 }
 .kicker {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--vermilion);
-  text-transform: uppercase;
   margin-bottom: 4px;
-}
-.title-row {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
 }
 .site-title {
   font-family: var(--serif);
-  font-size: clamp(28px, 3.1vw, 42px);
+  font-size: clamp(30px, 3.2vw, 44px);
   font-weight: 900;
-  line-height: 1.08;
+  line-height: 1.1;
   letter-spacing: -0.02em;
 }
-.priority-ribbon {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
-  margin-top: 10px;
-  font-family: var(--mono);
-  font-size: 11.5px;
+.site-sub {
+  font-size: 15px;
+  color: var(--ink-2);
+  margin-top: 6px;
 }
-.prio-pill {
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+.open-skill-hero-btn {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 18px;
+  border: 1.5px solid var(--ink);
+  background: var(--paper-warm);
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 3px 8px;
-  border: 1px solid var(--ink);
-  background: var(--paper-warm);
-  font-weight: 600;
+  gap: 8px;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
 }
-.prio-pill.p1 {
-  background: var(--ink);
-  color: var(--paper-bright);
-}
-.prio-pill.p2 {
-  background: var(--vermilion-tint);
-  border-color: var(--vermilion);
-  color: #962b0b;
-}
-.prio-pill.p3 {
-  background: var(--emerald-tint);
-  border-color: var(--emerald);
-  color: var(--emerald);
-}
-.prio-arrow {
-  font-weight: 700;
-  color: var(--muted);
-}
-
-/* 右上角直连数据源监测表 */
-.telemetry-box {
-  padding: 12px 16px;
-  background: var(--paper-warm);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.telemetry-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 700;
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--ink);
-  margin-bottom: 8px;
-}
-.telemetry-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px 8px;
-  font-family: var(--mono);
-  font-size: 10.5px;
-}
-.tel-cell {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2px 5px;
-  background: var(--paper-bright);
-  border: 1px solid var(--rule-thin);
-  white-space: nowrap;
-  overflow: hidden;
-}
-.tel-name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: var(--ink-2);
-}
-.tel-val {
-  font-weight: 700;
-  color: var(--emerald);
-  margin-left: 4px;
-}
-.tel-cell.na .tel-val {
-  color: var(--muted);
-}
-
-/* ---------- 00 24h 实时焦点简报横条 (Compact Briefing Ribbon) ---------- */
-.briefing-ribbon {
-  border-bottom: var(--rule-bold);
-  background: var(--paper-warm);
-  display: grid;
-  grid-template-columns: 280px 1fr;
-}
-.briefing-lead {
-  padding: 12px 18px;
-  background: #202723;
-  color: var(--paper-bright);
-  border-right: var(--rule-bold);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.briefing-kicker {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  color: #ff9e7d;
-  font-weight: 700;
-}
-.briefing-headline {
-  font-family: var(--serif);
-  font-size: 15.5px;
-  font-weight: 800;
-  line-height: 1.35;
-  margin-top: 3px;
-}
-.briefing-points {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-}
-.brief-cell {
-  padding: 10px 14px;
-  border-right: var(--rule-thin);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 6px;
-}
-.brief-cell:last-child { border-right: 0; }
-.brief-text {
-  font-size: 12.8px;
-  line-height: 1.45;
-  color: var(--ink-2);
-}
-.brief-refs {
-  display: flex;
-  gap: 5px;
-  flex-wrap: wrap;
-}
-.ref-jump {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  font-weight: 700;
-  padding: 1px 6px;
-  border: 1px solid var(--ink);
-  background: var(--paper-bright);
-  cursor: pointer;
-}
-.ref-jump:hover {
+.open-skill-hero-btn:hover {
   background: var(--vermilion);
   color: #fff;
-  border-color: var(--vermilion);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.source-mini-status {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--muted);
 }
 
-/* ---------- 首屏主工作区：左 01 量化效率 Skills (64%) + 右 02 24h 实时情报电报 (36%) ---------- */
-.first-screen-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 6.4fr) minmax(340px, 3.6fr);
-  border-bottom: var(--rule-bold);
-}
-
-.quant-column {
-  border-right: var(--rule-bold);
-  display: flex;
-  flex-direction: column;
-}
-
-.section-header-bar {
-  padding: 12px 18px;
+/* ---------- 通用区块标题栏（宽松大气） ---------- */
+.sec-bar {
+  padding: 20px 32px;
   border-bottom: var(--rule-bold);
   background: var(--paper-warm);
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 16px;
 }
-.sec-title-cluster {
+.sec-bar-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
 }
-.sec-num {
+.sec-badge {
   font-family: var(--mono);
   font-size: 13px;
   font-weight: 800;
+  padding: 5px 11px;
   background: var(--ink);
   color: var(--paper-bright);
-  padding: 3px 8px;
 }
-.sec-num.vermilion {
-  background: var(--vermilion);
-}
-.sec-num.emerald {
-  background: var(--emerald);
-}
-.sec-title-cluster h2 {
+.sec-badge.vermilion { background: var(--vermilion); }
+.sec-badge.emerald { background: var(--emerald); }
+.sec-bar-left h2 {
   font-family: var(--serif);
-  font-size: 19px;
+  font-size: 23px;
   font-weight: 900;
-  letter-spacing: -0.01em;
 }
-.sec-sub {
-  font-size: 12px;
+.sec-bar-left p {
+  font-size: 13.8px;
   color: var(--muted);
+  margin-top: 2px;
 }
 
-/* 学科筛选标签条 */
-.discipline-bar {
-  padding: 9px 18px;
-  border-bottom: var(--rule-thin);
-  background: var(--paper-bright);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  align-items: center;
+/* ==========================================================================
+   01 本周好玩的可视化项目（每周推陈出新 · 置顶第一顺位）
+   ========================================================================== */
+.playground-section {
+  border-bottom: var(--rule-bold);
 }
-.disc-btn {
+.playground-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  padding: 28px 32px 24px;
+  background: var(--paper-bright);
+}
+.play-card {
+  border: 1.5px solid var(--ink);
+  background: var(--paper-bright);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.play-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.play-card.active {
+  background: #fdf6f2;
+  border-color: var(--vermilion);
+  box-shadow: 4px 4px 0 var(--vermilion);
+}
+.play-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
   font-family: var(--mono);
-  font-size: 11.5px;
+  font-size: 11px;
+}
+.model-pill {
+  font-weight: 800;
+  padding: 2px 8px;
+  background: var(--ink);
+  color: #fff;
+}
+.play-card.active .model-pill {
+  background: var(--vermilion);
+}
+.cat-text {
+  color: var(--muted);
+  font-weight: 600;
+}
+.play-thumb {
+  height: 128px;
+  border: 1px solid var(--ink);
+  background: var(--paper-warm);
+  position: relative;
+  overflow: hidden;
+}
+.play-thumb svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.play-status-tag {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 3px 8px;
+  background: rgba(24, 29, 26, 0.88);
+  color: #fff;
+}
+.play-card.active .play-status-tag {
+  background: var(--vermilion);
+}
+.play-title {
+  font-family: var(--serif);
+  font-size: 17.5px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+.play-oneliner {
+  font-size: 13.8px;
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+.play-card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+
+/* 按钮通用 */
+.btn {
+  font-family: var(--mono);
+  font-size: 12px;
   font-weight: 700;
-  padding: 4px 10px;
+  padding: 6px 11px;
   border: 1px solid var(--ink);
   background: var(--paper-bright);
+  text-decoration: none;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 5px;
   transition: all 0.12s;
 }
-.disc-btn:hover {
-  background: var(--paper-warm);
-}
-.disc-btn.on {
+.btn:hover {
   background: var(--ink);
-  color: var(--paper-bright);
+  color: #fff;
 }
-.disc-btn .cnt {
-  font-size: 10px;
-  opacity: 0.75;
-}
-
-/* 量化 Skills 矩阵卡片 */
-.quant-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-.quant-card {
-  padding: 15px 18px;
-  border-bottom: var(--rule-thin);
-  border-right: var(--rule-thin);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 10px;
-  background: var(--paper-bright);
-  transition: background 0.14s;
-}
-.quant-card:nth-child(2n) {
-  border-right: 0;
-}
-.quant-card:hover {
-  background: #f6f7f2;
-}
-.q-card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--mono);
-  font-size: 10.5px;
-  flex-wrap: wrap;
-}
-.q-disc-tag {
-  font-weight: 800;
-  padding: 2px 7px;
-  border: 1px solid currentColor;
-  white-space: nowrap;
-}
-.q-disc-tag.quant_fin { color: var(--emerald); background: var(--emerald-tint); }
-.q-disc-tag.market { color: var(--vermilion); background: var(--vermilion-tint); }
-.q-disc-tag.econometrics { color: var(--cobalt); background: var(--cobalt-tint); }
-.q-disc-tag.fin_math { color: #5b2c91; background: #f0e8fa; }
-.q-disc-tag.stat { color: var(--amber); background: var(--amber-tint); }
-.q-disc-tag.macro { color: #185a7a; background: #e3f2f8; }
-
-.q-repo-meta {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--muted);
-  font-weight: 600;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.q-stars {
-  color: var(--ink);
-  font-weight: 800;
-  background: var(--paper-warm);
-  padding: 1px 6px;
-  border: 1px solid var(--rule-thin);
-  white-space: nowrap;
-}
-
-.q-title-row {
-  display: grid;
-  grid-template-columns: 1fr 116px;
-  gap: 12px;
-  align-items: start;
-}
-.q-title {
-  font-family: var(--serif);
-  font-size: 16px;
-  font-weight: 900;
-  line-height: 1.35;
-}
-.q-title a {
-  text-decoration: none;
-}
-.q-title a:hover {
-  color: var(--vermilion);
-  text-decoration: underline;
-}
-.q-kind-sub {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-  margin-top: 3px;
-}
-.q-spark-box {
-  width: 116px;
-  height: 62px;
-  border: 1px solid var(--ink);
-  background: var(--paper-warm);
-  padding: 3px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.q-spark-box svg {
-  width: 100%;
-  height: 44px;
-  display: block;
-}
-.q-spark-caption {
-  font-family: var(--mono);
-  font-size: 8.5px;
-  color: var(--ink-2);
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-weight: 700;
-}
-
-.q-gain {
-  font-size: 13px;
-  color: var(--ink-2);
-  line-height: 1.54;
-}
-
-.q-recipe-box {
-  background: var(--paper-warm);
-  border: 1px solid var(--rule-thin);
-  border-left: 3px solid var(--ink);
-  padding: 8px 10px;
-  font-family: var(--mono);
-  font-size: 11.5px;
-}
-.q-recipe-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 5px;
-  font-weight: 700;
-  font-size: 10.5px;
-  color: var(--muted);
-}
-.q-recipe-text {
-  font-size: 11.2px;
-  line-height: 1.48;
-  color: var(--ink);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.q-recipe-box.expanded .q-recipe-text {
-  display: block;
-  -webkit-line-clamp: unset;
-}
-
-.q-foot {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  padding-top: 4px;
-}
-.q-cmd {
-  font-family: var(--mono);
-  font-size: 11px;
-  background: #202623;
-  color: #f4f4ef;
-  padding: 3px 8px;
-  cursor: pointer;
-}
-.q-cmd:hover {
-  background: var(--vermilion);
-}
-.q-actions {
-  display: flex;
-  gap: 6px;
-}
-.act-btn {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border: 1px solid var(--ink);
-  background: var(--paper-bright);
-  text-decoration: none;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-.act-btn:hover {
-  background: var(--ink);
-  color: var(--paper-bright);
-}
-.act-btn.primary {
+.btn.primary {
   background: var(--vermilion);
   color: #fff;
   border-color: var(--vermilion);
 }
-.act-btn.primary:hover {
-  background: #b53510;
+.btn.primary:hover {
+  background: #b83610;
 }
 
-/* ---------- 首屏右栏：02 24h 实时大厂大事记 & 极客快讯电报 ---------- */
-.live-wire-column {
+/* 实盘试玩大画布（内联 srcdoc 渲染，永不断连） */
+.stage-container {
+  margin: 0 32px 28px;
+  border: 1.5px solid var(--ink);
   background: var(--paper-warm);
-  display: flex;
-  flex-direction: column;
 }
-.wire-tab-strip {
-  display: flex;
-  border-bottom: var(--rule-thin);
-  background: var(--paper-bright);
+.stage- container[hidden] {
+  display: none !important;
 }
-.wire-tab-btn {
-  flex: 1;
-  padding: 8px 10px;
-  font-family: var(--mono);
-  font-size: 11.5px;
-  font-weight: 800;
-  border: 0;
-  border-right: var(--rule-thin);
-  background: transparent;
-  cursor: pointer;
-}
-.wire-tab-btn:last-child { border-right: 0; }
-.wire-tab-btn.on {
+.stage-topbar {
+  padding: 12px 18px;
   background: var(--ink);
   color: var(--paper-bright);
-}
-.wire-subbar {
-  padding: 6px 14px;
-  border-bottom: var(--rule-thin);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-}
-.region-tabs {
-  display: inline-flex;
-  border: 1px solid var(--ink);
-  background: var(--paper-bright);
-}
-.region-tabs button {
-  border: 0;
-  border-right: 1px solid var(--ink);
-  background: transparent;
-  padding: 1px 7px;
-  font-family: var(--mono);
-  font-size: 10.5px;
-  font-weight: 700;
-  cursor: pointer;
-}
-.region-tabs button:last-child { border-right: 0; }
-.region-tabs button.on {
-  background: var(--ink);
-  color: var(--paper-bright);
-}
-.wire-scroll-pane {
-  max-height: 1120px;
-  overflow-y: auto;
-  padding: 0 14px 14px;
-}
-.wire-date-header {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--ink);
-  background: var(--paper-deep);
-  padding: 3px 8px;
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
-  margin-top: 10px;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-}
-.wire-entry {
-  display: block;
-  text-decoration: none;
-  padding: 9px 4px;
-  border-bottom: var(--rule-thin);
-}
-.wire-entry:hover {
-  background: var(--paper-bright);
-}
-.wire-meta {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--mono);
-  font-size: 11px;
-  margin-bottom: 3px;
-}
-.wire-org {
-  font-weight: 800;
-  color: var(--ink);
-}
-.wire-region {
-  font-size: 10px;
-  padding: 0 4px;
-  border: 1px solid var(--muted);
-  color: var(--muted);
-}
-.wire-major {
-  font-size: 10px;
-  font-weight: 800;
-  color: #fff;
-  background: var(--vermilion);
-  padding: 0 5px;
-}
-.wire-entry-title {
-  font-family: var(--serif);
-  font-size: 14.2px;
-  font-weight: 800;
-  line-height: 1.36;
-}
-.wire-entry:hover .wire-entry-title {
-  color: var(--vermilion);
-}
-.wire-entry-sum {
-  font-size: 12.2px;
-  color: var(--ink-2);
-  margin-top: 3px;
-  line-height: 1.45;
-}
-
-/* ---------- 03 好玩的可视化项目与提示词标本舱 (Paradox Resolved: Specimen Filmstrip + Expandable Dock) ---------- */
-.visual-lab-section {
-  border-bottom: var(--rule-bold);
-}
-.paradox-banner {
-  background: #eef2ea;
-  border-bottom: var(--rule-thin);
-  padding: 8px 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
-  font-size: 12.5px;
+  gap: 12px;
 }
-.paradox-note {
+.stage-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.stage-live-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #47d18c;
+}
+.stage-title-Now {
+  font-weight: 800;
+  font-size: 15px;
+}
+.stage-topbar-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.stage-btn-dark {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border: 1px solid #6f7a72;
+  background: #28302c;
+  color: #fff;
+  cursor: pointer;
+}
+.stage-btn-dark:hover {
+  background: var(--vermilion);
+  border-color: var(--vermilion);
+}
+.stage-btn-dark.accent {
+  background: var(--vermilion);
+  border-color: var(--vermilion);
+}
+
+.stage-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+}
+.stage-iframe-wrap {
+  width: 100%;
+  height: 600px;
+  background: #f5f5f1;
+  border-right: var(--rule-bold);
+}
+.stage-iframe-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.stage-side-guide {
+  padding: 20px;
+  background: var(--paper-bright);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+}
+.guide-block h4 {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--vermilion);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.guide-block p, .guide-block li {
+  font-size: 13.5px;
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+.guide-block ul {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.prompt-box {
+  border: 1px solid var(--ink);
+  background: var(--paper-warm);
+}
+.prompt-box-head {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--ink);
+  background: var(--paper-deep);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+}
+.prompt-box pre {
+  margin: 0;
+  padding: 10px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+/* 本周社区新抓到的可玩项目横条 */
+.weekly-fresh-box {
+  margin: 0 32px 32px;
+  padding: 20px 22px;
+  background: var(--paper-warm);
+  border: 1px solid var(--ink);
+}
+.weekly-fresh-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.weekly-fresh-head h3 {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 900;
+}
+.weekly-fresh-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.fresh-card {
+  background: var(--paper-bright);
+  border: 1px solid var(--rule-thin);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+.fresh-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--vermilion);
+  font-weight: 700;
+}
+.fresh-title {
+  font-family: var(--serif);
+  font-size: 15.5px;
+  font-weight: 800;
+  line-height: 1.38;
+}
+.fresh-title a { text-decoration: none; }
+.fresh-title a:hover { color: var(--vermilion); }
+.fresh-one-line {
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+
+/* ==========================================================================
+   02 社群一手新闻 & 企业大事记（必须一句话讲清楚价值在哪，宽敞双栏）
+   ========================================================================== */
+.news-section {
+  border-bottom: var(--rule-bold);
+}
+.news-controls-bar {
+  padding: 14px 32px;
+  border-bottom: var(--rule-thin);
+  background: var(--paper-bright);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.cat-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cat-pill {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 5px 13px;
+  border: 1px solid var(--ink);
+  background: var(--paper-bright);
+  cursor: pointer;
+}
+.cat-pill.on {
+  background: var(--ink);
+  color: #fff;
+}
+.search-box {
+  display: flex;
+  gap: 8px;
+}
+.search-box input {
+  font-family: var(--sans);
+  font-size: 13.5px;
+  padding: 6px 12px;
+  border: 1px solid var(--ink);
+  background: var(--paper-bright);
+  min-width: 220px;
+}
+
+.news-two-col {
+  display: grid;
+  grid-template-columns: minmax(0, 6.2fr) minmax(340px, 3.8fr);
+}
+.community-col {
+  padding: 24px 32px 32px;
+  border-right: var(--rule-bold);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.col-subhead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid var(--ink);
+}
+.col-subhead h3 {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 900;
+}
+.col-subhead span {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.news-card {
+  padding: 18px 20px;
+  border: 1px solid var(--rule-thin);
+  background: var(--paper-bright);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.14s, background 0.14s;
+}
+.news-card:hover {
+  border-color: var(--ink);
+  background: #f7f7f2;
+}
+.news-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 11.5px;
+}
+.cat-tag {
+  font-weight: 800;
+  padding: 1px 7px;
+  border: 1px solid currentColor;
+}
+.cat-tag.play { color: var(--vermilion); background: var(--vermilion-tint); }
+.cat-tag.tool { color: var(--emerald); background: var(--emerald-tint); }
+.cat-tag.bench { color: var(--cobalt); background: var(--cobalt-tint); }
+.cat-tag.talk { color: var(--ink); background: var(--paper-deep); }
+
+.news-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.38;
+}
+.news-title a { text-decoration: none; }
+.news-title a:hover { color: var(--vermilion); }
+
+.value-one-liner {
+  background: var(--paper-warm);
+  border-left: 3.5px solid var(--vermilion);
+  padding: 8px 12px;
+  font-size: 14.5px;
+  color: var(--ink);
+  line-height: 1.58;
+}
+.value-one-liner strong {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--vermilion);
+  margin-right: 4px;
+}
+
+.news-card-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+/* 右栏：企业大事记 */
+.enterprise-col {
+  padding: 24px 28px 32px;
+  background: var(--paper-warm);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.milestone-card {
+  display: block;
+  text-decoration: none;
+  padding: 15px 16px;
+  background: var(--paper-bright);
+  border: 1px solid var(--rule-thin);
+  transition: border-color 0.14s, transform 0.12s;
+}
+.milestone-card:hover {
+  border-color: var(--ink);
+  transform: translateX(2px);
+}
+.ms-top {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--ink-2);
-}
-.paradox-badge {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  font-weight: 800;
-  padding: 2px 7px;
-  background: var(--emerald);
-  color: #fff;
-}
-.stage-toggle-btn {
   font-family: var(--mono);
   font-size: 11.5px;
+  margin-bottom: 5px;
+}
+.ms-org {
   font-weight: 800;
-  padding: 5px 12px;
+  padding: 1px 7px;
+  background: var(--ink);
+  color: #fff;
+}
+.ms-major {
+  font-weight: 800;
+  padding: 1px 6px;
+  background: var(--vermilion);
+  color: #fff;
+}
+.ms-date {
+  margin-left: auto;
+  color: var(--muted);
+}
+.ms-title {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.38;
+  margin-bottom: 6px;
+}
+.milestone-card:hover .ms-title {
+  color: var(--vermilion);
+}
+.ms-value {
+  font-size: 13.5px;
+  color: var(--ink-2);
+  line-height: 1.52;
+  padding-left: 9px;
+  border-left: 2.5px solid var(--emerald);
+}
+
+/* ==========================================================================
+   03 可点开的实用 Skill 专区（大学 · 创业 · 生活 · 接地气量化课助手）
+   ========================================================================== */
+.skill-zone-section {
+  background: var(--paper-bright);
+}
+.skill-drawer-trigger {
+  width: 100%;
+  padding: 22px 32px;
+  background: #1f2622;
+  color: var(--paper-bright);
+  border: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+.skill-drawer-trigger:hover {
+  background: #2a332e;
+}
+.trigger-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.trigger-badge {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 800;
+  padding: 6px 12px;
+  background: var(--vermilion);
+  color: #fff;
+}
+.trigger-left h2 {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 900;
+  color: #fff;
+}
+.trigger-left p {
+  font-size: 13.8px;
+  color: #c6cec8;
+  margin-top: 3px;
+}
+.trigger-cta {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 800;
+  padding: 9px 16px;
+  background: var(--paper-bright);
+  color: var(--ink);
+  border: 1.5px solid var(--paper-bright);
+}
+
+.skill-zone-body {
+  padding: 28px 32px 36px;
+  background: var(--paper-warm);
+  border-top: var(--rule-bold);
+}
+.skill-zone-body[hidden] {
+  display: none !important;
+}
+.skill-tabs-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.skill-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.skill-tab {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 16px;
   border: 1.5px solid var(--ink);
   background: var(--paper-bright);
   cursor: pointer;
 }
-.stage-toggle-btn.active {
-  background: var(--vermilion);
-  color: #fff;
-  border-color: var(--vermilion);
-}
-
-/* 4 张可视化标本胶片卡 (Specimen Filmstrip) */
-.specimen-filmstrip {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  border-bottom: var(--rule-bold);
-}
-.specimen-card {
-  padding: 14px 16px;
-  border-right: var(--rule-thin);
-  background: var(--paper-bright);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 10px;
-  cursor: pointer;
-  transition: all 0.15s;
-  position: relative;
-}
-.specimen-card:last-child { border-right: 0; }
-.specimen-card:hover {
-  background: #f4f5ef;
-}
-.specimen-card.selected {
-  background: #f9f3ee;
-  box-shadow: inset 0 3px 0 var(--vermilion);
-}
-.spec-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--mono);
-  font-size: 10.5px;
-}
-.spec-model-badge {
-  font-weight: 800;
-  padding: 2px 6px;
+.skill-tab.on {
   background: var(--ink);
-  color: var(--paper-bright);
-}
-.specimen-card.selected .spec-model-badge {
-  background: var(--vermilion);
-}
-.spec-cat {
-  color: var(--muted);
-  font-weight: 600;
-}
-.spec-preview-art {
-  height: 118px;
-  border: 1px solid var(--ink);
-  background: var(--paper-warm);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.spec-preview-art svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-.spec-live-pill {
-  position: absolute;
-  bottom: 6px;
-  right: 6px;
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 800;
-  padding: 2px 7px;
-  background: rgba(24, 29, 26, 0.88);
   color: #fff;
 }
-.specimen-card.selected .spec-live-pill {
-  background: var(--vermilion);
-}
-.spec-title {
-  font-family: var(--serif);
-  font-size: 15.5px;
-  font-weight: 900;
-  line-height: 1.32;
-}
-.spec-why {
-  font-size: 12.3px;
-  color: var(--ink-2);
-  line-height: 1.48;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.spec-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 6px;
-  padding-top: 4px;
-}
 
-/* 按需展开的实盘交互剧场舱 (Interactive Theater Dock) */
-.theater-dock {
-  background: var(--paper-warm);
-  border-bottom: var(--rule-bold);
-}
-.theater-dock[hidden] {
-  display: none !important;
-}
-.theater-grid {
-  display: grid;
-  grid-template-columns: 360px minmax(0, 1fr);
-}
-.theater-dossier {
-  padding: 18px;
-  border-right: var(--rule-bold);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  background: var(--paper-bright);
-}
-.dossier-kicker {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--vermilion);
-}
-.dossier-title {
-  font-family: var(--serif);
-  font-size: 20px;
-  font-weight: 900;
-  line-height: 1.28;
-}
-.dossier-block h4 {
-  font-family: var(--mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 4px;
-}
-.dossier-block p, .dossier-block li {
-  font-size: 12.8px;
-  line-height: 1.52;
-  color: var(--ink-2);
-}
-.dossier-block ul {
-  margin: 0;
-  padding-left: 18px;
-}
-.prompt-stamp {
-  border: 1px solid var(--ink);
-  background: var(--paper-warm);
-}
-.prompt-stamp-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 10px;
-  background: var(--paper-deep);
-  border-bottom: 1px solid var(--ink);
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 700;
-}
-.prompt-stamp pre {
-  margin: 0;
-  padding: 9px 10px;
-  font-family: var(--mono);
-  font-size: 11.2px;
-  line-height: 1.48;
-  white-space: pre-wrap;
-  word-break: break-word;
-  max-height: 165px;
-  overflow-y: auto;
-}
-.theater-stage-col {
-  display: flex;
-  flex-direction: column;
-}
-.stage-col-head {
-  padding: 8px 14px;
-  background: var(--ink);
-  color: var(--paper-bright);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: var(--mono);
-  font-size: 11.5px;
-}
-.stage-model-tag {
-  background: var(--vermilion);
-  color: #fff;
-  font-weight: 800;
-  padding: 2px 7px;
-}
-.stage-open {
-  color: #ff9e7d;
-  text-decoration: none;
-  font-weight: 700;
-}
-.stage-open:hover {
-  text-decoration: underline;
-}
-.stage-viewport {
-  width: 100%;
-  height: 580px;
-  background: #f5f5f1;
-}
-.stage-viewport iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-  display: block;
-}
-
-/* 社区今日最新可玩/可视化项目横条 */
-.live-playables-strip {
-  padding: 12px 18px;
-  background: var(--paper-bright);
-}
-.live-playables-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  font-family: var(--mono);
-  font-size: 11.5px;
-  font-weight: 800;
-}
-.playable-cards-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 10px;
-}
-.mini-play-card {
-  border: 1px solid var(--ink);
-  background: var(--paper-warm);
-  padding: 10px 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 6px;
-}
-.mini-play-top {
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--mono);
-  font-size: 10.5px;
-  color: var(--vermilion);
-  font-weight: 700;
-}
-.mini-play-title {
-  font-family: var(--serif);
-  font-size: 14px;
-  font-weight: 800;
-  line-height: 1.35;
-}
-.mini-play-title a { text-decoration: none; }
-.mini-play-title a:hover { color: var(--vermilion); }
-.mini-play-why {
-  font-size: 12px;
-  color: var(--ink-2);
-  line-height: 1.45;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* ---------- 04 去同质化 · 一手社区深度情报总表 & HF 飙升榜 ---------- */
-.main-ledger {
-  display: grid;
-  grid-template-columns: minmax(0, 7.2fr) minmax(300px, 2.8fr);
-}
-.ledger-primary {
-  border-right: var(--rule-bold);
-}
-.ledger-bar {
-  padding: 12px 18px;
-  border-bottom: var(--rule-bold);
-  background: var(--paper-warm);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
-.filter-strip {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-.chip {
-  font-family: var(--mono);
-  font-size: 11.5px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border: 1px solid var(--ink);
-  background: var(--paper-bright);
-  cursor: pointer;
-}
-.chip.on {
-  background: var(--ink);
-  color: var(--paper-bright);
-}
-.chip .n {
-  margin-left: 4px;
-  opacity: 0.7;
-}
-.search-sort {
-  display: flex;
-  gap: 6px;
-}
-.search-sort input, .search-sort select {
-  font-family: var(--mono);
-  font-size: 11.5px;
-  padding: 4px 9px;
-  border: 1px solid var(--ink);
-  background: var(--paper-bright);
-}
-
-.feed-ledger {
-  display: flex;
-  flex-direction: column;
-}
-.ledger-item {
-  display: grid;
-  grid-template-columns: 74px minmax(0, 1fr);
-  border-bottom: var(--rule-thin);
-}
-.ledger-item:hover {
-  background: #f6f6f0;
-}
-.item-index-col {
-  padding: 14px 8px;
-  border-right: var(--rule-thin);
-  background: var(--paper-warm);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--mono);
-}
-.rank-num {
-  font-size: 17px;
-  font-weight: 900;
-}
-.cat-stamp {
-  font-size: 10px;
-  font-weight: 800;
-  padding: 2px 5px;
-  border: 1px solid currentColor;
-  text-align: center;
-}
-.cat-stamp.tool { color: var(--emerald); background: var(--emerald-tint); }
-.cat-stamp.play { color: var(--vermilion); background: var(--vermilion-tint); }
-.cat-stamp.bench { color: var(--cobalt); background: var(--cobalt-tint); }
-.cat-stamp.talk { color: var(--ink); background: var(--paper-deep); }
-
-.item-main-col {
-  padding: 14px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.item-top-bar {
+/* 针对你 31 讲量化课的「一键复制自报家门画像」卡片 */
+.profile-helper-banner {
+  margin-bottom: 22px;
+  padding: 16px 20px;
+  background: #eef4ef;
+  border: 1.5px solid var(--emerald);
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px;
-  font-family: var(--mono);
-  font-size: 11.5px;
+  gap: 16px;
 }
-.item-source {
+.profile-helper-text h4 {
+  font-size: 15px;
   font-weight: 800;
-  color: var(--ink-2);
+  color: var(--emerald);
 }
-.item-metrics {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--muted);
-}
-.heat-meter {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-weight: 700;
-  color: var(--ink);
-}
-.heat-bar {
-  width: 44px;
-  height: 6px;
-  background: var(--paper-deep);
-  border: 1px solid var(--ink);
-  display: inline-block;
-  position: relative;
-}
-.heat-fill {
-  display: block;
-  height: 100%;
-  background: var(--vermilion);
-}
-.item-title {
-  font-family: var(--serif);
-  font-size: 17px;
-  font-weight: 900;
-  line-height: 1.35;
-}
-.item-title a { text-decoration: none; }
-.item-title a:hover { color: var(--vermilion); }
-.item-orig {
-  font-family: var(--mono);
-  font-size: 11.5px;
-  color: var(--muted);
-}
-.item-why {
+.profile-helper-text p {
   font-size: 13.5px;
   color: var(--ink-2);
-  line-height: 1.56;
+  margin-top: 3px;
 }
-.item-foot {
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.skill-card {
+  background: var(--paper-bright);
+  border: 1.5px solid var(--ink);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+}
+.sk-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+}
+.sk-group-tag {
+  font-weight: 800;
+  padding: 2px 8px;
+  background: var(--paper-warm);
+  border: 1px solid var(--ink);
+}
+.sk-stars {
+  font-weight: 800;
+  color: var(--emerald);
+}
+.sk-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.36;
+}
+.sk-title a { text-decoration: none; }
+.sk-title a:hover { color: var(--vermilion); }
+
+.sk-one-sentence {
+  background: #fdf6f2;
+  border-left: 3.5px solid var(--vermilion);
+  padding: 10px 12px;
+  font-size: 14.2px;
+  color: var(--ink);
+  line-height: 1.58;
+}
+.sk-one-sentence strong {
+  color: var(--vermilion);
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.sk-foot {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 3px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--rule-thin);
 }
-.tag-row {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
+.sk-cmd {
   font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
+  font-size: 11.5px;
+  background: var(--ink);
+  color: #fff;
+  padding: 4px 9px;
+  cursor: pointer;
 }
-.action-row {
+.sk-cmd:hover {
+  background: var(--vermilion);
+}
+
+/* ==========================================================================
+   全屏沉浸试玩弹窗 (100% 离线/内联可用，绝无 not connected)
+   ========================================================================== */
+.fullscreen-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(24, 29, 26, 0.92);
   display: flex;
-  gap: 6px;
+  flex-direction: column;
 }
-.load-more {
-  width: 100%;
-  padding: 12px;
-  border: 0;
-  border-top: var(--rule-bold);
-  background: var(--paper-warm);
+.fullscreen-modal[hidden] {
+  display: none !important;
+}
+.fs-bar {
+  height: 48px;
+  padding: 0 20px;
+  background: var(--ink);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  border-bottom: 1.5px solid var(--vermilion);
+}
+.fs-close-btn {
   font-family: var(--mono);
   font-size: 12.5px;
   font-weight: 800;
+  padding: 6px 14px;
+  background: var(--vermilion);
+  color: #fff;
+  border: 0;
   cursor: pointer;
 }
-.load-more:hover {
-  background: var(--ink);
-  color: var(--paper-bright);
-}
-
-.ledger-sidebar {
-  background: var(--paper-warm);
-  display: flex;
-  flex-direction: column;
-}
-.wire-block {
-  padding: 16px;
-  border-bottom: var(--rule-bold);
-}
-.wire-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6px;
-}
-.wire-head h2 {
-  font-family: var(--serif);
-  font-size: 16.5px;
-  font-weight: 900;
-}
-.wire-tag {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  font-weight: 800;
-  color: var(--vermilion);
-  border: 1px solid var(--vermilion);
-  padding: 1px 6px;
-}
-.wire-note {
-  font-size: 12px;
-  color: var(--muted);
-  margin-bottom: 10px;
-}
-.hf-ledger {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  border-top: var(--rule-thin);
-}
-.hf-ledger li {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 8px;
-  padding: 6px 2px;
-  border-bottom: var(--rule-thin);
-  font-family: var(--mono);
-  font-size: 12px;
-}
-.hf-rank {
-  font-weight: 800;
-  color: var(--vermilion);
-}
-.hf-name {
-  text-decoration: none;
-  font-weight: 600;
-  overflow-wrap: anywhere;
+.fs-iframe {
   flex: 1;
-}
-.hf-name:hover {
-  color: var(--vermilion);
-  text-decoration: underline;
-}
-.hf-likes {
-  color: var(--muted);
-  font-size: 11px;
+  width: 100%;
+  border: 0;
+  background: #f5f5f1;
 }
 
 .toast {
   position: fixed;
   left: 50%;
-  bottom: 24px;
+  bottom: 26px;
   transform: translate(-50%, 16px);
   opacity: 0;
   background: var(--ink);
-  color: var(--paper-bright);
+  color: #fff;
   border: 1.5px solid var(--vermilion);
-  padding: 7px 16px;
+  padding: 8px 18px;
   font-family: var(--mono);
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 700;
   transition: all 0.18s;
   pointer-events: none;
-  z-index: 90;
+  z-index: 300;
 }
 .toast.show {
   opacity: 1;
@@ -1321,264 +1011,236 @@ h1, h2, h3, h4, p { margin: 0; }
 
 @media (max-width: 1180px) {
   .sheet { margin: 0; border-left: 0; border-right: 0; }
-  .masthead-main, .first-screen-grid, .main-ledger, .theater-grid {
+  .playground-cards, .weekly-fresh-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .stage-body, .news-two-col {
     grid-template-columns: 1fr;
   }
-  .masthead-brand, .quant-column, .ledger-primary, .theater-dossier {
+  .stage-iframe-wrap, .community-col {
     border-right: 0;
     border-bottom: var(--rule-bold);
   }
-  .specimen-filmstrip {
+  .skills-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .briefing-ribbon {
-    grid-template-columns: 1fr;
-  }
 }
-@media (max-width: 740px) {
-  .quant-grid, .specimen-filmstrip {
+@media (max-width: 720px) {
+  .playground-cards, .weekly-fresh-grid, .skills-grid {
     grid-template-columns: 1fr;
   }
-  .quant-card { border-right: 0; }
-  .ledger-item { grid-template-columns: 52px minmax(0, 1fr); }
+  .masthead-hero, .sec-bar, .playground-cards, .community-col, .enterprise-col, .skill-zone-body {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  .stage-container, .weekly-fresh-box {
+    margin-left: 18px;
+    margin-right: 18px;
+  }
 }
   </style>
 </head>
 <body>
   <div class="sheet">
-    <!-- 顶部报头 Masthead -->
+    <!-- 顶部清爽报头 -->
     <header class="masthead">
       <div class="masthead-top">
         <div class="masthead-meta">
-          <span class="issue-tag">QUANT &amp; PRIMARY AI RADAR // 量化效率 · 视觉实盘 · 一手极客情报</span>
-          <span class="sep">/</span>
-          <span id="updated-text">同步时间加载中…</span>
+          <span class="week-pill" id="week-badge">2026年第48周 · 每周焕新</span>
+          <span id="updated-text">一手数据源实时直连</span>
         </div>
-        <nav class="jump-nav" aria-label="快速跳转">
-          <a href="#sec-quant">01 量化与数理 Skills</a>
-          <a href="#sec-wire">02 24h 实时电报</a>
-          <a href="#sec-visual">03 可视化神作与实盘舱</a>
-          <a href="#sec-ledger">04 社区深度总表</a>
+        <nav class="jump-nav" aria-label="页面导航">
+          <a href="#sec-playground">01 本周好玩项目</a>
+          <a href="#sec-news">02 社群热帖 &amp; 企业大事记</a>
+          <button type="button" class="skill-nav-btn" id="nav-open-skills">🧰 03 点开实用 Skill 专区</button>
         </nav>
       </div>
 
-      <div class="masthead-main">
-        <div class="masthead-brand">
-          <!-- 数学相空间与波动率曲面徽章（固定尺寸 68x68，绝不撑破排版） -->
-          <div class="crest-wrap" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="56" height="56">
-              <rect x="3" y="3" width="58" height="58" fill="none" stroke="#181d1a" stroke-width="2"/>
-              <line x1="3" y1="32" x2="61" y2="32" stroke="#cdd2c9" stroke-width="1" stroke-dasharray="2,2"/>
-              <line x1="32" y1="3" x2="32" y2="61" stroke="#cdd2c9" stroke-width="1" stroke-dasharray="2,2"/>
-              <!-- 波动率微笑曲线与随机过程轨迹 -->
-              <path d="M8 46 Q20 14 32 26 T56 12" fill="none" stroke="#196b48" stroke-width="2.2"/>
-              <path d="M8 18 C18 44, 42 46, 56 20" fill="none" stroke="#d9481e" stroke-width="2.4"/>
-              <circle cx="32" cy="26" r="3.2" fill="#181d1a"/>
-              <circle cx="45" cy="31" r="2.8" fill="#d9481e"/>
+      <div class="masthead-hero">
+        <div class="brand-left">
+          <div class="logo-box" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="52" height="52">
+              <rect x="4" y="4" width="56" height="56" fill="none" stroke="#181d1a" stroke-width="2.2"/>
+              <circle cx="32" cy="32" r="18" fill="none" stroke="#196b48" stroke-width="2" stroke-dasharray="4,3"/>
+              <path d="M16 42 L28 20 L38 34 L48 16" fill="none" stroke="#d9481e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="48" cy="16" r="4" fill="#d9481e"/>
             </svg>
           </div>
-          <div class="title-block">
-            <div class="kicker">PRIMARY SOURCES ONLY · 零二手喂饭 · 全部链接与星标直达原始仓库与出处</div>
-            <div class="title-row">
-              <h1 class="site-title">量化与野生 AI 雷达</h1>
-            </div>
-            <div class="priority-ribbon" aria-label="内容权重优先级">
-              <span class="prio-pill p1">权重 #1 · 量化投研效率 Skills (统计 · 金融市场 · 金融数学 · 计量 · 量化 · 宏观)</span>
-              <span class="prio-arrow">▸</span>
-              <span class="prio-pill p2">权重 #2 · 可视化神作与提示词实盘 (Astra 6.2 / DeepSeek-V4-Pro)</span>
-              <span class="prio-arrow">▸</span>
-              <span class="prio-pill p3">权重 #3 · 去同质化一手社区与大厂大事记</span>
-            </div>
+          <div>
+            <div class="kicker">PLAY WITH AI · 拒绝二手废话 · 每条只用一句话讲清价值</div>
+            <h1 class="site-title">野生 AI 雷达</h1>
+            <p class="site-sub">把每周真正好玩的 AI 可视化作品、一手极客热帖与能偷懒提效的实用 Skill 摊在一张清爽的纸上。</p>
           </div>
         </div>
 
-        <div class="telemetry-box">
-          <div class="telemetry-head">
-            <span>直连一手数据源监测表</span>
-            <span id="telemetry-summary">11/11 在线</span>
-          </div>
-          <div class="telemetry-grid" id="telemetry-grid"></div>
+        <div class="hero-right">
+          <button type="button" class="open-skill-hero-btn" id="hero-open-skills">
+            <span>🧰 打开「大学 · 创业 · 生活 · 量化课」Skill 宝库</span>
+            <span>▾</span>
+          </button>
+          <div class="source-mini-status" id="source-mini-status">11 个一手社区与官方源在线</div>
         </div>
       </div>
     </header>
 
-    <!-- 00 今日 24h 焦点简报横条 -->
-    <section class="briefing-ribbon" id="sec-briefing"></section>
-
-    <!-- 首屏主工作区：左 01 量化与数理效率 Skills (权重 #1) + 右 02 24h 实时大厂与极客电报 (保障最高时效性) -->
-    <section class="first-screen-grid">
-      <!-- 左栏 64%：01 量化与数理研究效率 Skills & 开源工具雷达 -->
-      <div class="quant-column" id="sec-quant">
-        <div class="section-header-bar">
-          <div class="sec-title-cluster">
-            <span class="sec-num emerald">01 · PRIORITY #1</span>
-            <div>
-              <h2>量化与数理研究效率 Skill 矩阵</h2>
-              <p class="sec-sub">覆盖统计学、金融市场、金融数学、计量经济学、量化金融、宏观经济学 · 实时同步 GitHub 星标并附可直接复用的 Agent Skill 提示词</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="discipline-bar" id="discipline-bar" role="tablist"></div>
-        <div class="quant-grid" id="quant-grid"></div>
-      </div>
-
-      <!-- 右栏 36%：02 24h 实时大厂大事记 & 极客一手快讯流（首屏固定并置，永不被常青 Demo 挤下首屏） -->
-      <aside class="live-wire-column" id="sec-wire">
-        <div class="section-header-bar">
-          <div class="sec-title-cluster">
-            <span class="sec-num">02 · LIVE WIRE</span>
-            <div>
-              <h2>24h 实时大事记与一手快讯</h2>
-              <p class="sec-sub">首屏实时锚点：按时间戳倒序直连大厂通告与社区高赞首发</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="wire-tab-strip">
-          <button type="button" class="wire-tab-btn on" data-wire-tab="official">大厂官方通告 &amp; 新模型</button>
-          <button type="button" class="wire-tab-btn" data-wire-tab="flash">社区 24h 极速快讯</button>
-        </div>
-
-        <div class="wire-subbar" id="wire-subbar">
-          <span>已过滤公关软文与同质化水帖</span>
-          <div class="region-tabs" id="region-seg">
-            <button type="button" data-region="ALL" class="on">全球</button>
-            <button type="button" data-region="US">海外</button>
-            <button type="button" data-region="CN">国内</button>
-          </div>
-        </div>
-
-        <div class="wire-scroll-pane" id="wire-list-container"></div>
-      </aside>
-    </section>
-
-    <!-- 03 权重 #2：好玩的可视化项目与提示词标本舱 (胶片标本卡片 + 按需展开实盘剧场) -->
-    <section class="visual-lab-section" id="sec-visual">
-      <div class="section-header-bar">
-        <div class="sec-title-cluster">
-          <span class="sec-num vermilion">03 · PRIORITY #2</span>
+    <!-- ====================================================================
+         01 本周好玩的可视化项目（每周为单位推陈出新 · 置顶第一顺位）
+         ==================================================================== -->
+    <section class="playground-section" id="sec-playground">
+      <div class="sec-bar">
+        <div class="sec-bar-left">
+          <span class="sec-badge vermilion">01 · WEEKLY PLAYGROUND</span>
           <div>
-            <h2>好玩的可视化项目与提示词标本舱</h2>
-            <p class="sec-sub">精选 Astra 6.2 工业级直升机三维总成拆解、DeepSeek-V4-Pro 随机波动率闪崩仿真台与非线性混沌织机 · 均附完整 Prompt 与可交互实盘</p>
+            <h2>本周好玩的可视化项目（每周推陈出新）</h2>
+            <p>所有实盘已直接内联打包进页面，点击卡片即可在下方画布或全屏秒开试玩，绝不出现断连</p>
           </div>
         </div>
         <div>
-          <button type="button" class="stage-toggle-btn active" id="toggle-theater-btn">▼ 收起实盘交互剧场（仅看标本卡片）</button>
+          <button type="button" class="btn" id="toggle-stage-btn">▼ 收起试玩画布</button>
         </div>
       </div>
 
-      <div class="paradox-banner">
-        <div class="paradox-note">
-          <span class="paradox-badge">时效与实盘解耦架构</span>
-          <span>首屏优先展示「量化 Skills」与「24h 实时大事记」；下方 4 个常青可视化实盘采用<strong>「缩略图标本架 + 按需展开画布」</strong>，点击任意标本卡片即可在剧场中切换运行。</span>
+      <!-- 4 张舒展的本周精选项目卡片 -->
+      <div class="playground-cards" id="playground-cards"></div>
+
+      <!-- 内联零断连实盘交互大画布 -->
+      <div class="stage-container" id="stage-container"></div>
+
+      <!-- 每周从 Hugging Face Spaces / Show HN 自动抓新的好玩项目 -->
+      <div class="weekly-fresh-box">
+        <div class="weekly-fresh-head">
+          <h3>🌱 本周社区新冒出来的好玩网页 &amp; 在线 Space（自动抓新）</h3>
+          <span style="font-family:var(--mono);font-size:12px;color:var(--muted)">来自 Hugging Face Spaces &amp; Hacker News Show HN</span>
         </div>
-      </div>
-
-      <!-- 4 张可视化标本胶片卡 -->
-      <div class="specimen-filmstrip" id="specimen-filmstrip"></div>
-
-      <!-- 按需展开的实盘交互剧场舱 -->
-      <div class="theater-dock" id="theater-dock"></div>
-
-      <!-- 每日从 Hugging Face Spaces / Show HN 实时抓取的可在线试玩与可视化新项目 -->
-      <div class="live-playables-strip">
-        <div class="live-playables-head">
-          <span>⚡ 社区今日最新可玩 / 可视化创意项目（实时抓取自 Hugging Face Spaces &amp; Show HN）</span>
-          <span style="color:var(--muted)">点击直达在线 Demo 或源码</span>
-        </div>
-        <div class="playable-cards-row" id="live-playables-row"></div>
+        <div class="weekly-fresh-grid" id="weekly-fresh-grid"></div>
       </div>
     </section>
 
-    <!-- 04 权重 #3：去同质化 · 一手极客社区深度情报总表 -->
-    <section class="main-ledger" id="sec-ledger">
-      <div class="ledger-primary">
-        <div class="ledger-bar">
-          <div class="sec-title-cluster">
-            <span class="sec-num">04 · PRIORITY #3</span>
-            <h2>去同质化 · 一手社区深度情报总表</h2>
-          </div>
-          <div class="filter-strip" id="cat-chips" role="tablist"></div>
-          <div class="search-sort">
-            <input type="search" id="search" placeholder="检索标题、标签、模型…" aria-label="检索" />
-            <select id="sort" aria-label="排序">
-              <option value="pick">按编辑权重</option>
-              <option value="hot">按社区热度</option>
-              <option value="new">按发布时间</option>
-            </select>
+    <!-- ====================================================================
+         02 社群一手热帖 & 企业大事记（必须一句话讲清楚价值在哪）
+         ==================================================================== -->
+    <section class="news-section" id="sec-news">
+      <div class="sec-bar">
+        <div class="sec-bar-left">
+          <span class="sec-badge">02 · ONE-SENTENCE DISPATCH</span>
+          <div>
+            <h2>社群一手热帖 &amp; 企业大事记</h2>
+            <p>拒绝长篇大论——每一条都用一句话直接标出「好玩在哪 / 价值在哪」，全部链接直达原始出处</p>
           </div>
         </div>
-
-        <div id="feed" class="feed-ledger"></div>
-        <button class="load-more" id="more-btn" type="button" hidden>展开更多一手社区条目</button>
       </div>
 
-      <aside class="ledger-sidebar">
-        <div class="wire-block">
-          <div class="wire-head">
-            <h2>Hugging Face 实时飙升模型榜</h2>
-            <span class="wire-tag">TRENDING</span>
+      <div class="news-controls-bar">
+        <div class="cat-pills" id="cat-pills"></div>
+        <div class="search-box">
+          <input type="search" id="search-input" placeholder="搜索项目、模型或关键词…" aria-label="搜索" />
+        </div>
+      </div>
+
+      <div class="news-two-col">
+        <!-- 左栏：社群一手热帖 -->
+        <div class="community-col">
+          <div class="col-subhead">
+            <h3>🔥 极客社群一手热帖</h3>
+            <span>Hacker News · Simon Willison · GitHub · HF · V2EX</span>
           </div>
-          <p class="wire-note">开源社区这两天实际在下载、在跑的模型权重。</p>
-          <ol id="hf-trending" class="hf-ledger"></ol>
+          <div id="community-list" style="display:flex;flex-direction:column;gap:14px"></div>
+          <button type="button" class="btn" id="more-news-btn" style="align-self:center;padding:9px 22px;margin-top:8px" hidden>展开更多社群热帖</button>
         </div>
 
-        <div class="wire-block">
-          <div class="wire-head">
-            <h2>核查准则与数据架构</h2>
+        <!-- 右栏：企业大事记 -->
+        <aside class="enterprise-col">
+          <div class="col-subhead">
+            <h3>🏛️ AI 企业大事记</h3>
+            <span>OpenAI · Anthropic · DeepMind · DeepSeek · Qwen</span>
           </div>
-          <p class="wire-note" style="line-height:1.6">
-            1. <strong>零伪造承诺</strong>：所有链接、发布日期、GitHub 星标与社区热度均直接取自原始 API。<br>
-            2. <strong>权重分层</strong>：首屏固定锚定「量化效率 Skills」与「24h 实时大事记」，解决常青实盘挤压实时情报的矛盾。<br>
-            3. <strong>模型精简</strong>：DeepSeek 实盘仅保留 <code>DeepSeek-V4-Pro</code>，并引入 <code>Astra 6.2</code> 三维旋翼机拆解工坊。
-          </p>
-          <div style="display:flex;gap:8px;font-family:var(--mono);font-size:11.5px;margin-top:8px">
-            <a href="https://github.com/sxy3481841323-ship-it/ai-pulse-radar" target="_blank" rel="noopener" class="act-btn">GitHub 仓库 ↗</a>
-            <a href="data/feed.json" target="_blank" rel="noopener" class="act-btn">原始 JSON ↗</a>
+          <div id="official-list" style="display:flex;flex-direction:column;gap:12px"></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         03 可点开的实用 Skill 专区（大学工科 · 创业 · 生活 · 你的量化课助手）
+         ==================================================================== -->
+    <section class="skill-zone-section" id="sec-skills">
+      <button type="button" class="skill-drawer-trigger" id="skill-drawer-trigger" aria-expanded="false">
+        <div class="trigger-left">
+          <span class="trigger-badge">03 · SKILL ZONE</span>
+          <div>
+            <h2>点开即用 · 效率与生活 Skill 宝库（大学工科 · 创业 · 生活 · 量化课助手）</h2>
+            <p>每个 Skill 只用一句话讲明「方便在哪 / 高效在哪」，附现成提示词与安装命令，点击一键展开专区</p>
           </div>
         </div>
-      </aside>
+        <span class="trigger-cta" id="skill-trigger-cta">📂 点击展开 Skill 专区 ▾</span>
+      </button>
+
+      <div class="skill-zone-body" id="skill-zone-body" hidden>
+        <div class="skill-tabs-row">
+          <div class="skill-tabs" id="skill-tabs"></div>
+        </div>
+
+        <!-- 当切换到「量化课实战助手」或「全部」时展示的 31 讲个人画像一键复制条 -->
+        <div class="profile-helper-banner" id="quant-profile-banner">
+          <div class="profile-helper-text">
+            <h4>🎓 你的 31 讲量化学习画像「自报家门」快捷复制器</h4>
+            <p>向 ChatGPT / Claude / DeepSeek 请教量化问题前，点右边按钮复制你的课程进度背景贴在开头，AI 就不会给你讲看不懂的天书或从零解释 ICIR 了。</p>
+          </div>
+          <button type="button" class="btn primary" id="copy-profile-btn">📋 一键复制我的量化背景给 AI 提问</button>
+        </div>
+
+        <div class="skills-grid" id="skills-grid"></div>
+      </div>
     </section>
+  </div>
+
+  <!-- 页内全屏沉浸试玩弹窗（零外部网络依赖，100% 不会 not connected） -->
+  <div class="fullscreen-modal" id="fs-modal" hidden>
+    <div class="fs-bar">
+      <span id="fs-title">全屏实盘试玩</span>
+      <div style="display:flex;gap:10px">
+        <button type="button" class="stage-btn-dark" id="fs-newtab-btn">↗ 用 Blob 在独立新标签页打开</button>
+        <button type="button" class="fs-close-btn" id="fs-close-btn">✕ 退出全屏 (ESC)</button>
+      </div>
+    </div>
+    <iframe class="fs-iframe" id="fs-iframe" title="全屏试玩"></iframe>
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="data/feed.js?v=20261124v4"></script>
+  <script src="data/feed.js?v=20261124v5"></script>
   <script>
 (function () {
   "use strict";
 
   const DATA = window.RADAR || {};
 
-  const DISC_META = {
-    all: { label: "全部学科" },
-    quant_fin: { label: "量化金融" },
-    market: { label: "金融市场" },
-    fin_math: { label: "金融数学" },
-    econometrics: { label: "计量经济学" },
-    stat: { label: "统计学" },
-    macro: { label: "宏观经济学" }
+  const USER_QUANT_PROFILE_PROMPT =
+    "我在学量化，已经学完基础课（12讲）、进阶课（12讲）和高阶专题 Part 1（7讲）：会 Python (NumPy/Pandas) 数据清洗、MAD去极值、行业市值中性化、ICIR单因子检验与分层回测、中证1000多因子指增；也会用 gplearn 遗传规划挖因子、决策树/随机森林/XGBoost 滚动训练（懂防未来函数）、HMM隐状态/RSRS/卡尔曼滤波择时、CNN K线识别，做过 Level-2 高频逐笔成交/委托/撤单订单流因子。我还没学 Part 2（另类事件驱动、行业轮动、期货CTA）、Part 3（组合优化与Barra）和 Part 4（miniqmt/ptrade实盘与TWAP/VWAP拆单）。请教我时请直接按这个工科生能听懂的实战水平来讲，别堆砌晦涩的衍生品数学天书，多给可落地的 Pandas 代码思路和踩坑点。";
+
+  const SKILL_GROUPS = {
+    all: "全部实用 Skill",
+    college: "🎓 大学工科与课业",
+    startup: "🚀 创业与独立开发",
+    life: "☕ 日常生活便利",
+    quant: "📈 你的量化课实战助手"
   };
 
-  const CAT_META = {
-    all: { label: "全部", stamp: "ALL" },
-    tool: { label: "效率工具", stamp: "工具·TOOL" },
-    play: { label: "好玩/可视化", stamp: "神作·PLAY" },
-    bench: { label: "野生实测", stamp: "实测·BENCH" },
-    talk: { label: "深度讨论", stamp: "讨论·TALK" }
+  const CAT_LABELS = {
+    all: "全部热帖",
+    play: "🎮 好玩 / 可视化",
+    tool: "🛠️ 提效新工具",
+    bench: "⚖️ 野生实测",
+    talk: "💬 极客热议"
   };
 
   let state = {
-    discipline: "all",
-    wireTab: "official", // "official" | "flash"
-    region: "ALL",
-    classicIdx: 0,
-    theaterOpen: true,
+    demoIdx: 0,
+    stageOpen: true,
     cat: "all",
-    sort: "pick",
     query: "",
-    limit: 20
+    newsLimit: 12,
+    skillZoneOpen: false,
+    skillGroup: "all"
   };
 
   function esc(str) {
@@ -1588,10 +1250,6 @@ h1, h2, h3, h4, p { margin: 0; }
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
-  }
-
-  function pad2(n) {
-    return String(n).padStart(2, "0");
   }
 
   function fmtStars(n) {
@@ -1608,12 +1266,7 @@ h1, h2, h3, h4, p { margin: 0; }
     const diffH = (now - d) / 3600000;
     if (diffH >= 0 && diffH < 1) return "刚刚";
     if (diffH >= 1 && diffH < 24) return Math.floor(diffH) + "h 前";
-    return pad2(d.getMonth() + 1) + "-" + pad2(d.getDate());
-  }
-
-  function dayKey(isoStr) {
-    if (!isoStr) return "近期";
-    return String(isoStr).slice(0, 10);
+    return String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
   }
 
   function toast(msg) {
@@ -1622,7 +1275,7 @@ h1, h2, h3, h4, p { margin: 0; }
     el.textContent = msg;
     el.classList.add("show");
     clearTimeout(toast._t);
-    toast._t = setTimeout(() => el.classList.remove("show"), 1900);
+    toast._t = setTimeout(() => el.classList.remove("show"), 2000);
   }
 
   function copyText(text, label) {
@@ -1641,323 +1294,310 @@ h1, h2, h3, h4, p { margin: 0; }
     }
   }
 
-  // ---------- 为每个量化 Skill 生成专属的数学/金融可视化微图 SVG ----------
-  function quantSparkSvg(kind) {
-    switch (kind) {
-      case "alpha_ic_curve":
-        return `<svg viewBox="0 0 110 42"><path d="M4 36 L22 28 L40 22 L58 18 L76 11 L94 7 L106 4" fill="none" stroke="#196b48" stroke-width="2"/><path d="M4 36 L22 35 L40 37 L58 38 L76 39 L106 40" fill="none" stroke="#8c948d" stroke-width="1.2" stroke-dasharray="2,2"/><rect x="10" y="24" width="6" height="12" fill="#d9481e" opacity="0.7"/><rect x="28" y="18" width="6" height="18" fill="#196b48" opacity="0.7"/><rect x="46" y="21" width="6" height="15" fill="#196b48" opacity="0.7"/><rect x="64" y="13" width="6" height="23" fill="#196b48" opacity="0.85"/></svg>`;
-      case "iv_term_structure":
-        return `<svg viewBox="0 0 110 42"><path d="M6 10 Q36 36 58 26 T104 14" fill="none" stroke="#d9481e" stroke-width="2.1"/><path d="M6 20 Q36 38 58 31 T104 24" fill="none" stroke="#1b4fa0" stroke-width="1.6"/><circle cx="58" cy="26" r="2.5" fill="#181d1a"/></svg>`;
-      case "did_event_study":
-        return `<svg viewBox="0 0 110 42"><line x1="52" y1="3" x2="52" y2="39" stroke="#d9481e" stroke-width="1.2" stroke-dasharray="2,2"/><line x1="4" y1="28" x2="106" y2="28" stroke="#8c948d" stroke-width="1"/><path d="M10 28 L30 27 L52 28 L72 17 L90 11 L104 9" fill="none" stroke="#1b4fa0" stroke-width="2"/><path d="M72 11 L72 23 M90 5 L90 17" stroke="#1b4fa0" stroke-width="1.3"/></svg>`;
-      case "garch_vol_cone":
-        return `<svg viewBox="0 0 110 42"><path d="M4 22 L14 21 L22 8 L30 34 L38 14 L48 25 L60 20 L72 9 L82 31 L94 19 L106 21" fill="none" stroke="#1b4fa0" stroke-width="1.5"/><path d="M4 16 L22 5 L38 11 L60 17 L72 6 L106 16" fill="none" stroke="#d9481e" stroke-width="1.6"/></svg>`;
-      case "conformal_fan":
-        return `<svg viewBox="0 0 110 42"><polygon points="56,22 104,6 104,36" fill="rgba(158,97,8,0.18)"/><path d="M6 28 L24 23 L40 26 L56 22 L80 18 L104 19" fill="none" stroke="#9e6108" stroke-width="2"/></svg>`;
-      case "cvar_frontier":
-        return `<svg viewBox="0 0 110 42"><path d="M14 36 Q32 10 98 7" fill="none" stroke="#5b2c91" stroke-width="2.2"/><circle cx="46" cy="17" r="3" fill="#d9481e"/><circle cx="32" cy="26" r="2" fill="#181d1a"/><circle cx="68" cy="12" r="2" fill="#196b48"/></svg>`;
-      case "sabr_smile":
-        return `<svg viewBox="0 0 110 42"><path d="M8 8 C28 36, 72 38, 102 12" fill="none" stroke="#5b2c91" stroke-width="2.2"/><path d="M12 16 L98 28" fill="none" stroke="#8c948d" stroke-width="1" stroke-dasharray="2,2"/></svg>`;
-      case "lob_imbalance":
-        return `<svg viewBox="0 0 110 42"><polygon points="6,38 6,12 24,12 24,20 48,20 48,38" fill="rgba(25,107,72,0.28)" stroke="#196b48" stroke-width="1.5"/><polygon points="60,38 60,24 82,24 82,9 104,9 104,38" fill="rgba(217,72,30,0.25)" stroke="#d9481e" stroke-width="1.5"/></svg>`;
-      case "yield_curve_erp":
-        return `<svg viewBox="0 0 110 42"><path d="M8 34 Q36 16 102 10" fill="none" stroke="#196b48" stroke-width="2"/><path d="M8 14 Q42 28 102 32" fill="none" stroke="#d9481e" stroke-width="1.6" stroke-dasharray="3,2"/></svg>`;
-      default:
-        return `<svg viewBox="0 0 110 42"><path d="M6 21 C24 4, 44 38, 66 15 S92 30, 104 12" fill="none" stroke="#185a7a" stroke-width="2"/></svg>`;
+  // 用 Blob URL 在新标签页打开内联 HTML，100% 不会出现 not connected
+  function openDemoInNewTab(demoIdx) {
+    const list = DATA.classics || [];
+    const c = list[demoIdx] || list[0];
+    if (!c) return;
+    const r = (c.runs && c.runs[0]) || {};
+    if (r.inline_html) {
+      const blob = new Blob([r.inline_html], { type: "text/html;charset=utf-8" });
+      const blobUrl = URL.createObjectURL(blob);
+      window.open(blobUrl, "_blank");
+    } else if (r.file) {
+      window.open(r.file, "_blank");
     }
   }
 
-  // ---------- 为 4 个可视化标本卡片生成精细矢量缩略图 ----------
-  function specimenPreviewSvg(id) {
-    if (id === "helicopter-kestrel") {
-      return `<svg viewBox="0 0 280 118" xmlns="http://www.w3.org/2000/svg">
-        <rect width="280" height="118" fill="#eef1e8"/>
-        <g stroke="#d5dcd0" stroke-width="0.8">
-          <line x1="0" y1="30" x2="280" y2="30"/><line x1="0" y1="60" x2="280" y2="60"/><line x1="0" y1="90" x2="280" y2="90"/>
-          <line x1="70" y1="0" x2="70" y2="118"/><line x1="140" y1="0" x2="140" y2="118"/><line x1="210" y1="0" x2="210" y2="118"/>
-        </g>
-        <!-- 爆炸拆解轴线 -->
-        <line x1="135" y1="12" x2="135" y2="106" stroke="#ff713c" stroke-width="1.2" stroke-dasharray="3,3"/>
-        <!-- 顶层：主旋翼五桨叶总成 (Exploded Up) -->
-        <ellipse cx="135" cy="22" rx="76" ry="9" fill="none" stroke="#1e2421" stroke-width="1.6"/>
-        <line x1="59" y1="22" x2="211" y2="22" stroke="#1e2421" stroke-width="2.2"/>
-        <line x1="95" y1="14" x2="175" y2="30" stroke="#1e2421" stroke-width="1.8"/>
-        <circle cx="135" cy="22" r="5" fill="#ff713c" stroke="#1e2421" stroke-width="1.5"/>
-        <!-- 中层：H-07 机身 + 座舱 + 尾梁 + 尾桨 -->
-        <path d="M78 62 C78 47, 112 45, 152 50 L226 55 L234 43 L242 43 L236 60 L152 67 C115 72, 78 72, 78 62 Z" fill="#fafbf8" stroke="#1e2421" stroke-width="2"/>
-        <path d="M82 60 C84 50, 106 48, 118 52 L116 64 C100 65, 84 64, 82 60 Z" fill="#cde0e6" stroke="#1e2421" stroke-width="1.4"/>
-        <circle cx="238" cy="52" r="13" fill="none" stroke="#ff713c" stroke-width="1.6" stroke-dasharray="3,2"/>
-        <line x1="227" y1="52" x2="249" y2="52" stroke="#1e2421" stroke-width="1.8"/>
-        <!-- 底层：起落滑橇 (Exploded Down) -->
-        <path d="M92 96 L168 96 M106 84 L102 96 M152 84 L156 96 M84 92 L92 96" fill="none" stroke="#1e2421" stroke-width="2" stroke-linecap="round"/>
-        <text x="10" y="18" font-family="monospace" font-size="9.5" font-weight="bold" fill="#42775c">01 ROTOR HUB</text>
-        <text x="10" y="108" font-family="monospace" font-size="9.5" font-weight="bold" fill="#ff713c">8-PART EXPLODED VIEW</text>
-      </svg>`;
+  // 打开页内 100% 全屏沉浸试玩弹窗
+  function openFullscreenModal(demoIdx) {
+    const list = DATA.classics || [];
+    const c = list[demoIdx] || list[0];
+    if (!c) return;
+    const r = (c.runs && c.runs[0]) || {};
+    const modal = document.getElementById("fs-modal");
+    const iframe = document.getElementById("fs-iframe");
+    document.getElementById("fs-title").textContent = `${c.name} · ${r.model_name || ""}`;
+    modal.hidden = false;
+    if (r.inline_html) {
+      iframe.srcdoc = r.inline_html;
+    } else if (r.file) {
+      iframe.removeAttribute("srcdoc");
+      iframe.src = r.file;
     }
-    if (id === "quant-vol-lob") {
-      return `<svg viewBox="0 0 280 118" xmlns="http://www.w3.org/2000/svg">
-        <rect width="280" height="118" fill="#f2f3ec"/>
-        <!-- 3D Volatility Surface Mesh -->
-        <path d="M18 82 Q65 24 115 54 T172 26" fill="none" stroke="#d9481e" stroke-width="2.4"/>
-        <path d="M26 94 Q73 38 123 66 T180 40" fill="none" stroke="#196b48" stroke-width="1.8"/>
-        <path d="M34 104 Q81 52 131 78 T188 54" fill="none" stroke="#1b4fa0" stroke-width="1.5"/>
-        <line x1="18" y1="82" x2="34" y2="104" stroke="#181d1a" stroke-width="1"/>
-        <line x1="115" y1="54" x2="131" y2="78" stroke="#181d1a" stroke-width="1"/>
-        <line x1="172" y1="26" x2="188" y2="54" stroke="#181d1a" stroke-width="1"/>
-        <!-- Right mini LOB depth -->
-        <rect x="198" y="14" width="72" height="90" fill="#fafbf8" stroke="#181d1a" stroke-width="1.2"/>
-        <polygon points="202,98 202,48 218,48 218,68 231,68 231,98" fill="rgba(25,107,72,0.3)" stroke="#196b48" stroke-width="1.4"/>
-        <polygon points="237,98 237,72 252,72 252,34 266,34 266,98" fill="rgba(217,72,30,0.28)" stroke="#d9481e" stroke-width="1.4"/>
-        <text x="12" y="18" font-family="monospace" font-size="9.5" font-weight="bold" fill="#181d1a">σ_IV(K,τ) + L2 LOB</text>
+  }
+
+  function closeFullscreenModal() {
+    const modal = document.getElementById("fs-modal");
+    const iframe = document.getElementById("fs-iframe");
+    modal.hidden = true;
+    iframe.srcdoc = "";
+  }
+
+  // 4 张可视化项目的矢量预览图
+  function demoThumbSvg(id) {
+    if (id === "helicopter-kestrel") {
+      return `<svg viewBox="0 0 280 128" xmlns="http://www.w3.org/2000/svg">
+        <rect width="280" height="128" fill="#eef1e8"/>
+        <line x1="135" y1="12" x2="135" y2="116" stroke="#ff713c" stroke-width="1.2" stroke-dasharray="3,3"/>
+        <ellipse cx="135" cy="24" rx="76" ry="9" fill="none" stroke="#1e2421" stroke-width="1.6"/>
+        <line x1="59" y1="24" x2="211" y2="24" stroke="#1e2421" stroke-width="2.2"/>
+        <circle cx="135" cy="24" r="5" fill="#ff713c" stroke="#1e2421" stroke-width="1.5"/>
+        <path d="M78 66 C78 51, 112 49, 152 54 L226 59 L234 47 L242 47 L236 64 L152 71 C115 76, 78 76, 78 66 Z" fill="#fafbf8" stroke="#1e2421" stroke-width="2"/>
+        <path d="M82 64 C84 54, 106 52, 118 56 L116 68 C100 69, 84 68, 82 64 Z" fill="#cde0e6" stroke="#1e2421" stroke-width="1.4"/>
+        <circle cx="238" cy="56" r="13" fill="none" stroke="#ff713c" stroke-width="1.6" stroke-dasharray="3,2"/>
+        <path d="M92 102 L168 102 M106 90 L102 102 M152 90 L156 102" fill="none" stroke="#1e2421" stroke-width="2" stroke-linecap="round"/>
       </svg>`;
     }
     if (id === "chaos-attractor") {
-      return `<svg viewBox="0 0 280 118" xmlns="http://www.w3.org/2000/svg">
-        <rect width="280" height="118" fill="#f3f3ed"/>
-        <path d="M140 62 C105 12, 42 18, 52 62 C62 104, 118 92, 140 62 C162 32, 218 16, 228 60 C238 102, 175 106, 140 62 Z" fill="none" stroke="#d9481e" stroke-width="2.2"/>
-        <path d="M140 62 C112 24, 58 28, 66 62 C74 94, 120 84, 140 62 C160 40, 206 28, 214 60 C222 92, 168 96, 140 62 Z" fill="none" stroke="#1b4fa0" stroke-width="1.5"/>
-        <path d="M140 62 C120 36, 74 38, 80 62 C86 84, 124 76, 140 62 C156 48, 192 40, 198 60 C204 82, 160 84, 140 62 Z" fill="none" stroke="#196b48" stroke-width="1.3"/>
-        <circle cx="140" cy="62" r="3.5" fill="#181d1a"/>
-        <text x="12" y="18" font-family="monospace" font-size="9.5" font-weight="bold" fill="#181d1a">RK4 STRANGE ATTRACTOR</text>
+      return `<svg viewBox="0 0 280 128" xmlns="http://www.w3.org/2000/svg">
+        <rect width="280" height="128" fill="#f3f3ed"/>
+        <path d="M140 66 C105 14, 42 20, 52 66 C62 110, 118 98, 140 66 C162 34, 218 18, 228 64 C238 108, 175 112, 140 66 Z" fill="none" stroke="#d9481e" stroke-width="2.3"/>
+        <path d="M140 66 C112 26, 58 30, 66 66 C74 100, 120 90, 140 66 C160 42, 206 30, 214 64 C222 98, 168 102, 140 66 Z" fill="none" stroke="#1b4fa0" stroke-width="1.6"/>
+        <circle cx="140" cy="66" r="3.5" fill="#181d1a"/>
       </svg>`;
     }
-    return `<svg viewBox="0 0 280 118" xmlns="http://www.w3.org/2000/svg">
-      <rect width="280" height="118" fill="#f4f4ee"/>
-      <polygon points="140,14 184,38 184,82 140,106 96,82 96,38" fill="#fafbf8" stroke="#181d1a" stroke-width="2.5"/>
-      <path d="M114 70 Q132 42 156 54 T168 76" fill="none" stroke="#d9481e" stroke-width="1.8" stroke-dasharray="3,3"/>
-      <circle cx="156" cy="54" r="9" fill="#d9481e" stroke="#181d1a" stroke-width="1.5"/>
-      <text x="12" y="18" font-family="monospace" font-size="9.5" font-weight="bold" fill="#181d1a">V4-PRO TANGENTIAL PHYSICS</text>
+    if (id === "hexagon-ball") {
+      return `<svg viewBox="0 0 280 128" xmlns="http://www.w3.org/2000/svg">
+        <rect width="280" height="128" fill="#f4f4ee"/>
+        <polygon points="140,16 186,40 186,88 140,112 94,88 94,40" fill="#fafbf8" stroke="#181d1a" stroke-width="2.6"/>
+        <path d="M114 74 Q132 44 156 56 T168 80" fill="none" stroke="#d9481e" stroke-width="1.8" stroke-dasharray="3,3"/>
+        <circle cx="156" cy="56" r="9.5" fill="#d9481e" stroke="#181d1a" stroke-width="1.5"/>
+      </svg>`;
+    }
+    return `<svg viewBox="0 0 280 128" xmlns="http://www.w3.org/2000/svg">
+      <rect width="280" height="128" fill="#f2f3ec"/>
+      <rect x="14" y="14" width="76" height="100" fill="rgba(217,72,30,0.08)"/>
+      <rect x="90" y="14" width="60" height="100" fill="rgba(194,120,14,0.06)"/>
+      <rect x="150" y="14" width="116" height="100" fill="rgba(217,72,30,0.10)"/>
+      <path d="M18 92 L54 74 L92 82 L134 64 L178 44 L222 30 L260 22" fill="none" stroke="#d9481e" stroke-width="2.5"/>
+      <path d="M18 96 L54 84 L92 88 L134 76 L178 62 L222 54 L260 48" fill="none" stroke="#181d1a" stroke-width="1.8"/>
+      <path d="M18 94 L54 80 L92 85 L134 72 L178 55 L222 44 L260 36" fill="none" stroke="#1b4fa0" stroke-width="1.6" stroke-dasharray="4,3"/>
     </svg>`;
   }
 
-  // ---------- 顶部直连数据源监测表 ----------
-  function renderTelemetry() {
-    const updatedEl = document.getElementById("updated-text");
-    const sumEl = document.getElementById("telemetry-summary");
-    const gridEl = document.getElementById("telemetry-grid");
-
+  // ---------- 顶部状态渲染 ----------
+  function renderHeader() {
+    if (DATA.week_label) {
+      document.getElementById("week-badge").textContent = DATA.week_label + " · 每周推陈出新";
+    }
     const sources = DATA.sources || [];
     const okCount = sources.filter((s) => s.ok).length;
-    updatedEl.textContent =
-      "最新采集: " +
-      (DATA.generated_at ? DATA.generated_at.replace("T", " ").slice(0, 16) + " UTC" : "刚刚") +
-      (DATA.model ? ` · 提纯: ${DATA.model}` : "");
-
-    sumEl.textContent = `${okCount}/${sources.length} 源在线`;
-
-    const cells = sources.map(
-      (s) =>
-        `<div class="tel-cell" title="${esc(s.error || s.name)}">
-           <span class="tel-name">${esc(s.name)}</span>
-           <span class="tel-val">${s.ok ? s.count + "条" : "ERR"}</span>
-         </div>`
-    );
-    gridEl.innerHTML = cells.join("");
+    document.getElementById("updated-text").textContent =
+      "最新同步: " +
+      (DATA.generated_at ? DATA.generated_at.replace("T", " ").slice(0, 16) + " UTC" : "刚刚");
+    document.getElementById("source-mini-status").textContent =
+      `直连数据源 ${okCount}/${sources.length || 11} 在线 · 零二手自媒体`;
   }
 
-  // ---------- 00 24h 实时焦点简报横条 ----------
-  function renderBriefing() {
-    const sec = document.getElementById("sec-briefing");
-    const b = DATA.briefing;
-    if (!b || !b.headline) {
-      sec.hidden = true;
-      return;
-    }
-    sec.hidden = false;
+  // ---------- 01 本周好玩项目渲染 ----------
+  function renderPlayground() {
+    const list = DATA.classics || [];
+    const cardsEl = document.getElementById("playground-cards");
+    const stageEl = document.getElementById("stage-container");
+    const toggleBtn = document.getElementById("toggle-stage-btn");
+    if (!list.length) return;
 
-    const idToRank = {};
-    (DATA.community || []).forEach((it, idx) => {
-      idToRank[it.id] = pad2(idx + 1);
-    });
+    toggleBtn.textContent = state.stageOpen ? "▼ 收起试玩画布" : "▶ 展开试玩画布";
 
-    const cells = (b.points || [])
-      .slice(0, 4)
-      .map((p) => {
-        const refs = (p.ids || [])
-          .filter((id) => idToRank[id])
-          .map(
-            (id) =>
-              `<button type="button" class="ref-jump" data-jump="${esc(id)}">#${esc(
-                idToRank[id]
-              )}</button>`
-          )
-          .join("");
+    cardsEl.innerHTML = list
+      .map((c, idx) => {
+        const isAct = state.demoIdx === idx;
         return `
-          <div class="brief-cell">
-            <div class="brief-text">${esc(p.text)}</div>
-            ${refs ? `<div class="brief-refs">${refs}</div>` : ""}
-          </div>
+          <article class="play-card ${isAct ? "active" : ""}" data-select-demo="${idx}">
+            <div>
+              <div class="play-card-top">
+                <span class="model-pill">${esc(c.badge || "LIVE")}</span>
+                <span class="cat-text">${esc(c.category || "")}</span>
+              </div>
+              <div class="play-thumb" style="margin-top:10px">
+                ${demoThumbSvg(c.id)}
+                <span class="play-status-tag">${
+                  isAct && state.stageOpen ? "● 正在下方画布运行" : "▶ 点击切换试玩"
+                }</span>
+              </div>
+              <h3 class="play-title" style="margin-top:12px">${esc(c.name)}</h3>
+              <p class="play-oneliner" style="margin-top:6px">${esc(
+                c.one_liner || c.why
+              )}</p>
+            </div>
+            <div class="play-card-actions">
+              <button type="button" class="btn primary" data-select-demo="${idx}">
+                ${isAct && state.stageOpen ? "● 正在试玩" : "▶ 在画布打开"}
+              </button>
+              <button type="button" class="btn" data-fs-demo="${idx}">⛶ 全屏试玩</button>
+              <button type="button" class="btn" data-copy="${esc(
+                c.prompt
+              )}" data-copy-label="已复制 Prompt">复制提示词</button>
+            </div>
+          </article>
         `;
       })
       .join("");
 
-    sec.innerHTML = `
-      <div class="briefing-lead">
-        <span class="briefing-kicker">24H PULSE // 今日一手技术脉络</span>
-        <h2 class="briefing-headline">${esc(b.headline)}</h2>
-      </div>
-      <div class="briefing-points">${cells}</div>
-    `;
-  }
+    if (!state.stageOpen) {
+      stageEl.hidden = true;
+    } else {
+      stageEl.hidden = false;
+      const c = list[state.demoIdx] || list[0];
+      const r = (c.runs && c.runs[0]) || {};
+      stageEl.innerHTML = `
+        <div class="stage-topbar">
+          <div class="stage-topbar-left">
+            <span class="stage-live-dot"></span>
+            <span class="stage-title-Now">${esc(c.name)}</span>
+            <span style="font-family:var(--mono);font-size:12px;color:#b8c2bc">(${esc(
+              r.model_name || c.badge
+            )} · 内联零断连引擎)</span>
+          </div>
+          <div class="stage-topbar-actions">
+            <button type="button" class="stage-btn-dark accent" data-fs-demo="${
+              state.demoIdx
+            }">⛶ 页内全屏沉浸试玩</button>
+            <button type="button" class="stage-btn-dark" data-blob-demo="${
+              state.demoIdx
+            }">↗ 独立新标签页打开</button>
+          </div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-iframe-wrap">
+            <iframe id="main-stage-iframe" title="${esc(c.name)}"></iframe>
+          </div>
+          <div class="stage-side-guide">
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div class="guide-block">
+                <h4>💡 为什么好玩</h4>
+                <p>${esc(c.one_liner || c.why)}</p>
+              </div>
+              ${
+                c.look_for && c.look_for.length
+                  ? `<div class="guide-block">
+                       <h4>🕹️ 上手怎么玩</h4>
+                       <ul>${c.look_for.map((l) => `<li>${esc(l)}</li>`).join("")}</ul>
+                     </div>`
+                  : ""
+              }
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head">
+                <span>完整生成 Prompt</span>
+                <button type="button" class="btn" style="padding:2px 8px;font-size:11px" data-copy="${esc(
+                  c.prompt
+                )}" data-copy-label="已复制完整 Prompt">复制 Prompt</button>
+              </div>
+              <pre>${esc(c.prompt)}</pre>
+            </div>
+          </div>
+        </div>
+      `;
 
-  // ---------- 01 权重 #1：量化与数理研究效率 Skills 矩阵 ----------
-  function renderQuantSkills() {
-    const all = DATA.quant_skills || [];
-    const barEl = document.getElementById("discipline-bar");
-    const gridEl = document.getElementById("quant-grid");
+      // 使用内联 srcdoc 直接注入 HTML，彻底消除任何网络/路径引起的 not connected
+      const iframe = document.getElementById("main-stage-iframe");
+      if (iframe) {
+        if (r.inline_html) {
+          iframe.srcdoc = r.inline_html;
+        } else if (r.file) {
+          iframe.src = r.file;
+        }
+      }
+    }
 
-    const counts = { all: all.length };
-    all.forEach((it) => {
-      counts[it.discipline] = (counts[it.discipline] || 0) + 1;
-    });
-
-    barEl.innerHTML = Object.keys(DISC_META)
-      .map(
-        (k) =>
-          `<button type="button" class="disc-btn ${
-            state.discipline === k ? "on" : ""
-          }" data-disc="${k}">${esc(DISC_META[k].label)}<span class="cnt">(${
-            counts[k] || 0
-          })</span></button>`
-      )
-      .join("");
-
-    const filtered =
-      state.discipline === "all"
-        ? all
-        : all.filter((it) => it.discipline === state.discipline);
-
-    gridEl.innerHTML = filtered
+    // 渲染本周社区自动抓新的好玩网页/Space
+    const freshGrid = document.getElementById("weekly-fresh-grid");
+    const freshList = (DATA.community || [])
+      .filter((it) => it.playable || it.category === "play")
+      .slice(0, 4);
+    freshGrid.innerHTML = freshList
       .map(
         (it) => `
-        <article class="quant-card">
+        <div class="fresh-card">
           <div>
-            <div class="q-card-top">
-              <span class="q-disc-tag ${esc(it.discipline)}">${esc(
-          it.discipline_label
-        )} · ${esc(it.kind)}</span>
-              <div class="q-repo-meta">
-                <span class="q-stars">${esc(fmtStars(it.stars))}</span>
-                <span>${esc(it.language || "Python")}</span>
-                <span>更新 ${esc(fmtDate(it.pushed_at))}</span>
-              </div>
+            <div class="fresh-meta">
+              <span>${esc(it.source_label || "在线试玩")}</span>
+              <span>${
+                it.points != null
+                  ? "★ " + esc(it.points)
+                  : esc(fmtDate(it.published_at))
+              }</span>
             </div>
-
-            <div class="q-title-row" style="margin-top:8px">
-              <div>
-                <h3 class="q-title"><a href="${esc(
-                  it.url
-                )}" target="_blank" rel="noopener">${esc(it.title_zh)}</a></h3>
-                <div class="q-kind-sub">${esc(it.repo)}</div>
-              </div>
-              <div class="q-spark-box" title="量化/数理机制示意图">
-                ${quantSparkSvg(it.visual_preview)}
-                <div class="q-spark-caption">${esc(it.metrics_badge || it.discipline_label)}</div>
-              </div>
-            </div>
-
-            <p class="q-gain" style="margin-top:8px">${esc(it.efficiency_gain)}</p>
+            <h4 class="fresh-title" style="margin-top:6px">
+              <a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(
+          it.title_zh || it.title
+        )}</a>
+            </h4>
+            <p class="fresh-one-line" style="margin-top:6px">${esc(it.why)}</p>
           </div>
-
-          <div>
-            <div class="q-recipe-box">
-              <div class="q-recipe-head">
-                <span>⚡ AGENT SKILL / 投研提示词模板</span>
-                <button type="button" class="act-btn" data-copy="${esc(
-                  it.skill_recipe
-                )}" data-copy-label="已复制量化 Skill 提示词">复制 Skill 提示词</button>
-              </div>
-              <div class="q-recipe-text">${esc(it.skill_recipe)}</div>
-            </div>
-
-            <div class="q-foot" style="margin-top:8px">
-              <span class="q-cmd" data-copy="${esc(
-                it.install_cmd
-              )}" data-copy-label="已复制安装命令: ${esc(it.install_cmd)}" title="点击复制安装命令">$ ${esc(
-          it.install_cmd
-        )}</span>
-              <div class="q-actions">
-                <a class="act-btn" href="${esc(
-                  it.url
-                )}" target="_blank" rel="noopener">GitHub 仓库 ↗</a>
-              </div>
-            </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding-top:6px">
+            <span style="font-family:var(--mono);font-size:11px;color:var(--muted)">${(
+              it.tags || []
+            )
+              .map((t) => "#" + esc(t))
+              .join(" ")}</span>
+            <a class="btn" href="${esc(
+              it.url
+            )}" target="_blank" rel="noopener">去玩玩看 ↗</a>
           </div>
-        </article>
+        </div>
       `
       )
       .join("");
   }
 
-  // ---------- 02 首屏右栏：24h 实时大事记 & 极客快讯电报 ----------
-  function renderLiveWire() {
-    const container = document.getElementById("wire-list-container");
-    const subbar = document.getElementById("wire-subbar");
-
-    document.querySelectorAll(".wire-tab-btn").forEach((b) => {
-      b.classList.toggle("on", b.getAttribute("data-wire-tab") === state.wireTab);
+  // ---------- 02 社群热帖 & 企业大事记（每条一句话讲清价值） ----------
+  function renderNewsSection() {
+    const allComm = DATA.community || [];
+    const counts = { all: allComm.length, play: 0, tool: 0, bench: 0, talk: 0 };
+    allComm.forEach((it) => {
+      const c = it.category || "talk";
+      if (counts[c] != null) counts[c]++;
     });
 
-    if (state.wireTab === "official") {
-      subbar.style.display = "flex";
-      const list = (DATA.official || []).filter(
-        (it) => state.region === "ALL" || it.region === state.region
-      );
-      if (!list.length) {
-        container.innerHTML = `<div style="padding:24px;text-align:center;color:var(--muted)">暂无符合条件的大厂通告</div>`;
-        return;
-      }
-      const byDay = {};
-      list.forEach((it) => {
-        const k = dayKey(it.published_at);
-        (byDay[k] = byDay[k] || []).push(it);
-      });
-      container.innerHTML = Object.keys(byDay)
-        .sort()
-        .reverse()
-        .map((day) => {
-          const rows = byDay[day]
-            .map(
-              (it) => `
-              <a class="wire-entry" href="${esc(it.url)}" target="_blank" rel="noopener">
-                <div class="wire-meta">
-                  <span class="wire-org">${esc(it.org)}</span>
-                  <span class="wire-region">${esc(it.region)}</span>
-                  ${it.importance >= 3 ? `<span class="wire-major">重磅</span>` : ""}
-                  <span style="margin-left:auto;color:var(--muted)">${esc(
-                    fmtDate(it.published_at)
-                  )}</span>
-                </div>
-                <div class="wire-entry-title">${esc(it.title_zh || it.title)}</div>
-                ${
-                  it.summary_zh
-                    ? `<div class="wire-entry-sum">${esc(it.summary_zh)}</div>`
-                    : ""
-                }
-              </a>
-            `
-            )
-            .join("");
-          return `<div class="wire-date-header">${esc(day)}</div>${rows}`;
-        })
-        .join("");
-    } else {
-      subbar.style.display = "none";
-      const list = (DATA.community || [])
-        .slice()
-        .sort((a, b) =>
-          String(b.published_at || "").localeCompare(String(a.published_at || ""))
-        )
-        .slice(0, 18);
-      container.innerHTML = list
-        .map(
-          (it) => `
-          <a class="wire-entry" href="${esc(it.url)}" target="_blank" rel="noopener">
-            <div class="wire-meta">
-              <span class="wire-org">${esc(it.source_label || it.source)}</span>
+    document.getElementById("cat-pills").innerHTML = Object.keys(CAT_LABELS)
+      .map(
+        (k) =>
+          `<button type="button" class="cat-pill ${
+            state.cat === k ? "on" : ""
+          }" data-cat="${k}">${esc(CAT_LABELS[k])} (${counts[k] || 0})</button>`
+      )
+      .join("");
+
+    const q = state.query.trim().toLowerCase();
+    const filtered = allComm.filter((it) => {
+      if (state.cat !== "all" && it.category !== state.cat) return false;
+      if (!q) return true;
+      return [it.title_zh, it.title, it.why, (it.tags || []).join(" ")]
+        .join(" ")
+        .toLowerCase()
+        .includes(q);
+    });
+
+    const visible = filtered.slice(0, state.newsLimit);
+    const moreBtn = document.getElementById("more-news-btn");
+    moreBtn.hidden = filtered.length <= state.newsLimit;
+    moreBtn.textContent = `展开剩余 ${filtered.length - visible.length} 条热帖`;
+
+    const catTagMap = {
+      play: "好玩项目",
+      tool: "提效工具",
+      bench: "野生实测",
+      talk: "极客热议"
+    };
+
+    document.getElementById("community-list").innerHTML = visible
+      .map((it) => {
+        const cat = it.category || "talk";
+        return `
+          <article class="news-card">
+            <div class="news-card-meta">
+              <span class="cat-tag ${esc(cat)}">${esc(
+          catTagMap[cat] || "热议"
+        )}</span>
+              <span style="font-weight:700">${esc(
+                it.source_label || it.source
+              )}</span>
               ${
                 it.points != null
-                  ? `<span class="wire-region">${esc(it.points)} ${esc(
+                  ? `<span>· 热度 ${esc(it.points)} ${esc(
                       it.points_label || "PTS"
                     )}</span>`
                   : ""
@@ -1966,338 +1606,143 @@ h1, h2, h3, h4, p { margin: 0; }
                 fmtDate(it.published_at)
               )}</span>
             </div>
-            <div class="wire-entry-title">${esc(it.title_zh || it.title)}</div>
-            ${it.why ? `<div class="wire-entry-sum">${esc(it.why)}</div>` : ""}
-          </a>
-        `
-        )
-        .join("");
-    }
-  }
-
-  // ---------- 03 权重 #2：好玩的可视化项目与提示词标本舱 ----------
-  function renderVisualSpecimens() {
-    const list = DATA.classics || [];
-    const stripEl = document.getElementById("specimen-filmstrip");
-    const dockEl = document.getElementById("theater-dock");
-    const toggleBtn = document.getElementById("toggle-theater-btn");
-    if (!list.length) return;
-
-    toggleBtn.classList.toggle("active", state.theaterOpen);
-    toggleBtn.textContent = state.theaterOpen
-      ? "▼ 收起实盘交互剧场（仅看标本卡片）"
-      : "▶ 展开 580px 实盘交互剧场";
-
-    stripEl.innerHTML = list
-      .map((c, idx) => {
-        const r = (c.runs && c.runs[0]) || {};
-        const isSel = state.classicIdx === idx;
-        return `
-          <article class="specimen-card ${
-            isSel ? "selected" : ""
-          }" data-spec-idx="${idx}">
-            <div>
-              <div class="spec-top">
-                <span class="spec-model-badge">${esc(
-                  c.badge || r.model_name || "LIVE DEMO"
-                )}</span>
-                <span class="spec-cat">${esc(c.category || "交互实盘")}</span>
-              </div>
-              <div class="spec-preview-art" style="margin-top:8px">
-                ${specimenPreviewSvg(c.id)}
-                <span class="spec-live-pill">${
-                  isSel && state.theaterOpen ? "● 正在下方剧场运行" : "▶ 点击启动实盘"
-                }</span>
-              </div>
-              <h3 class="spec-title" style="margin-top:9px">${esc(c.name)}</h3>
-              <p class="spec-why" style="margin-top:5px">${esc(c.why)}</p>
-            </div>
-            <div class="spec-actions">
-              <button type="button" class="act-btn primary" data-launch-spec="${idx}">
-                ${isSel && state.theaterOpen ? "● 剧场运行中" : "▶ 展开实盘画布"}
-              </button>
-              <button type="button" class="act-btn" data-copy="${esc(
-                c.prompt
-              )}" data-copy-label="已复制「${esc(c.name)}」Prompt">复制 Prompt</button>
-              ${
-                r.file
-                  ? `<a class="act-btn" href="${esc(
-                      r.file
-                    )}" target="_blank" rel="noopener" title="新窗口全屏打开">全屏 ↗</a>`
-                  : ""
-              }
-            </div>
-          </article>
-        `;
-      })
-      .join("");
-
-    if (!state.theaterOpen) {
-      dockEl.hidden = true;
-    } else {
-      dockEl.hidden = false;
-      const c = list[state.classicIdx] || list[0];
-      const r = (c.runs && c.runs[0]) || {};
-      dockEl.innerHTML = `
-        <div class="theater-grid">
-          <div class="theater-dossier">
-            <div>
-              <div class="dossier-kicker">SPECIMEN #${pad2(
-                state.classicIdx + 1
-              )} // ${esc(c.name_en || "")}</div>
-              <h3 class="dossier-title">${esc(c.name)}</h3>
-            </div>
-            <div class="dossier-block">
-              <h4>项目背景与工程亮点</h4>
-              <p>${esc(c.origin)} ${esc(c.why)}</p>
-            </div>
-            ${
-              c.look_for && c.look_for.length
-                ? `<div class="dossier-block">
-                     <h4>实盘交互指南（上手操作）</h4>
-                     <ul>${c.look_for.map((l) => `<li>${esc(l)}</li>`).join("")}</ul>
-                   </div>`
-                : ""
-            }
-            <div class="prompt-stamp">
-              <div class="prompt-stamp-head">
-                <span>完整生成 Prompt</span>
-                <button type="button" class="act-btn" data-copy="${esc(
-                  c.prompt
-                )}" data-copy-label="已复制完整 Prompt">复制 Prompt</button>
-              </div>
-              <pre>${esc(c.prompt)}</pre>
-            </div>
-          </div>
-
-          <div class="theater-stage-col">
-            <div class="stage-col-head">
-              <div>
-                <span class="stage-model-tag">${esc(r.model_name || r.model)}</span>
-                <span> · 单文件零外部依赖实盘 · 耗时 ${esc(r.seconds)}s · ${esc(
-        r.completion_tokens || "-"
-      )} tokens</span>
-              </div>
-              <a class="stage-open" href="${esc(
-                r.file
-              )}" target="_blank" rel="noopener">新标签页全屏运行 ↗</a>
-            </div>
-            <div class="stage-viewport">
-              <iframe src="${esc(r.file)}" title="${esc(c.name)}" loading="lazy"></iframe>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    // 渲染社区今日最新可玩/可视化项目
-    const playRow = document.getElementById("live-playables-row");
-    const playables = (DATA.community || [])
-      .filter((it) => it.playable || it.category === "play")
-      .slice(0, 4);
-    playRow.innerHTML = playables
-      .map(
-        (it) => `
-        <div class="mini-play-card">
-          <div>
-            <div class="mini-play-top">
-              <span>${esc(it.source_label || "可在线体验")}</span>
-              <span>${
-                it.points != null
-                  ? "★ " + esc(it.points) + " " + esc(it.points_label || "likes")
-                  : esc(fmtDate(it.published_at))
-              }</span>
-            </div>
-            <h4 class="mini-play-title" style="margin-top:4px">
+            <h4 class="news-title">
               <a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(
           it.title_zh || it.title
         )}</a>
             </h4>
-            <p class="mini-play-why" style="margin-top:4px">${esc(it.why)}</p>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
-            <span style="font-family:var(--mono);font-size:10.5px;color:var(--muted)">${(
-              it.tags || []
-            )
-              .map((t) => "#" + esc(t))
-              .join(" ")}</span>
-            <a class="act-btn" href="${esc(
-              it.url
-            )}" target="_blank" rel="noopener">${
-          it.playable ? "在线试玩 ↗" : "查看项目 ↗"
-        }</a>
-          </div>
-        </div>
-      `
-      )
-      .join("");
-  }
-
-  // ---------- 04 权重 #3：去同质化社区深度总表 & HF 飙升榜 ----------
-  function renderChips() {
-    const items = DATA.community || [];
-    const counts = { all: items.length, tool: 0, play: 0, bench: 0, talk: 0 };
-    items.forEach((it) => {
-      const c = it.category || "talk";
-      if (counts[c] != null) counts[c]++;
-    });
-
-    const wrap = document.getElementById("cat-chips");
-    wrap.innerHTML = Object.keys(CAT_META)
-      .map(
-        (k) =>
-          `<button type="button" class="chip ${
-            state.cat === k ? "on" : ""
-          }" data-cat="${k}">${esc(CAT_META[k].label)}<span class="n">${
-            counts[k] || 0
-          }</span></button>`
-      )
-      .join("");
-  }
-
-  function renderFeed() {
-    const container = document.getElementById("feed");
-    const moreBtn = document.getElementById("more-btn");
-    const q = state.query.trim().toLowerCase();
-
-    const allItems = DATA.community || [];
-    const maxPts = Math.max(
-      100,
-      ...allItems.map((it) => Number(it.points || it.comments || 0))
-    );
-
-    let list = allItems.filter((it) => {
-      if (state.cat !== "all" && it.category !== state.cat) return false;
-      if (!q) return true;
-      const hay = [
-        it.title_zh,
-        it.title,
-        it.why,
-        it.source_label,
-        (it.tags || []).join(" ")
-      ]
-        .join(" ")
-        .toLowerCase();
-      return hay.includes(q);
-    });
-
-    if (state.sort === "new") {
-      list = list
-        .slice()
-        .sort((a, b) =>
-          String(b.published_at || "").localeCompare(String(a.published_at || ""))
-        );
-    } else if (state.sort === "hot") {
-      list = list
-        .slice()
-        .sort(
-          (a, b) =>
-            (b.points || b.comments || 0) - (a.points || a.comments || 0)
-        );
-    }
-
-    if (!list.length) {
-      container.innerHTML = `<div style="padding:32px;text-align:center;color:var(--muted)">当前筛选条件下无匹配条目。</div>`;
-      moreBtn.hidden = true;
-      return;
-    }
-
-    const visible = list.slice(0, state.limit);
-    moreBtn.hidden = list.length <= state.limit;
-    moreBtn.textContent = `展开剩余 ${list.length - visible.length} 条一手情报`;
-
-    container.innerHTML = visible
-      .map((it, idx) => {
-        const cat = it.category || "talk";
-        const catInfo = CAT_META[cat] || CAT_META.talk;
-        const titleMain = it.title_zh || it.title;
-        const showOrig = it.title_zh && it.title && it.title_zh !== it.title;
-
-        const rawScore = Number(it.points || it.comments || 0);
-        const pct = Math.min(100, Math.max(8, Math.round((rawScore / maxPts) * 100)));
-
-        const metrics = [];
-        if (it.points != null) {
-          metrics.push(
-            `<span class="heat-meter"><span class="heat-bar"><span class="heat-fill" style="width:${pct}%"></span></span>${esc(
-              it.points
-            )} ${esc(it.points_label || "PTS")}</span>`
-          );
-        }
-        if (it.comments != null) {
-          metrics.push(`<span>${esc(it.comments)} 评</span>`);
-        }
-        if (it.published_at) {
-          metrics.push(`<span>${esc(fmtDate(it.published_at))}</span>`);
-        }
-
-        const actions = [];
-        if (it.playable) {
-          actions.push(
-            `<a class="act-btn primary" href="${esc(
-              it.url
-            )}" target="_blank" rel="noopener">在线试玩 Space ↗</a>`
-          );
-        } else {
-          actions.push(
-            `<a class="act-btn" href="${esc(
-              it.url
-            )}" target="_blank" rel="noopener">直达原文 ↗</a>`
-          );
-        }
-        if (it.discuss_url && it.discuss_url !== it.url) {
-          actions.push(
-            `<a class="act-btn" href="${esc(
-              it.discuss_url
-            )}" target="_blank" rel="noopener">评论区 ↗</a>`
-          );
-        }
-
-        return `
-          <article class="ledger-item" id="item-${esc(it.id)}">
-            <div class="item-index-col">
-              <span class="rank-num">${pad2(idx + 1)}</span>
-              <span class="cat-stamp ${esc(cat)}">${esc(catInfo.stamp)}</span>
+            <div class="value-one-liner">
+              <strong>💡 一句话价值：</strong>${esc(it.why)}
             </div>
-            <div class="item-main-col">
-              <div class="item-top-bar">
-                <span class="item-source">${esc(it.source_label || it.source)}</span>
-                <div class="item-metrics">${metrics.join(" · ")}</div>
-              </div>
-              <h3 class="item-title"><a href="${esc(
-                it.url
-              )}" target="_blank" rel="noopener">${esc(titleMain)}</a></h3>
-              ${showOrig ? `<div class="item-orig">${esc(it.title)}</div>` : ""}
-              ${it.why ? `<p class="item-why">${esc(it.why)}</p>` : ""}
-              <div class="item-foot">
-                <div class="tag-row">${(it.tags || [])
-                  .map((t) => `<span>#${esc(t)}</span>`)
-                  .join("")}</div>
-                <div class="action-row">${actions.join("")}</div>
+            <div class="news-card-foot">
+              <span>${(it.tags || []).map((t) => "#" + esc(t)).join("  ")}</span>
+              <div style="display:flex;gap:8px">
+                ${
+                  it.discuss_url && it.discuss_url !== it.url
+                    ? `<a class="btn" style="padding:3px 9px;font-size:11px" href="${esc(
+                        it.discuss_url
+                      )}" target="_blank" rel="noopener">原帖评论区 ↗</a>`
+                    : ""
+                }
+                <a class="btn" style="padding:3px 9px;font-size:11px" href="${esc(
+                  it.url
+                )}" target="_blank" rel="noopener">直达出处 ↗</a>
               </div>
             </div>
           </article>
         `;
       })
       .join("");
-  }
 
-  function renderHfTrending() {
-    const ol = document.getElementById("hf-trending");
-    const list = (DATA.hf_trending || []).slice(0, 10);
-    ol.innerHTML = list
+    // 右栏：企业大事记
+    const offList = (DATA.official || []).slice(0, 16);
+    document.getElementById("official-list").innerHTML = offList
       .map(
-        (m, i) => `
-        <li>
-          <span class="hf-rank">${pad2(i + 1)}</span>
-          <a class="hf-name" href="${esc(m.url)}" target="_blank" rel="noopener">${esc(
-          m.id
-        )}</a>
-          <span class="hf-likes">♥ ${esc(m.likes || 0)}</span>
-        </li>
+        (it) => `
+        <a class="milestone-card" href="${esc(
+          it.url
+        )}" target="_blank" rel="noopener">
+          <div class="ms-top">
+            <span class="ms-org">${esc(it.org)}</span>
+            ${it.importance >= 3 ? `<span class="ms-major">重磅</span>` : ""}
+            <span class="ms-date">${esc(fmtDate(it.published_at))}</span>
+          </div>
+          <h4 class="ms-title">${esc(it.title_zh || it.title)}</h4>
+          <div class="ms-value">
+            <strong>价值：</strong>${esc(it.summary_zh || "官方最新模型与技术更新。")}
+          </div>
+        </a>
       `
       )
       .join("");
+  }
+
+  // ---------- 03 可点开的实用 Skill 专区 ----------
+  function renderSkillZone() {
+    const bodyEl = document.getElementById("skill-zone-body");
+    const triggerEl = document.getElementById("skill-drawer-trigger");
+    const ctaEl = document.getElementById("skill-trigger-cta");
+    const bannerEl = document.getElementById("quant-profile-banner");
+
+    bodyEl.hidden = !state.skillZoneOpen;
+    triggerEl.setAttribute("aria-expanded", String(state.skillZoneOpen));
+    ctaEl.textContent = state.skillZoneOpen
+      ? "🔼 收起 Skill 专区"
+      : "📂 点击展开 Skill 专区 ▾";
+
+    const allSkills = DATA.skills || [];
+    const counts = { all: allSkills.length };
+    allSkills.forEach((s) => {
+      counts[s.group] = (counts[s.group] || 0) + 1;
+    });
+
+    document.getElementById("skill-tabs").innerHTML = Object.keys(SKILL_GROUPS)
+      .map(
+        (g) =>
+          `<button type="button" class="skill-tab ${
+            state.skillGroup === g ? "on" : ""
+          }" data-skill-group="${g}">${esc(SKILL_GROUPS[g])} (${
+            counts[g] || 0
+          })</button>`
+      )
+      .join("");
+
+    bannerEl.style.display =
+      state.skillGroup === "all" || state.skillGroup === "quant" ? "flex" : "none";
+
+    const filtered =
+      state.skillGroup === "all"
+        ? allSkills
+        : allSkills.filter((s) => s.group === state.skillGroup);
+
+    document.getElementById("skills-grid").innerHTML = filtered
+      .map(
+        (s) => `
+        <article class="skill-card">
+          <div>
+            <div class="sk-top">
+              <span class="sk-group-tag">${esc(s.group_label)} · ${esc(
+          s.badge
+        )}</span>
+              <span class="sk-stars">${esc(fmtStars(s.stars))}</span>
+            </div>
+            <h3 class="sk-title" style="margin-top:10px">
+              <a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(
+          s.title_zh
+        )}</a>
+            </h3>
+            <div class="sk-one-sentence" style="margin-top:10px">
+              <strong>⚡ 方便/高效在哪：</strong>${esc(s.one_sentence)}
+            </div>
+          </div>
+
+          <div class="sk-foot">
+            <span class="sk-cmd" data-copy="${esc(
+              s.install_cmd
+            )}" data-copy-label="已复制命令: ${esc(
+          s.install_cmd
+        )}" title="点击复制命令">$ ${esc(s.install_cmd)}</span>
+            <div style="display:flex;gap:6px">
+              <button type="button" class="btn" data-copy="${esc(
+                s.prompt_recipe
+              )}" data-copy-label="已复制配套提示词">复制配套提示词</button>
+              <a class="btn" href="${esc(
+                s.url
+              )}" target="_blank" rel="noopener">仓库 ↗</a>
+            </div>
+          </div>
+        </article>
+      `
+      )
+      .join("");
+  }
+
+  function openAndScrollToSkillZone() {
+    state.skillZoneOpen = true;
+    renderSkillZone();
+    document
+      .getElementById("sec-skills")
+      .scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   // ---------- 全局事件绑定 ----------
@@ -2312,102 +1757,95 @@ h1, h2, h3, h4, p { margin: 0; }
       return;
     }
 
-    const discBtn = e.target.closest("[data-disc]");
-    if (discBtn) {
-      state.discipline = discBtn.getAttribute("data-disc");
-      renderQuantSkills();
-      return;
-    }
-
-    const wireTabBtn = e.target.closest("[data-wire-tab]");
-    if (wireTabBtn) {
-      state.wireTab = wireTabBtn.getAttribute("data-wire-tab");
-      renderLiveWire();
-      return;
-    }
-
-    const regBtn = e.target.closest("#region-seg button");
-    if (regBtn) {
-      state.region = regBtn.getAttribute("data-region");
-      document.querySelectorAll("#region-seg button").forEach((b) => {
-        b.classList.toggle("on", b === regBtn);
-      });
-      renderLiveWire();
-      return;
-    }
-
-    const launchBtn = e.target.closest("[data-launch-spec]");
-    if (launchBtn) {
+    const fsBtn = e.target.closest("[data-fs-demo]");
+    if (fsBtn) {
       e.stopPropagation();
-      state.classicIdx = Number(launchBtn.getAttribute("data-launch-spec")) || 0;
-      state.theaterOpen = true;
-      renderVisualSpecimens();
-      document.getElementById("theater-dock").scrollIntoView({ behavior: "smooth", block: "nearest" });
+      openFullscreenModal(Number(fsBtn.getAttribute("data-fs-demo")) || 0);
       return;
     }
 
-    const specCard = e.target.closest("[data-spec-idx]");
-    if (specCard && !e.target.closest("a, button")) {
-      state.classicIdx = Number(specCard.getAttribute("data-spec-idx")) || 0;
-      state.theaterOpen = true;
-      renderVisualSpecimens();
+    const blobBtn = e.target.closest("[data-blob-demo]");
+    if (blobBtn) {
+      e.stopPropagation();
+      openDemoInNewTab(Number(blobBtn.getAttribute("data-blob-demo")) || 0);
       return;
     }
 
-    const chip = e.target.closest("[data-cat]");
-    if (chip) {
-      state.cat = chip.getAttribute("data-cat");
-      state.limit = 20;
-      renderChips();
-      renderFeed();
+    const selDemo = e.target.closest("[data-select-demo]");
+    if (selDemo && !e.target.closest("a")) {
+      state.demoIdx = Number(selDemo.getAttribute("data-select-demo")) || 0;
+      state.stageOpen = true;
+      renderPlayground();
       return;
     }
 
-    const jumpBtn = e.target.closest("[data-jump]");
-    if (jumpBtn) {
-      const id = jumpBtn.getAttribute("data-jump");
-      state.cat = "all";
-      state.query = "";
-      state.limit = 80;
-      renderChips();
-      renderFeed();
-      const target = document.getElementById("item-" + id);
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
+    const catBtn = e.target.closest("[data-cat]");
+    if (catBtn) {
+      state.cat = catBtn.getAttribute("data-cat");
+      state.newsLimit = 12;
+      renderNewsSection();
+      return;
+    }
+
+    const skGroupBtn = e.target.closest("[data-skill-group]");
+    if (skGroupBtn) {
+      state.skillGroup = skGroupBtn.getAttribute("data-skill-group");
+      renderSkillZone();
       return;
     }
   });
 
-  document.getElementById("toggle-theater-btn").addEventListener("click", () => {
-    state.theaterOpen = !state.theaterOpen;
-    renderVisualSpecimens();
+  document.getElementById("toggle-stage-btn").addEventListener("click", () => {
+    state.stageOpen = !state.stageOpen;
+    renderPlayground();
   });
 
-  document.getElementById("search").addEventListener("input", (e) => {
+  document.getElementById("search-input").addEventListener("input", (e) => {
     state.query = e.target.value;
-    renderFeed();
+    renderNewsSection();
   });
 
-  document.getElementById("sort").addEventListener("change", (e) => {
-    state.sort = e.target.value;
-    renderFeed();
+  document.getElementById("more-news-btn").addEventListener("click", () => {
+    state.newsLimit += 15;
+    renderNewsSection();
   });
 
-  document.getElementById("more-btn").addEventListener("click", () => {
-    state.limit += 25;
-    renderFeed();
+  document
+    .getElementById("skill-drawer-trigger")
+    .addEventListener("click", () => {
+      state.skillZoneOpen = !state.skillZoneOpen;
+      renderSkillZone();
+    });
+
+  document
+    .getElementById("nav-open-skills")
+    .addEventListener("click", openAndScrollToSkillZone);
+  document
+    .getElementById("hero-open-skills")
+    .addEventListener("click", openAndScrollToSkillZone);
+
+  document.getElementById("copy-profile-btn").addEventListener("click", () => {
+    copyText(
+      USER_QUANT_PROFILE_PROMPT,
+      "已复制你的 31 讲量化学习背景，可直接粘贴给 AI 提问！"
+    );
   });
 
-  // 初始化渲染
-  renderTelemetry();
-  renderBriefing();
-  renderQuantSkills();
-  renderLiveWire();
-  renderVisualSpecimens();
-  renderChips();
-  renderFeed();
-  renderHfTrending();
+  document
+    .getElementById("fs-close-btn")
+    .addEventListener("click", closeFullscreenModal);
+  document.getElementById("fs-newtab-btn").addEventListener("click", () => {
+    openDemoInNewTab(state.demoIdx);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeFullscreenModal();
+  });
+
+  // 初始化
+  renderHeader();
+  renderPlayground();
+  renderNewsSection();
+  renderSkillZone();
 })();
   </script>
 </body>

@@ -1,21 +1,21 @@
 [
   {
     "id": "helicopter-kestrel",
-    "name": "H-07 游隼 · 旋翼工坊（三维总成逐件拆解与飞行遥测）",
-    "name_en": "Kestrel H-07 Rotorcraft Assembly & Flight Telemetry Studio",
-    "badge": "ASTRA 6.2 工业级三维建模实盘",
-    "category": "三维机械拆解 · WebGL 物理工坊",
-    "origin": "由 Astra 6.2 生成的 727KB 纯单文件三维直升机工程工坊，内嵌完整自定义 WebGL 渲染管线、程序化环境贴图、合成旋翼音频与 8 大总成爆炸拆解视图。",
-    "origin_url": null,
-    "origin_label": "Astra 6.2 单文件三维工业拆解实测",
-    "why": "突破了传统大模型“拿几个几何方块拼凑玩具模型”的瓶颈：完整构建了主旋翼总成（五桨叶+挥舞铰+斜盘连杆）、涡轴发动机、主减速器、尾桨总成与机身蒙皮，并支持『飞行视图（巡航遥测+昼夜切换+姿态仪表）』与『拆解视图（8 大总成爆炸滑动条+工程三视图投影+逐件特写）』无缝切换。",
+    "week_tag": "2026年第48周 · 主打三维工坊",
+    "name": "H-07 游隼 · 旋翼工坊（三维总成爆炸拆解与飞行遥测）",
+    "name_en": "Kestrel H-07 Rotorcraft Studio",
+    "badge": "Astra 6.2",
+    "category": "三维机械结构 · WebGL",
+    "one_liner": "工科生最爱的硬核三维机械沙盘：既能巡航看飞行仪表，又能拉动滑块把主旋翼、涡轴发动机、主减速器等 8 大总成逐件爆炸拆开看工程三视图。",
+    "origin": "由 Astra 6.2 生成的 727KB 纯单文件三维直升机工程工坊，内嵌完整自定义 WebGL 渲染管线、合成旋翼音效与 8 大总成拆解视图。",
+    "why": "突破了传统大模型只会拼几个几何方块的局限：完整还原了五叶主旋翼（含挥舞铰与倾斜盘连杆）、双发涡轴发动机、主减速器与尾桨，支持『飞行视图』与『拆解视图』一键切换。",
     "look_for": [
-      "右上角切换『飞行视图』与『拆解视图』，拖动拆解幅度滑块观察 8 大总成沿爆炸轴向分离",
-      "点击底部 01~08 任意部件卡片，镜头自动推近到该总成并展示 SVG 工程线框图",
-      "在飞行视图下调节总距杆与高度，观察倾斜盘连杆、空速表与升降率表的实时联动"
+      "点击右上角切换『飞行视图』与『拆解视图』，拖动拆解滑块看 8 大机械总成沿轴向分离",
+      "点击底部 01~08 任意部件卡片，镜头自动推近特写并展示 SVG 工程三视图",
+      "在飞行视图下调节总距杆与高度，观察倾斜盘连杆、空速表与转速表的实时联动"
     ],
-    "prompt": "构建一个完整的单文件 HTML 三维直升机工程与飞行交互工坊（H-07 游隼 · 旋翼工坊 / KESTREL ROTORCRAFT STUDIO）。要求：\n1. 纯原生 WebGL 构建高精细度三维直升机模型，包含 8 个独立可拆解总成：主旋翼总成（五桨叶、桨毂、挥舞铰与倾斜盘连杆）、流线型机身蒙皮、玻璃座舱与仪表台、双发涡轴发动机、碳纤尾梁与水平安定面、四叶尾桨总成、管状起落滑橇、主减速器；\n2. 提供『飞行视图』（实时模拟旋翼转速 RPM、总距角、指示空速、气压高度、俯仰横滚姿态与昼夜航行灯）与『拆解视图』（支持 0%~100% 爆炸拆解滑块、部件独立高亮聚焦、工程编号引线标注与底部 8 大部件三视图抽屉）；\n3. 采用温暖纸质工业设计美学（#F5F5F1 纸张底色 + #FF713C 工业橙点缀），内置 WebAudio 旋翼气动声效合成。",
-    "prompt_note": "Astra 6.2 单文件 727KB 完整生成结果，零外部 JS/模型依赖。",
+    "prompt": "构建一个完整的单文件 HTML 三维直升机工程与飞行交互工坊（H-07 游隼 · 旋翼工坊 / KESTREL ROTORCRAFT STUDIO）。要求：\n1. 纯原生 WebGL 构建高精细度三维直升机模型，包含 8 个独立可拆解总成：主旋翼总成（五桨叶、桨毂、挥舞铰与倾斜盘连杆）、流线型机身蒙皮、玻璃座舱与仪表台、双发涡轴发动机、碳纤尾梁与水平安定面、四叶尾桨总成、管状起落滑橇、主减速器；\n2. 提供『飞行视图』（实时模拟旋翼转速 RPM、总距角、指示空速、气压高度与昼夜航行灯）与『拆解视图』（支持 0%~100% 爆炸拆解滑块、部件独立高亮聚焦与底部 8 大部件三视图抽屉）；\n3. 采用温暖纸质工业设计美学（#F5F5F1 纸张底色 + #FF713C 工业橙点缀）。",
+    "prompt_note": "Astra 6.2 单文件完整生成结果，零外部依赖。",
     "output": "html",
     "models": [
       "astra-6-2"
@@ -32,54 +32,22 @@
     ]
   },
   {
-    "id": "quant-vol-lob",
-    "name": "Heston 随机波动率曲面与 L2 订单簿闪崩仿真台",
-    "name_en": "Heston Stochastic Volatility Surface & LOB Flash-Crash Microstructure Lab",
-    "badge": "DEEPSEEK-V4-PRO 金融数学实盘",
-    "category": "金融数学 · 市场微观结构",
-    "origin": "针对量化金融与衍生品微观结构研究设计的交互式仿真台：将耦合 Heston 随机方差 SDE、跳跃扩散过程与 L2 限价订单簿深度抽干效应放在同一张画布上联动。",
-    "origin_url": null,
-    "origin_label": "量化金融数学与微观结构可视化实验",
-    "why": "传统期权教材里的隐含波动率微笑（IV Smile）都是静态截图。这个单文件实验台把现货-波动率杠杆效应 ρ、Vol-of-Vol ξ、均值回归速率 κ 与 L2 订单簿盘口失衡度（OBI）实时打通——点击『触发做市商撤单闪崩』即可直观看到盘口流动性蒸发如何瞬间陡峭化左尾 Risk Reversal 偏度并抬升超额峰度。",
-    "look_for": [
-      "拖拽左侧三维隐含波动率曲面旋转视角，拉动底部 ρ 与 ξ 滑块观察 Skew 偏度与 Smile 曲率变化",
-      "点击右上角『⚡ 触发做市商撤单闪崩』，观察右下角 L2 盘口深度抽干、价差飙升与三维曲面左尾翘起",
-      "点击『🏛️ 宏观利率脉冲』观察近月隐含波动率飙升导致的期限结构倒挂（Backwardation）"
-    ],
-    "prompt": "用一个零外部依赖的单文件 HTML 实现「Heston 随机波动率曲面与 L2 限价订单簿闪崩微观结构仿真台」。要求：\n1. 左侧 Canvas 实时渲染可 3D 拖拽旋转的隐含波动率曲面 σ_IV(K/S₀, τ)，根据 Heston 参数（均值回归速率 κ、波动率之波动率 ξ、现货-波动率相关系数 ρ）动态计算 Skew 偏度与 Smile 曲率；\n2. 右上 Canvas 实时演进 22 条 Heston-Jump 蒙特卡洛价格路径簇与瞬时波动率 √v_t 曲线；\n3. 右下 Canvas 实时渲染 L2 限价订单簿 Bid/Ask 累计深度与盘口失衡度 OBI；\n4. 提供『做市商撤单闪崩冲击』与『宏观利率脉冲』按钮，以及 ρ、ξ、κ 三个实时滑块，并显示 25Δ Risk Reversal、10Δ Butterfly 与收益率峰度 Kurtosis。采用浅色瑞士实验室纸张风格（#F5F5F1）。",
-    "prompt_note": "可直接复用于测试大模型在金融工程、随机分析与三维数据可视化上的综合代码能力。",
-    "output": "html",
-    "models": [
-      "deepseek-v4-pro"
-    ],
-    "runs": [
-      {
-        "model": "deepseek-v4-pro",
-        "model_name": "DeepSeek-V4-Pro",
-        "file": "demos/quant-vol-lob/deepseek-v4-pro.html",
-        "generated_at": "2026-11-24T02:39:27Z",
-        "seconds": 142.5,
-        "completion_tokens": 14820
-      }
-    ]
-  },
-  {
     "id": "chaos-attractor",
-    "name": "黎曼相空间三维奇异吸引子与李雅普诺夫织机",
-    "name_en": "RK4 Strange Attractors & Lyapunov Phase-Space Divergence Loom",
-    "badge": "DEEPSEEK-V4-PRO 动力系统实盘",
-    "category": "非线性动力系统 · 微分方程",
-    "origin": "用四阶龙格-库塔（RK4）数值积分器在浏览器里实时求解 220 条耦合相空间轨道，直观呈现混沌系统的初值敏感性（李雅普诺夫指数发散）。",
-    "origin_url": null,
-    "origin_label": "非线性微分方程与混沌相空间可视化",
-    "why": "可一键切换 Lorenz 洛伦兹双翼吸引子、Aizawa 爱泽环面流形与 Halvorsen 三叶对称涡旋；点击『注入 ε 初值微扰簇』后，220 个相差仅 0.02 的初始状态会在数秒内沿流形折叠发散成完整奇异吸引子，并实时计算平均相空间发散范数 ⟨‖Δx(t)‖⟩。",
+    "week_tag": "2026年第48周 · 数学物理美学",
+    "name": "三维洛伦兹蝴蝶与奇异吸引子织机",
+    "name_en": "RK4 Strange Attractors Loom",
+    "badge": "DeepSeek-V4-Pro",
+    "category": "高数微分方程 · 三维混沌",
+    "one_liner": "把工科高数里的常微分方程变成肉眼可见的三维动态艺术：点一下『注入微扰簇』，看 220 个起点几乎重合的小球如何在几秒内折叠展开成双翼蝴蝶。",
+    "origin": "用四阶龙格-库塔（RK4）数值积分器在浏览器里实时求解 220 条三维轨迹，直观演示混沌系统的蝴蝶效应。",
+    "why": "可一键切换 Lorenz 洛伦兹双翼、Aizawa 爱泽环面与 Halvorsen 三叶对称涡旋；支持鼠标 360° 拖拽旋转视角与调节时间步长。",
     "look_for": [
-      "点击顶部『💥 注入 ε 初值微扰簇』，观察紧密聚拢的初值点如何沿奇异吸引子流形指数级分离",
-      "在 Lorenz / Aizawa 环面 / Halvorsen 三叶涡旋三种非线性微分方程组之间无缝切换并拖拽 3D 视角",
-      "调节底部积分步长速率 dt 与尾迹张力长度观察相空间拓扑结构"
+      "点击顶部『💥 注入 ε 初值微扰簇』，看聚成一点的小球如何沿奇异吸引子轨迹散开",
+      "切换 Lorenz / Aizawa 环面 / Halvorsen 三叶涡旋三种方程，用鼠标拖拽旋转 3D 视角",
+      "拉动底部滑块调节积分速率与尾迹长度"
     ],
-    "prompt": "用一个零外部依赖的单文件 HTML 实现「四阶龙格-库塔（RK4）三维奇异吸引子与李雅普诺夫相空间织机」。要求：\n1. 支持 Lorenz、Aizawa 环面与 Halvorsen 三种三维非线性常微分方程组切换，实时积分 220 条粒子轨迹并支持鼠标拖拽 3D 旋转；\n2. 提供『注入 ε 初值微扰簇』按钮，将所有轨迹重置到极小邻域内，直观演示混沌系统的李雅普诺夫指数发散过程，并在底栏实时计算平均相空间发散距离 ⟨‖Δx(t)‖⟩；\n3. 采用浅色科学手稿纸张美学（#F5F5F1 背景 + 朱红/松绿/钴蓝墨水轨迹）。",
-    "prompt_note": "考验模型对常微分方程数值积分（RK4）、三维透视投影与高帧率 Canvas 渲染的掌握。",
+    "prompt": "用一个零外部依赖的单文件 HTML 实现「四阶龙格-库塔（RK4）三维奇异吸引子与相空间织机」。要求：\n1. 支持 Lorenz、Aizawa 环面与 Halvorsen 三种三维非线性常微分方程组切换，实时积分 220 条粒子轨迹并支持鼠标拖拽 3D 旋转；\n2. 提供『注入 ε 初值微扰簇』按钮，将所有轨迹重置到极小邻域内，直观演示混沌系统的蝴蝶效应发散过程；\n3. 采用浅色纸张美学（#F5F5F1 背景 + 朱红/松绿/钴蓝墨水轨迹）。",
+    "prompt_note": "单文件 Canvas 3D 投影实现，打开即跑。",
     "output": "html",
     "models": [
       "deepseek-v4-pro"
@@ -97,21 +65,21 @@
   },
   {
     "id": "hexagon-ball",
-    "name": "旋转六边形弹球 · 动量与切向摩擦实测",
-    "name_en": "Ball bouncing inside a spinning hexagon (DeepSeek-V4-Pro)",
-    "badge": "DEEPSEEK-V4-PRO 刚体物理实盘",
-    "category": "刚体碰撞物理 · 切向动量传递",
-    "origin": "开发者 Flavio Adamo 在 X 上发起的经典推理模型物理实测，专门检验模型能否正确处理旋转参考系下的移动边界碰撞与切向速度传递。",
-    "origin_url": "https://x.com/flavioAd",
-    "origin_label": "Flavio Adamo 物理碰撞基准测试",
-    "why": "仅保留 DeepSeek-V4-Pro 实盘（每帧 8 子步高精度碰撞检测）：球撞击旋转六边形内壁时，严谨计入了接触点处墙体的旋转线速度 v = ω × r 与法向/切向恢复系数，不穿模、不卡死。",
+    "week_tag": "2026年第48周 · 经典物理实测",
+    "name": "旋转六边形弹球 · 刚体碰撞与切向摩擦",
+    "name_en": "Spinning Hexagon Physics",
+    "badge": "DeepSeek-V4-Pro",
+    "category": "刚体物理 · 碰撞检测",
+    "one_liner": "极客圈检验大模型物理直觉的招牌测试：只给一句提示词，看小球撞上旋转的六边形墙壁时能不能被墙壁切向速度自然带起、不穿墙也不卡死。",
+    "origin": "开发者 Flavio Adamo 在 X 上发起的经典推理模型物理实测，专门检验旋转参考系下的移动边界碰撞。",
+    "why": "仅保留 DeepSeek-V4-Pro 生成版本（每帧 8 子步高精度碰撞检测），严谨计入了接触点处墙体的旋转线速度 v = ω × r 与恢复系数。",
     "look_for": [
       "球撞击旋转墙壁时是否被墙体切向速度自然带起",
       "每帧 8 子步物理积分下高速碰撞是否依然严密不穿墙",
-      "重力、恢复系数 e=0.72 与切向摩擦 μ=0.82 构成的稳定能量循环"
+      "重力、恢复系数 e=0.72 与切向摩擦 μ=0.82 构成的稳定弹跳"
     ],
     "prompt": "Write a program that shows a ball bouncing inside a spinning hexagon. The ball should be affected by gravity and friction, and it must bounce off the rotating walls realistically. Implement it as a single self-contained HTML file using the canvas API, with no external libraries.",
-    "prompt_note": "仅保留 DeepSeek-V4-Pro 生成版本，已剔除 Flash 版本并统一为浅色实验室画布配色。",
+    "prompt_note": "仅保留 DeepSeek-V4-Pro 实盘版本，统一为浅色纸张画布。",
     "output": "html",
     "models": [
       "deepseek-v4-pro"
@@ -124,6 +92,37 @@
         "generated_at": "2026-11-23T16:13:59Z",
         "seconds": 168.4,
         "completion_tokens": 15149
+      }
+    ]
+  },
+  {
+    "id": "quant-vol-lob",
+    "week_tag": "2026年第48周 · 课程知识点沙盘",
+    "name": "A 股 RSRS/HMM 择时与 Level-2 逐笔订单流沙盘",
+    "name_en": "A-Share RSRS/HMM Timing & Level-2 Orderflow Sandbox",
+    "badge": "DeepSeek-V4-Pro",
+    "category": "进阶课 + 高阶 Part 1 可视化",
+    "one_liner": "完全对齐你学过的量化进阶课与高阶 Part 1：把中证1000的 HMM 牛熊隐状态、卡尔曼滤波均线、RSRS 右偏标准分和 Level-2 逐笔主买/撤单放在同一张图上联动调参。",
+    "origin": "专门按你的 31 讲已学课程定制的交互沙盘，把枯燥的 Python 回测代码变成一眼能看懂的动态择时与订单流实验室。",
+    "why": "不用啃陌生的华尔街期权偏微分方程，直接操作你最熟悉的三个核心模块：左图看 HMM 隐马尔可夫牛熊底色与卡尔曼滤波均线，右上调 RSRS 窗口 N 与阈值 S，右下看 Level-2 主动买卖大单与高频撤单异常框。",
+    "look_for": [
+      "点击右上角『🔥 注入主力逐笔抢筹』或『💧 触发高频撤单砸盘』，看订单流如何带动 RSRS 突破阈值并触发 HMM 状态切换",
+      "拖动底部『RSRS 回归窗口 N』『开平仓阈值 S』『卡尔曼滤波噪声 Q』三个滑块，观察策略超额净值变化"
+    ],
+    "prompt": "用一个零外部依赖的单文件 HTML 实现「A 股 RSRS/HMM 择时与 Level-2 逐笔订单流交互沙盘」。要求：\n1. 主图实时绘制中证1000指数价格、卡尔曼滤波动态均线与择时策略净值线，并用红/绿/米黄背景色带标注 HMM 隐马尔可夫牛/熊/震荡三种隐状态；\n2. 右上图实时绘制 RSRS 右偏修正标准分柱状图及 +S / -S 开平仓阈值线；\n3. 右下图实时绘制 Level-2 逐笔主动买大单（红柱）、主动卖大单（绿柱）与高频撤单激增警示框；\n4. 提供主力抢筹、高频撤单砸盘按钮及 RSRS 窗口 N、阈值 S、卡尔曼滤波 Q 滑块。采用浅色纸张风格。",
+    "prompt_note": "对齐量化进阶课第 4/5 讲（HMM/RSRS/卡尔曼）与高阶 Part 1 专题 2（Level-2 逐笔订单流）。",
+    "output": "html",
+    "models": [
+      "deepseek-v4-pro"
+    ],
+    "runs": [
+      {
+        "model": "deepseek-v4-pro",
+        "model_name": "DeepSeek-V4-Pro",
+        "file": "demos/quant-vol-lob/deepseek-v4-pro.html",
+        "generated_at": "2026-11-24T15:29:58Z",
+        "seconds": 96.4,
+        "completion_tokens": 11240
       }
     ]
   }

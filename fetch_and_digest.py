@@ -1,16 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-AI & 量化研究一手雷达 · 抓取 + DeepSeek 提纯
-================================================
+野生 AI 雷达 · 每周好玩项目 + 一句话极客情报 + 实用 Skill 专区
+==============================================================
 用法：
     python3 fetch_and_digest.py            # 抓取全部来源并用 DeepSeek 提纯（需要 DEEPSEEK_API_KEY）
-    python3 fetch_and_digest.py --no-llm   # 只抓取，不调用模型（摘要退化为原文片段）
-
-核心权重优先级：
-1. 量化与数理研究效率 Skills / MCP / 工具（统计学、金融市场、金融数学、计量经济学、量化金融、宏观经济学）
-2. 好玩的可视化与交互项目（带真实 Prompt、可在线体验或可视化实证）
-3. 去同质化的一手 AI 社区情报与大厂通告（全部直达原始出处）
+    python3 fetch_and_digest.py --no-llm   # 只抓取，不调用模型
 """
 
 import hashlib
@@ -33,20 +28,18 @@ FEED_JSON = os.path.join(DATA_DIR, "feed.json")
 FEED_JS = os.path.join(DATA_DIR, "feed.js")
 CLASSICS_JSON = os.path.join(DATA_DIR, "classics.json")
 
-UA = "ai-quant-radar/3.0 (+https://github.com/sxy3481841323-ship-it/ai-pulse-radar)"
+UA = "ai-radar/4.0 (+https://github.com/sxy3481841323-ship-it/ai-pulse-radar)"
 NOW = datetime.now(timezone.utc)
+ISO_YEAR, ISO_WEEK, _ = NOW.isocalendar()
+WEEK_LABEL = f"{ISO_YEAR}年第{ISO_WEEK}周"
 DIGEST_MODEL = os.environ.get("RADAR_MODEL", "deepseek-flash")
 COMMUNITY_KEEP_DAYS = 10
-COMMUNITY_MAX = 80
+COMMUNITY_MAX = 60
 OFFICIAL_KEEP_DAYS = 30
-OFFICIAL_MAX = 36
-QUANT_MAX = 24
+OFFICIAL_MAX = 30
 SSL_CTX = ssl.create_default_context()
 
 
-# ----------------------------------------------------------------------------
-# 基础工具
-# ----------------------------------------------------------------------------
 def load_key() -> str:
     key = os.environ.get("DEEPSEEK_API_KEY", "").strip()
     env_path = os.path.join(ROOT, ".env")
@@ -114,159 +107,141 @@ def item(**kw):
 
 
 # ----------------------------------------------------------------------------
-# 优先级 #1：量化研究（统计学 / 金融市场 / 金融数学 / 计量经济学 / 量化金融 / 宏观经济学）Skills & 工具源
+# 实用 Skill 宝库（四大方向：大学工科科研 / 创业独立开发 / 日常生活便利 / 接地气量化实战）
+# 每条必须一句话简洁明了说明「方便在哪 / 高效在哪」
 # ----------------------------------------------------------------------------
-# 每个种子条目都会向 GitHub API 实时拉取最新的 stars、pushed_at、html_url、description，
-# 同时附上针对量化研究工作流的 Agent Skill 提示词模板与安装/调用方式。
-QUANT_SKILL_SEEDS = [
+PRACTICAL_SKILLS_SEEDS = [
+    # 1. 大学工科与科研
     {
-        "repo": "microsoft/qlib",
-        "discipline": "quant_fin",
-        "discipline_label": "量化金融",
-        "kind": "AI 量化投研平台 & Skill",
-        "title_zh": "Qlib · 微软面向 AI 的全链路量化投研与因子挖掘引擎",
-        "efficiency_gain": "内置 Alpha158/360 因子库、LightGBM/Transformer 截面预测与组合优化器，支持将『因子表达式构建 → IC/IR 衰减检验 → 分层回测』封装为自动化 Agent Skill。",
-        "install_cmd": "pip install pyqlib",
-        "skill_recipe": "【Claude/Cursor Quant Skill 提示词】基于 Qlib 的 DataHandlerLP 构建截面因子表达式：请将以下经济学假设转化为 Qlib 算子表达式（使用 Ref, Mean, Std, Corr, Rank），并输出包含 IC、RankIC、年化超额与换手率惩罚的完整分层回测脚本。",
-        "visual_preview": "alpha_ic_curve",
-        "metrics_badge": "IC / RankIC / Alpha360"
+        "repo": "microsoft/markitdown",
+        "group": "college",
+        "group_label": "🎓 大学工科与课业",
+        "badge": "课件/论文秒转 Markdown",
+        "title_zh": "MarkItDown · 把老师发的 PPT / PDF / Word / Excel 一键转成 AI 易读笔记",
+        "one_sentence": "把散乱的工科课件 PPT、PDF 论文和实验数据表一键转成干净的 Markdown，直接丢给 AI 提炼期末考点或写实验报告。",
+        "install_cmd": "pip install markitdown",
+        "prompt_recipe": "我已经用 markitdown 把这门课的 PPT 和实验指导书转成了 Markdown。请按「核心公式物理意义 → 常考题型推导步骤 → 实验容易踩坑的边界条件」帮我整理一份一页纸复习速查表。"
     },
     {
-        "repo": "OpenBB-finance/OpenBB",
-        "discipline": "market",
-        "discipline_label": "金融市场",
-        "kind": "金融数据终端 & MCP Server",
-        "title_zh": "OpenBB Platform · 统一接入全球股票、期权链、宏观与财报的开源终端",
-        "efficiency_gain": "提供标准化的 Python SDK 与 FastAPI / MCP 接口，一行命令挂载到大模型 Agent，即可直接拉取实时美股期权隐含波动率曲面、FOMC 收益率曲线与跨市场资金流。",
-        "install_cmd": "pip install openbb && openbb-api",
-        "skill_recipe": "【MCP 挂载与提示词】启动 `openbb-api` 后挂载至 Agent：请调用 obb.derivatives.options.chains 拉取 SPY 近月与远月期权链，计算 25-Delta Risk Reversal 与隐含波动率期限结构斜率，并识别异常大单成交。",
-        "visual_preview": "iv_term_structure",
-        "metrics_badge": "Equities · Options · Macro MCP"
+        "repo": "typst/typst",
+        "group": "college",
+        "group_label": "🎓 大学工科与课业",
+        "badge": "替代 LaTeX 写公式报告",
+        "title_zh": "Typst · 比 LaTeX 简单 10 倍、毫秒级预览的工科报告与数学公式排版神器",
+        "one_sentence": "写工科课程大作业、数学公式推导和课程论文时不用再忍受 LaTeX 动辄几分钟的编译和宏包报错，语法像 Markdown 一样简单。",
+        "install_cmd": "brew install typst",
+        "prompt_recipe": "请把下面这段数学推导和实验分析转换成排版优雅的 Typst (.typ) 代码，包含带编号的公式块、三线表与中文宋体/黑体混排设置。"
     },
     {
-        "repo": "py-econometrics/pyfixest",
-        "discipline": "econometrics",
-        "discipline_label": "计量经济学",
-        "kind": "高维固定效应与因果推断引擎",
-        "title_zh": "PyFixest · 复刻 R 语言 fixest 的极速高维固定效应与双重差分（DID）库",
-        "efficiency_gain": "在面板数据回归、事件研究（Event Study）、交错双重差分（Sun & Abraham / Callaway & Sant'Anna）与多维聚类标准误计算上比传统方法快一个数量级，极适合因子事件检验。",
-        "install_cmd": "pip install pyfixest",
-        "skill_recipe": "【计量经济学 Skill 提示词】请使用 pyfixest 的 feols() 编写面板回归与动态事件研究（Event Study）：控制个体与时间双向固定效应（entity + time FE），采用双向聚类稳健标准误（CRV1），并检验平行趋势假设与脉冲响应置信区间。",
-        "visual_preview": "did_event_study",
-        "metrics_badge": "HDFE · DID · Cluster SE"
+        "repo": "Future-House/paper-qa",
+        "group": "college",
+        "group_label": "🎓 大学工科与课业",
+        "badge": "读论文零幻觉问答",
+        "title_zh": "PaperQA2 · 专门啃硬核理工科文献的智能科研助手",
+        "one_sentence": "做课程综述或进实验室读英文顶会论文时，每句回答都精准标出原文 PDF 页码与数据出处，彻底杜绝 AI 瞎编参考文献。",
+        "install_cmd": "pip install paper-qa",
+        "prompt_recipe": "请阅读我上传的这几篇论文，用大白话回答：1) 它们各自解决的核心工程瓶颈是什么？2) 实验对比表格里的 baseline 在什么条件下会失效？请标出原文具体段落。"
+    },
+
+    # 2. 创业与独立开发
+    {
+        "repo": "mankidev/antialgorithm",
+        "group": "startup",
+        "group_label": "🚀 创业与独立开发",
+        "badge": "告别塑料 AI 网页感",
+        "title_zh": "Antialgorithm · 让你的创业落地页与产品 UI 摆脱「一眼 AI 模板」的审美技能",
+        "one_sentence": "做创业 MVP、小程序或路演网页时，强制 AI 跳出千篇一律的紫蓝渐变和圆角卡片，直接做出有独立设计工作室质感的产品界面。",
+        "install_cmd": "git clone https://github.com/mankidev/antialgorithm.git",
+        "prompt_recipe": "请调用 antialgorithm 技能设计我的创业产品落地页：拒绝廉价毛玻璃和千篇一律的 SaaS 三栏卡片，采用高对比度的纸质编辑部排版与真实的产品交互演示。"
     },
     {
-        "repo": "bashtage/arch",
-        "discipline": "econometrics",
-        "discipline_label": "计量经济学",
-        "kind": "波动率计量与单位根检验核心库",
-        "title_zh": "ARCH · 金融时间序列 GARCH 族波动率建模、协整与 Bootstrap 计量库",
-        "efficiency_gain": "涵盖 GARCH / EGARCH / TARCH / FIGARCH 条件异方差建模、ADF/KPSS/Phillips-Perron 单位根检验、Engle-Granger 协整检验与 Stationary Bootstrap，是统计套利与波动率预测的基石。",
-        "install_cmd": "pip install arch",
-        "skill_recipe": "【波动率计量 Skill 提示词】请使用 arch 库对资产日频对数收益率拟合 GJR-GARCH(1,1,1) 并采用 Student-t 新息分布，提取条件波动率序列，计算 99% 动态 VaR / Expected Shortfall，并进行 Kupiec 失败率回测检验。",
-        "visual_preview": "garch_vol_cone",
-        "metrics_badge": "GJR-GARCH · VaR · Cointegration"
+        "repo": "unclecode/crawl4ai",
+        "group": "startup",
+        "group_label": "🚀 创业与独立开发",
+        "badge": "竞品与用户痛点抓取",
+        "title_zh": "Crawl4AI · 专为大模型设计的极速网页与竞品评论抓取工具",
+        "one_sentence": "创业做市场调研时，3 秒把竞品官网、定价页或社区差评抓成干净的结构化文本，让 AI 直接帮你找出用户还没被满足的痛点。",
+        "install_cmd": "pip install crawl4ai",
+        "prompt_recipe": "这是我用 Crawl4AI 抓取的 3 家竞品用户评论与功能页。请帮我按「用户抱怨最多的高频痛点」「付费意愿最强的刚需功能」「我们可以切入的差异化卖点」输出一份一页纸创业调研表。"
     },
     {
-        "repo": "Nixtla/statsforecast",
-        "discipline": "stat",
-        "discipline_label": "统计学",
-        "kind": "高频统计时序预测引擎",
-        "title_zh": "StatsForecast · Numba 加速的高性能统计与计量时间序列预测套件",
-        "efficiency_gain": "比传统 ARIMA/ETS 实现快 20~50 倍，内置 AutoARIMA、AutoETS、AutoCES、MSTL 多重季节分解与共形预测区间（Conformal Prediction Intervals），支持百万级截面时序并行。",
-        "install_cmd": "pip install statsforecast",
-        "skill_recipe": "【统计学时序 Skill 提示词】使用 StatsForecast 构建带非参数共形预测区间（ConformalIntervals）的多模型集成（AutoARIMA + AutoETS + DynamicOptimizedTheta），采用滚动窗口交叉验证（cross_validation）评估 CRPS 与 MASE。",
-        "visual_preview": "conformal_fan",
-        "metrics_badge": "AutoARIMA · Conformal CI"
+        "repo": "browser-use/browser-use",
+        "group": "startup",
+        "group_label": "🚀 创业与独立开发",
+        "badge": "AI 自动操作浏览器",
+        "title_zh": "Browser-Use · 用一句话让 AI 替你操作浏览器跑完繁琐网页流程",
+        "one_sentence": "不用写复杂的爬虫脚本，直接用大白话让 AI 自动打开网页填表、跨平台比价、搜集创业线索或自动测试你的网页产品。",
+        "install_cmd": "pip install browser-use",
+        "prompt_recipe": "使用 browser-use 自动打开目标网站，检索近一周热门新品榜单，提取前 20 名的标题、价格区间与核心卖点并汇总为 CSV 表格。"
+    },
+
+    # 3. 日常生活与个人效率
+    {
+        "repo": "yt-dlp/yt-dlp",
+        "group": "life",
+        "group_label": "☕ 日常生活便利",
+        "badge": "长视频/网课秒变笔记",
+        "title_zh": "yt-dlp + AI 字幕总结 · 2 小时网课或播客 30 秒提炼出核心干货",
+        "one_sentence": "遇到超长的 B 站教程、公开课或访谈视频不用倍速硬熬，一行命令只下字幕丢给 AI，半分钟拿走带时间戳的精华笔记。",
+        "install_cmd": "brew install yt-dlp",
+        "prompt_recipe": "这是我用 `yt-dlp --write-auto-sub --skip-download` 提取的视频字幕。请帮我剔除所有寒暄和废话，按时间轴列出核心观点、实操步骤和金句。"
     },
     {
-        "repo": "dcajasn/Riskfolio-Lib",
-        "discipline": "fin_math",
-        "discipline_label": "金融数学",
-        "kind": "凸优化与尾部风险组合数学库",
-        "title_zh": "Riskfolio-Lib · 均值-CVaR、嵌套聚类（NCO）与风险平价组合数学优化引擎",
-        "efficiency_gain": "支持 24 种凸风险度量（CVaR、CDaR、EVaR、Entropic Risk、鲁棒椭球不确定集）、Ledoit-Wolf 收缩协方差矩阵、Black-Litterman 贝叶斯观点融合与层次风险平价（HRP）。",
-        "install_cmd": "pip install riskfolio-lib",
-        "skill_recipe": "【金融数学组合优化 Skill 提示词】请使用 Riskfolio-Lib 构建鲁棒均值-CVaR（Conditional Value-at-Risk）组合优化：采用 Ledoit-Wolf 收缩估计与 Gerber 统计协方差，加入单资产权重上限与行业中性线性约束，并绘制有效前沿风险贡献分解图。",
-        "visual_preview": "cvar_frontier",
-        "metrics_badge": "CVaR · HRP · Black-Litterman"
+        "repo": "danielmiessler/fabric",
+        "group": "life",
+        "group_label": "☕ 日常生活便利",
+        "badge": "生活高频提示词百宝箱",
+        "title_zh": "Fabric · 社区千锤百炼的数百个生活、阅读与写作提效指令库",
+        "one_sentence": "内置现成的租房合同避坑审查、长文脱水、特种兵旅行规划、邮件高情商回复等指令模板，不用每次自己抓耳挠腮想提示词。",
+        "install_cmd": "brew install fabric-ai",
+        "prompt_recipe": "请扮演严苛的法务与生活管家，逐条审查我即将签署的这份租房/兼职合同：标出所有隐形扣款、押金退还陷阱与不对等违约责任，并给出修改话术。"
     },
     {
-        "repo": "lballabio/QuantLib",
-        "discipline": "fin_math",
-        "discipline_label": "金融数学",
-        "kind": "衍生品定价与随机分析工业标准",
-        "title_zh": "QuantLib · 期权波动率曲面校准、利率期限结构与蒙特卡洛 PDE 定价引擎",
-        "efficiency_gain": "覆盖 Heston / SABR / 局部波动率（Dupire）校准、无套利收益率曲线 Bootstrap、有限差分 PDE 求解器与奇异期权（Barrier / Asian / Bermudan）定价。",
-        "install_cmd": "pip install QuantLib",
-        "skill_recipe": "【衍生品定价 Skill 提示词】请使用 QuantLib-Python 构建 HestonModel 与 AnalyticHestonEngine，基于给定的市场期权隐含波动率矩阵，使用 Levenberg-Marquardt 算法校准 (v0, kappa, theta, sigma, rho) 五个参数并输出拟合残差。",
-        "visual_preview": "sabr_smile",
-        "metrics_badge": "Heston · SABR · PDE Solver"
+        "repo": "immich-app/immich",
+        "group": "life",
+        "group_label": "☕ 日常生活便利",
+        "badge": "自然语言搜板书/照片",
+        "title_zh": "Immich · 支持直接用大白话搜「上周拍的高数板书/发票/身份证」的私有相册",
+        "one_sentence": "本地跑的智能相册，随手拍的课堂板书、实验接线图、报销发票或旅行照片，直接搜一句话就能秒找出来。",
+        "install_cmd": "docker compose up -d",
+        "prompt_recipe": "帮我整理相册里所有课堂板书与实验台照片的归档命名规则，按「课程名_日期_核心章节」自动生成整理脚本。"
     },
-    {
-        "repo": "nautechsystems/nautilus_trader",
-        "discipline": "quant_fin",
-        "discipline_label": "量化金融",
-        "kind": "Rust 内核高频事件驱动回测与实盘引擎",
-        "title_zh": "NautilusTrader · Rust 编写的高性能 L2/L3 订单簿微观结构回测与执行引擎",
-        "efficiency_gain": "回测与实盘完全共用一套事件驱动代码，原生支持 L2/L3 限价订单簿（Order Book）撮合仿真、排队位置估计、延迟注入与多交易所并发。",
-        "install_cmd": "pip install nautilus_trader",
-        "skill_recipe": "【高频微观结构 Skill 提示词】请基于 NautilusTrader 编写基于 L2 订单簿失衡度（Order Book Imbalance, OBI）与微价格（Micro-price）偏移的做市策略，纳入挂单排队延迟与 Maker/Taker 手续费结构。",
-        "visual_preview": "lob_imbalance",
-        "metrics_badge": "Rust Core · L2/L3 OrderBook"
-    },
+
+    # 4. 接地气量化实战（完全对齐你的 31 讲课程进度，不搞看不懂的天书）
     {
         "repo": "akfamily/akshare",
-        "discipline": "market",
-        "discipline_label": "金融市场",
-        "kind": "中文金融市场与宏观高频数据库",
-        "title_zh": "AKShare · A 股、国债收益率曲线、商品期货基差与中美宏观指标开源数据接口",
-        "efficiency_gain": "一站式拉取中债国债收益率曲线、沪深300/中证1000期权隐波、大宗商品库存与基差、北向/融资融券及中美 CPI/PMI/社融宏观序列，是构建本土量化与宏观 Skill 的首选数据源。",
+        "group": "quant",
+        "group_label": "📈 你的量化课实战助手",
+        "badge": "对齐基础课：数据与多因子清洗",
+        "title_zh": "AKShare + A 股多因子清洗与 ICIR 检验助手（基础课 1~6 讲实战）",
+        "one_sentence": "免费拉取 A 股日线与中证 1000 成分股，一键生成你学过的「剔除涨停/ST/新股 → MAD 去极值 → 行业市值中性化 → ICIR 与五分层回测」标准 Pandas 代码。",
         "install_cmd": "pip install akshare --upgrade",
-        "skill_recipe": "【跨资产宏观与市场 Skill 提示词】请调用 akshare 拉取近 5 年中债 10Y-2Y 国债期限利差、社融存量同比与沪深300 ERP（股权风险溢价），构建宏观状态马尔可夫区制转换（Markov Regime Switching）股债轮动信号。",
-        "visual_preview": "yield_curve_erp",
-        "metrics_badge": "A-Share · Futures · CN Macro"
+        "prompt_recipe": "我在学量化，已学完基础课、进阶课和高阶 Part 1（会 Pandas 数据清洗、MAD 去极值、行业市值中性化、ICIR 单因子检验与分层回测）。请用 akshare 拉取中证 1000 成分股数据，帮我实现一个换手率波动率因子的清洗、中性化与 5 分层回测脚本，注意严格规避未来函数。"
     },
     {
-        "repo": "polakowo/vectorbt",
-        "discipline": "quant_fin",
-        "discipline_label": "量化金融",
-        "kind": "向量化超参数网格回测引擎",
-        "title_zh": "vectorbt · 基于 NumPy + Numba 将万组策略参数在秒级一次性矩阵回测的利器",
-        "efficiency_gain": "将传统的逐根 K 线 for 循环转化为三维张量广播运算，1 秒内完成 10,000 组参数组合的夏普比率、Sortino、Calmar 与最大回撤热力图检验，快速识别参数过拟合孤岛。",
-        "install_cmd": "pip install vectorbt",
-        "skill_recipe": "【向量化回测与防过拟合 Skill 提示词】请使用 vectorbt 对均线/波动率突破策略进行二维参数网格向量化回测，计算 Deflated Sharpe Ratio（DSR）与概率夏普比率（PSR），剔除多重假设检验带来的伪显著参数区。",
-        "visual_preview": "sharpe_heatmap",
-        "metrics_badge": "Numba Tensor · DSR / PSR"
+        "repo": "dmlc/xgboost",
+        "group": "quant",
+        "group_label": "📈 你的量化课实战助手",
+        "badge": "对齐进阶课：机器学习防未来函数",
+        "title_zh": "XGBoost / 随机森林滚动训练与「防未来函数泄漏」审查助手（进阶课 1~6 讲）",
+        "one_sentence": "写树模型滚动预测沪深 300 收益、gplearn 挖因子或 HMM/RSRS 择时代码时，专门帮你排查特征标准化和 Target 标签里有没有不小心偷看未来数据。",
+        "install_cmd": "pip install xgboost scikit-learn hmmlearn",
+        "prompt_recipe": "我已学完量化进阶课（决策树/随机森林/XGBoost 滚动训练、gplearn 遗传规划挖因子、HMM 与 RSRS 择时）。请帮我审查下面这段滚动训练代码是否存在未来函数（如跨期标准化、涨跌停无法买入却计入收益），并给出修正后的滚动窗口训练模板。"
     },
     {
-        "repo": "statsmodels/statsmodels",
-        "discipline": "macro",
-        "discipline_label": "宏观经济学",
-        "kind": "宏观计量 SVAR / 状态空间卡尔曼滤波引擎",
-        "title_zh": "Statsmodels (TSA & Statespace) · 结构向量自回归（SVAR）、马尔可夫区制转换与卡尔曼滤波",
-        "efficiency_gain": "内置结构向量自回归（SVAR）短期/长期识别约束、脉冲响应函数（IRF）、方差分解（FEVD）、动态因子模型（DynamicFactorMQ，美联储 Nowcasting 同款）与 MarkovRegression。",
-        "install_cmd": "pip install statsmodels",
-        "skill_recipe": "【宏观经济学 Nowcasting & SVAR Skill 提示词】请使用 statsmodels.tsa.statespace.DynamicFactorMQ 构建混频宏观 GDP Nowcasting 状态空间模型（结合月度 PMI/工业增加值/信贷与季度 GDP），并输出卡尔曼平滑因子与脉冲响应图。",
-        "visual_preview": "svar_irf",
-        "metrics_badge": "SVAR · IRF · Kalman Nowcast"
-    },
-    {
-        "repo": "DoubleML/doubleml-for-py",
-        "discipline": "stat",
-        "discipline_label": "统计学",
-        "kind": "双重机器学习（DML）正交化因果统计引擎",
-        "title_zh": "DoubleML · Chernozhukov 双重/去偏机器学习（Debiased ML）高维因果效应估计库",
-        "efficiency_gain": "利用 Neyman 正交得分函数与交叉拟合（Cross-Fitting），在数百个高维混杂因子（Confounders）存在非线性关系时，依然能给出具有渐近正态分布的无偏处置效应估计与有效置信区间。",
-        "install_cmd": "pip install doubleml",
-        "skill_recipe": "【高维统计因果推断 Skill 提示词】请使用 DoubleMLPLR（部分线性回归模型）结合 RandomForest / LightGBM 作为干扰参数学习器，通过 5 折交叉拟合估计核心因子对远期收益的去偏因果边际效应（ATE）及 95% 渐近置信区间。",
-        "visual_preview": "dml_ortho",
-        "metrics_badge": "Neyman Orthogonal · Causal ML"
+        "repo": "vnpy/vnpy",
+        "group": "quant",
+        "group_label": "📈 你的量化课实战助手",
+        "badge": "对齐待学 Part 2 & 4：事件驱动与实盘拆单",
+        "title_zh": "下一步抢先学：公告事件驱动 & miniQMT 实盘拆单白话导学（待学 Part 2 & 4）",
+        "one_sentence": "用你已经掌握的因子回测和 Level-2 逐笔订单流作为基础，用大白话和最少代码带你预习接下来要学的「回购/解禁事件驱动」与「TWAP/VWAP 拆单交易」。",
+        "install_cmd": "pip install vnpy",
+        "prompt_recipe": "我已掌握 A 股多因子回测与 Level-2 逐笔订单流因子，但还没学 Part 2（另类事件驱动、行业轮动、CTA）和 Part 4（miniqmt 实盘与 TWAP/VWAP 拆单）。请从我懂的 Pandas 回测与订单流角度出发，用大白话和一段极简 Python 代码给我讲透：TWAP/VWAP 拆单在代码里到底是怎么根据逐笔成交量切片的？"
     }
 ]
 
 
-def src_quant_skills():
+def src_practical_skills():
     headers = {"Accept": "application/vnd.github+json"}
     if os.environ.get("GITHUB_TOKEN"):
         headers["Authorization"] = "Bearer " + os.environ["GITHUB_TOKEN"]
@@ -276,16 +251,10 @@ def src_quant_skills():
         url = f"https://api.github.com/repos/{repo}"
         stars = None
         pushed_at = iso(NOW)
-        desc = ""
-        lang = "Python"
-        topics = []
         try:
             data = http_json(url, headers)
             stars = data.get("stargazers_count")
             pushed_at = iso(parse_time(data.get("pushed_at") or data.get("updated_at")))
-            desc = clean(data.get("description") or "", 240)
-            lang = data.get("language") or "Python"
-            topics = (data.get("topics") or [])[:5]
         except Exception:
             pass
         entry = dict(seed)
@@ -294,23 +263,19 @@ def src_quant_skills():
             "url": f"https://github.com/{repo}",
             "stars": stars,
             "pushed_at": pushed_at,
-            "gh_description": desc,
-            "language": lang,
-            "topics": topics,
         })
         return entry
 
     with ThreadPoolExecutor(6) as ex:
-        items = list(ex.map(fetch_seed, QUANT_SKILL_SEEDS))
-    return items
+        return list(ex.map(fetch_seed, PRACTICAL_SKILLS_SEEDS))
 
 
 # ----------------------------------------------------------------------------
-# 社区来源（优先级 #2 好玩可视化项目 + 优先级 #3 去同质化一手社区资讯）
+# 社区来源
 # ----------------------------------------------------------------------------
 HN_QUERIES = ["LLM", "GPT", "Claude", "Gemini", "DeepSeek", "Qwen", "Kimi", "OpenAI",
-              "Anthropic", "AI agent", "MCP", "quant", "time series", "benchmark AI"]
-SHOW_HN_QUERIES = ["AI", "LLM", "Claude", "agent", "simulation", "quant", "visualizer"]
+              "Anthropic", "AI agent", "MCP", "vibe coding", "local model", "benchmark AI"]
+SHOW_HN_QUERIES = ["AI", "LLM", "Claude", "agent", "game", "simulator", "visualizer"]
 
 
 def src_hackernews():
@@ -402,9 +367,8 @@ def src_github():
     if os.environ.get("GITHUB_TOKEN"):
         headers["Authorization"] = "Bearer " + os.environ["GITHUB_TOKEN"]
     repos = {}
-    for topic in ["llm", "ai-agent", "agents", "generative-ai", "mcp", "quantitative-finance"]:
-        min_stars = 30 if topic == "quantitative-finance" else 150
-        q = f"topic:{topic} created:>{since} stars:>={min_stars}"
+    for topic in ["llm", "ai-agent", "agents", "generative-ai", "mcp"]:
+        q = f"topic:{topic} created:>{since} stars:>=150"
         url = "https://api.github.com/search/repositories?" + urllib.parse.urlencode(
             {"q": q, "sort": "stars", "order": "desc", "per_page": 10})
         for r in http_json(url, headers).get("items", []):
@@ -425,7 +389,7 @@ def src_hf_spaces():
     for s in http_json("https://huggingface.co/api/spaces?sort=trendingScore&limit=20&full=true"):
         card = s.get("cardData") or {}
         out.append(item(
-            source="hf_space", source_label="Hugging Face Space（可在线试玩）",
+            source="hf_space", source_label="Hugging Face Space",
             title=card.get("title") or s["id"], url=f"https://huggingface.co/spaces/{s['id']}",
             published_at=iso(parse_time(s.get("lastModified") or s.get("createdAt"))),
             points=s.get("likes"), points_label="likes",
@@ -573,8 +537,8 @@ OFFICIAL_SOURCES = [
     ("OpenAI 官方", src_openai), ("Google / DeepMind 官方", src_google), ("Anthropic 官方", src_anthropic),
     ("Hugging Face 厂商发布", src_hf_releases),
 ]
-QUANT_SOURCES = [
-    ("GitHub 量化与数理研究库", src_quant_skills),
+SKILL_SOURCES = [
+    ("实用 Skill 宝库", src_practical_skills),
 ]
 UNAVAILABLE = [
     ("Reddit", "Reddit 拒绝未登录的程序访问（403/429），暂不抓取"),
@@ -602,7 +566,7 @@ def run_sources(sources):
 
 
 # ----------------------------------------------------------------------------
-# DeepSeek
+# DeepSeek 提纯（强制一句话讲清价值，绝不啰嗦）
 # ----------------------------------------------------------------------------
 def deepseek_json(key, system, user, model=DIGEST_MODEL, timeout=240):
     for attempt in range(3):
@@ -627,50 +591,43 @@ def deepseek_json(key, system, user, model=DIGEST_MODEL, timeout=240):
                 raise e
 
 
-COMMUNITY_SYSTEM = """你是「量化与一手 AI 雷达」的主编。读者是一位专注量化金融（统计学、金融市场、金融数学、计量经济学、量化金融、宏观经济学）与硬核 AI 工程的研究者。
-他的阅读权重优先级非常明确：
-1. 能提升量化、统计建模、数据分析、Agent 自动化与编程效率的工具、Skill、MCP 与硬核开源项目；
-2. 真正有意思、有可视化效果或交互 Demo、带具体玩法或 Prompt 的创意技术项目；
-3. 高信噪比的一手极客社区技术突破与实测讨论（严禁同质化口水帖、严禁空洞营销和泛泛而谈的行业鸡汤）。
+COMMUNITY_SYSTEM = """你是「野生 AI 雷达」的主编。读者是一位喜欢玩 AI、学工科的大学生。
+他讨厌冗长难懂的黑话，要求每一条社群资讯都必须【用大白话一句话讲清楚价值在哪、好玩在哪或能解决什么问题】。
 
-你会收到一组编号条目（来自 Hacker News、Simon Willison 博客、Lobsters、GitHub、Hugging Face、V2EX），包含标题、片段、热度和部分社区评论。
+你会收到一组编号条目（来自 Hacker News、Simon Willison 博客、Lobsters、GitHub、Hugging Face、V2EX）。
 
 硬性规则：
-1. 只能从给定条目中挑选，用 ref 编号引用。绝不编造任何事实、链接、数字、人名。
-2. 强力去同质化：同一事件或同类套壳工具只保留含金量最高的一条；彻底剔除公关软文、招聘、无实质技术细节的泛泛观点。
-3. 选 14~20 条，按「研究/工程实用价值 × 视觉或实测趣味性 × 社区热度」从高到低排序。
+1. 只能从给定条目中挑选，用 ref 编号引用。绝不编造任何事实、链接、数字。
+2. 强力去同质化：同一件事只留热度最高的一条；剔除无聊的公关软文、招聘、纯股价新闻。
+3. 选 14~20 条，优先选「好玩的可视化/可玩项目」和「能提效的新工具/野生实测」。
 4. category 只能是：
-   - "tool"  能提升研究/编程/自动化效率的新开源工具、Skill、MCP、量化与数据工程库
-   - "play"  有直观可视化效果、可在线交互试玩、或者创意让人眼前一亮的实验项目
-   - "bench" 野生硬核实测 / 模型能力边界对比 / 算法基准检验
-   - "talk"  有深度技术洞见的一手社区高赞讨论
-5. title_zh：精准洗练的中文标题，不标题党，不超过 32 个字。
-6. why：2~3 句干货，直接说清「核心机制是什么」「为什么值得看 / 怎么用」，若给了评论则用一句话点出评论区最犀利的技术反馈。不超过 120 个字。
-7. prompt：当片段或评论里出现了可复用的提示词或命令时摘录，否则为 null。
-8. tags：2~3 个中文短标签。
-9. fun：1~5，代表可视化或实操吸引力。
+   - "play"  好玩的作品、游戏、可视化实验、可在线试玩的 Demo
+   - "tool"  能省时间的新开源工具、实用小项目
+   - "bench" 野生评测 / 模型实测对比
+   - "talk"  有干货的社区热议话题
+5. title_zh：干净利落的中文标题，不超过 28 个字。
+6. why：【必须只有一句话，不超过 55 个字！】直接讲明白「它到底能干嘛 / 价值或好玩在哪」，严禁堆砌术语。
+7. prompt：只有当片段里真出现了可复用提示词时才摘录，否则为 null。
+8. tags：2 个简短中文标签。
+9. fun：1~5，代表好玩或实用程度。
 
-另外写一份今日简报 briefing：
-- headline：一句话点透今日最值得关注的硬核工具或技术信号（不超过 28 字）。
-- points：3~4 条，每条不超过 55 字，并在 refs 里列出支撑它的条目编号。
+只输出合法 JSON（中文内部如需引号一律用「」）：
+{"briefing":{"headline":"一句话概括本周最好玩的 AI 趋势（不超过 26 字）","points":[{"text":"一句话趋势看点（不超过 42 字）","refs":[1,2]}]},
+ "picks":[{"ref":1,"category":"play","title_zh":"...","why":"一句话讲清价值或好玩在哪（<=55字）","prompt":null,"tags":["..."],"fun":5}]}"""
 
-只输出合法 JSON（注意：中文文本内部如需引号请一律使用中文引号「」或『』，严禁在 JSON 字符串值内部出现未转义的英文双引号 "）：
-{"briefing":{"headline":"...","points":[{"text":"...","refs":[1,2]}]},
- "picks":[{"ref":1,"category":"tool","title_zh":"...","why":"...","prompt":null,"tags":["..."],"fun":4}]}"""
-
-OFFICIAL_SYSTEM = """你是「量化与一手 AI 雷达」的编辑，负责提炼 AI 大厂官方通告与一手模型发布。
-规则：
-1. 只依据给定文本，不编造任何信息。
-2. title_zh：准确的中文标题，不超过 30 字。模型名、产品名保留英文原文。
-3. summary_zh：一句话说明核心技术更新或对开发者/研究者的实际影响，不超过 60 字。
-4. importance：3=新模型/新推理架构/重大 API 或 Agent 工具能力发布；2=有价值的研究论文、基准开源；1=公关通告、客户案例、泛泛访谈（importance=1 将被直接过滤剔除）。
-只输出 JSON：{"items":[{"ref":1,"title_zh":"...","summary_zh":"...","importance":3}]}"""
+OFFICIAL_SYSTEM = """你是「野生 AI 雷达」的编辑，负责整理 AI 大厂大事记。
+硬性规则：
+1. 只依据给定文本，不编造信息。
+2. title_zh：简洁明了的中文标题，不超过 26 字。
+3. summary_zh：【必须只有一句话，不超过 45 个字！】直接讲清楚「这项发布对普通人或开发者有什么实际用处/价值」。
+4. importance：3=新模型/新功能重磅发布；2=有价值的技术更新；1=无聊公关稿/客户案例（importance=1 会被自动丢弃）。
+只输出 JSON：{"items":[{"ref":1,"title_zh":"...","summary_zh":"一句话讲清价值（<=45字）","importance":3}]}"""
 
 
 def digest_community(key, raw):
     lines = []
     for i, r in enumerate(raw):
-        entry = {"ref": i, "source": r["source_label"], "title": r["title"], "snippet": r.get("snippet", "")[:350]}
+        entry = {"ref": i, "source": r["source_label"], "title": r["title"], "snippet": r.get("snippet", "")[:320]}
         if r.get("points") is not None:
             entry["points"] = r["points"]
         if r.get("comments") is not None:
@@ -682,14 +639,11 @@ def digest_community(key, raw):
 
 
 def digest_official(key, raw):
-    lines = [{"ref": i, "org": r["org"], "title": r["title"], "snippet": r.get("snippet", "")[:300]}
+    lines = [{"ref": i, "org": r["org"], "title": r["title"], "snippet": r.get("snippet", "")[:280]}
              for i, r in enumerate(raw)]
     return deepseek_json(key, OFFICIAL_SYSTEM, json.dumps(lines, ensure_ascii=False))
 
 
-# ----------------------------------------------------------------------------
-# 合并与输出
-# ----------------------------------------------------------------------------
 PUBLIC_FIELDS = ["id", "source", "source_label", "title", "url", "discuss_url", "published_at",
                  "points", "points_label", "comments", "playable"]
 
@@ -729,7 +683,7 @@ def build_community(key, raw):
     if not picks:
         ranked = sorted(range(len(raw)), key=lambda i: raw[i].get("points") or raw[i].get("comments") or 0, reverse=True)
         picks = [{"ref": i, "category": "talk", "title_zh": None, "why": raw[i].get("snippet") or "",
-                  "prompt": None, "tags": [], "fun": 0} for i in ranked[:20]]
+                  "prompt": None, "tags": [], "fun": 0} for i in ranked[:18]]
 
     out = []
     for rank, p in enumerate(picks):
@@ -741,8 +695,9 @@ def build_community(key, raw):
         entry.update({
             "title_zh": p.get("title_zh"), "why": p.get("why"),
             "category": p.get("category") if p.get("category") in ("play", "bench", "tool", "talk") else "talk",
-            "prompt": p.get("prompt") or None, "tags": (p.get("tags") or [])[:3],
+            "prompt": p.get("prompt") or None, "tags": (p.get("tags") or [])[:2],
             "fun": p.get("fun") or 0, "rank": rank, "first_seen": iso(NOW),
+            "week_label": WEEK_LABEL,
         })
         out.append(entry)
 
@@ -773,33 +728,50 @@ def build_official(key, raw):
                     "first_seen": iso(NOW)})
     for r in releases:
         out.append({"id": r["id"], "org": r["org"], "region": r["region"], "kind": "release",
-                    "title": r["title"], "title_zh": f"{r['org']} 在 Hugging Face 发布 {r['title']}",
-                    "summary_zh": r["snippet"], "importance": 2, "likes": r.get("points"),
+                    "title": r["title"], "title_zh": f"{r['org']} 开源发布 {r['title']} 模型权重",
+                    "summary_zh": f"可直接下载部署的官方新模型权重（{r['snippet']}）。", "importance": 2, "likes": r.get("points"),
                     "url": r["url"], "published_at": r["published_at"], "first_seen": iso(NOW)})
     return out
+
+
+def load_classics_with_inline_html():
+    """
+    把每个实盘 Demo 的 HTML 源码直接内联打包进 classics 数据结构，
+    这样前端无论用 srcdoc 还是 Blob 全屏打开都 100% 零网络依赖，永远不会出现 'not connected'！
+    """
+    if not os.path.exists(CLASSICS_JSON):
+        return []
+    classics = json.load(open(CLASSICS_JSON, encoding="utf-8"))
+    for c in classics:
+        for r in c.get("runs", []):
+            rel = r.get("file", "")
+            full = os.path.join(ROOT, rel)
+            if rel and os.path.exists(full):
+                r["inline_html"] = open(full, encoding="utf-8").read()
+    return classics
 
 
 def write_feed(feed):
     os.makedirs(DATA_DIR, exist_ok=True)
     with open(FEED_JSON, "w", encoding="utf-8") as f:
         json.dump(feed, f, ensure_ascii=False, indent=1)
-    classics = json.load(open(CLASSICS_JSON, encoding="utf-8")) if os.path.exists(CLASSICS_JSON) else []
+    classics = load_classics_with_inline_html()
     bundle = dict(feed, classics=classics)
     with open(FEED_JS, "w", encoding="utf-8") as f:
-        f.write("// 自动生成，请勿手改。数据来源见 fetch_and_digest.py，结构说明见 AI_GUIDE.md\n")
+        f.write("// 自动生成，请勿手改。内联包含实盘 HTML 源码以确保离线/全屏 100% 可用\n")
         f.write("window.RADAR = " + json.dumps(bundle, ensure_ascii=False) + ";\n")
 
 
 def main():
     use_llm = "--no-llm" not in sys.argv
     key = load_key() if use_llm else ""
-    print(f"📡 量化与一手 AI 雷达开始抓取 · {iso(NOW)} · 模型: {DIGEST_MODEL if key else '不使用'}")
+    print(f"📡 野生 AI 雷达开始抓取 · {iso(NOW)} ({WEEK_LABEL}) · 模型: {DIGEST_MODEL if key else '不使用'}")
 
-    print("优先级 #1 · 量化与数理研究 Skills 源：")
-    quant_skills, quant_status = run_sources(QUANT_SOURCES)
-    print("优先级 #2/#3 · 社区来源：")
+    print("实用 Skill 宝库：")
+    skills, skill_status = run_sources(SKILL_SOURCES)
+    print("社区来源：")
     community_raw, community_status = run_sources(COMMUNITY_SOURCES)
-    print("优先级 #3 · 官方来源：")
+    print("官方来源：")
     official_raw, official_status = run_sources(OFFICIAL_SOURCES)
     try:
         hf_trending = src_hf_trending_models()
@@ -817,21 +789,22 @@ def main():
     official = build_official(key, official_raw)
 
     feed = {
-        "schema": 3,
+        "schema": 4,
+        "week_label": WEEK_LABEL,
         "generated_at": iso(NOW),
         "model": DIGEST_MODEL if key else None,
-        "quant_skills": quant_skills or prev.get("quant_skills", []),
+        "skills": skills or prev.get("skills", []),
         "briefing": briefing or prev.get("briefing"),
         "community": merge(community, prev.get("community"), COMMUNITY_KEEP_DAYS, COMMUNITY_MAX,
                            lambda x: (x.get("first_seen", "")[:10], -(x.get("rank") or 0))),
         "official": merge(official, prev.get("official"), OFFICIAL_KEEP_DAYS, OFFICIAL_MAX,
                           lambda x: x.get("published_at", "")),
         "hf_trending": hf_trending or prev.get("hf_trending", []),
-        "sources": quant_status + community_status + official_status,
+        "sources": skill_status + community_status + official_status,
         "unavailable": [{"name": n, "reason": r} for n, r in UNAVAILABLE],
     }
     write_feed(feed)
-    print(f"💾 完成：量化 Skills {len(feed['quant_skills'])} 条，社区 {len(feed['community'])} 条，官方 {len(feed['official'])} 条")
+    print(f"💾 完成：实用 Skills {len(feed['skills'])} 条，社区 {len(feed['community'])} 条，官方 {len(feed['official'])} 条")
 
 
 if __name__ == "__main__":

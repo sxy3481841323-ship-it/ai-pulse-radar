@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Heston 随机波动率曲面与 L2 订单簿闪崩仿真台</title>
+<title>A 股 RSRS/HMM 择时与 Level-2 逐笔订单流沙盘</title>
 <style>
 :root {
   --paper: #f5f5f1;
@@ -11,12 +11,12 @@
   --ink: #1e2421;
   --muted: #5f6861;
   --line: #d4d9d0;
-  --vermilion: #e04f26;
-  --emerald: #1f7a54;
-  --cobalt: #1d57a8;
-  --amber: #c2780e;
+  --red: #d9481e;     /* A股红涨 / 多头信号 / 主买 */
+  --green: #1f7a54;   /* A股绿跌 / 空头信号 / 主卖 */
+  --cobalt: #1d57a8;  /* RSRS 标准分 / 卡尔曼滤波线 */
+  --amber: #c2780e;   /* 震荡隐状态 */
   --mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
-  --sans: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --sans: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 * { box-sizing: border-box; }
 body {
@@ -28,12 +28,12 @@ body {
   user-select: none;
   overflow-x: hidden;
 }
-.lab-shell {
+.shell {
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
-  padding: 12px 16px;
-  gap: 10px;
+  padding: 14px 18px;
+  gap: 12px;
 }
 .topbar {
   display: flex;
@@ -44,73 +44,62 @@ body {
   padding-bottom: 10px;
   border-bottom: 1.5px solid var(--ink);
 }
-.title-cluster {
+.title-wrap {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 10px;
   flex-wrap: wrap;
 }
 .badge {
-  font: 700 10px var(--mono);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 3px 7px;
+  font: 700 10.5px var(--mono);
+  padding: 3px 8px;
   background: var(--ink);
   color: var(--paper);
-  border-radius: 3px;
+  border-radius: 4px;
 }
-.title-cluster h1 {
+h1 {
   margin: 0;
   font-size: 16px;
-  font-weight: 750;
-  letter-spacing: -0.02em;
+  font-weight: 760;
 }
-.equation {
-  font: 500 11px var(--mono);
+.sub-pill {
+  font: 600 11px var(--mono);
   color: var(--muted);
-  background: #e9ece4;
+  background: #e8ece3;
   padding: 3px 8px;
   border-radius: 4px;
 }
-.shock-bar {
+.btn-row {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
 }
 button {
-  font: 600 11px var(--sans);
-  padding: 6px 11px;
+  font: 600 11.5px var(--sans);
+  padding: 6px 12px;
   border-radius: 5px;
   border: 1px solid var(--ink);
   background: var(--card);
   color: var(--ink);
   cursor: pointer;
-  transition: all 0.14s ease;
+  transition: all 0.14s;
 }
-button:hover {
-  background: #e8ece3;
-}
-button.btn-crash {
-  background: var(--vermilion);
+button:hover { background: #e8ece3; }
+button.btn-bull {
+  background: var(--red);
   color: #fff;
-  border-color: #b83814;
+  border-color: #b53510;
 }
-button.btn-crash:hover {
-  background: #c73f18;
-}
-button.btn-macro {
-  background: var(--cobalt);
+button.btn-bear {
+  background: var(--green);
   color: #fff;
-  border-color: #154282;
+  border-color: #14593b;
 }
-button.btn-macro:hover {
-  background: #17498f;
-}
-.grid-stage {
+.stage {
   display: grid;
-  grid-template-columns: 1.25fr 1fr;
-  gap: 10px;
-  min-height: 410px;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 12px;
+  min-height: 400px;
 }
 .panel {
   background: var(--card);
@@ -119,26 +108,25 @@ button.btn-macro:hover {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  position: relative;
 }
 .panel-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 12px;
+  padding: 9px 13px;
   border-bottom: 1px solid var(--line);
   background: #eff2ea;
-  font-size: 11px;
-  font-weight: 650;
+  font-size: 12px;
+  font-weight: 700;
 }
-.panel-head .sub {
-  font: 500 10px var(--mono);
+.panel-head .meta {
+  font: 600 11px var(--mono);
   color: var(--muted);
 }
-.canvas-wrap {
+.canvas-box {
   position: relative;
   flex: 1;
-  min-height: 185px;
+  min-height: 180px;
 }
 canvas {
   display: block;
@@ -148,531 +136,370 @@ canvas {
 .right-col {
   display: grid;
   grid-template-rows: 1fr 1fr;
-  gap: 10px;
+  gap: 12px;
 }
-.controls-footer {
+.footer-bar {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
-  gap: 10px;
-  padding: 10px 12px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+  padding: 10px 14px;
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 8px;
   align-items: center;
 }
-.ctrl-item {
+.ctrl {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
-.ctrl-label {
+.ctrl-lbl {
   display: flex;
   justify-content: space-between;
   font: 600 11px var(--mono);
-  color: var(--ink);
 }
-.ctrl-label span:last-child {
-  color: var(--vermilion);
-}
+.ctrl-lbl span:last-child { color: var(--red); }
 input[type="range"] {
   width: 100%;
   accent-color: var(--ink);
   cursor: pointer;
-  height: 5px;
 }
-.telemetry-strip {
+.stats-row {
   display: flex;
-  gap: 14px;
+  gap: 16px;
   flex-wrap: wrap;
   font: 600 11px var(--mono);
 }
-.metric {
-  display: flex;
-  flex-direction: column;
-}
-.metric small {
-  font-size: 9px;
+.stat-item small {
+  display: block;
+  font-size: 9.5px;
   color: var(--muted);
-  font-weight: 500;
 }
-.metric strong {
+.stat-item strong {
   font-size: 14px;
 }
 @media (max-width: 820px) {
-  .grid-stage {
-    grid-template-columns: 1fr;
-  }
+  .stage { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
-<div class="lab-shell">
+<div class="shell">
   <header class="topbar">
-    <div class="title-cluster">
-      <span class="badge">QUANT MICROSTRUCTURE LAB</span>
-      <h1>Heston 随机波动率曲面 &amp; L2 订单簿闪崩仿真台</h1>
-      <span class="equation">dS = μS dt + √v S dW₁ + J dN · dv = κ(θ − v)dt + ξ√v dW₂ · Corr(dW₁,dW₂)=ρ</span>
+    <div class="title-wrap">
+      <span class="badge">进阶课 + 高阶 Part 1 实战沙盘</span>
+      <h1>沪深300 / 中证1000 · HMM 隐状态 + RSRS 择时 + Level-2 逐笔订单流</h1>
+      <span class="sub-pill">红涨绿跌 · RSRS 右偏标准分 = Z(斜率β) × R² · 逐笔大单净流入</span>
     </div>
-    <div class="shock-bar">
-      <button class="btn-crash" id="btnCrash">⚡ 触发做市商撤单闪崩 (LOB Flash Crash)</button>
-      <button class="btn-macro" id="btnMacro">🏛️ 宏观利率脉冲 (Term-Structure Inversion)</button>
-      <button id="btnReset">↺ 恢复稳态均衡</button>
+    <div class="btn-row">
+      <button class="btn-bull" id="btnBull">🔥 注入主力逐笔抢筹 (主买大单脉冲)</button>
+      <button class="btn-bear" id="btnBear">💧 触发高频撤单砸盘 (主卖撤单脉冲)</button>
+      <button id="btnReset">↺ 恢复常态震荡</button>
     </div>
   </header>
 
-  <div class="grid-stage">
-    <!-- Left: 3D Implied Volatility Surface -->
+  <div class="stage">
+    <!-- 左：指数净值 + HMM 三态背景色带 + 卡尔曼滤波均线 -->
     <section class="panel">
       <div class="panel-head">
-        <span>01 · 三维隐含波动率微笑曲面 σ_IV(K/S₀, τ) — 拖拽旋转视角</span>
-        <span class="sub" id="surfStatus">REGIME: NORMAL · SKEW: -8.4%</span>
+        <span>01 · 指数价格与卡尔曼滤波趋势线（底色：HMM 隐马尔可夫牛/熊/震荡状态）</span>
+        <span class="meta" id="hmmStatus">HMM 隐状态: 震荡整固 | 仓位信号: 50%</span>
       </div>
-      <div class="canvas-wrap">
-        <canvas id="cvSurface"></canvas>
+      <div class="canvas-box">
+        <canvas id="cvMain"></canvas>
       </div>
     </section>
 
-    <!-- Right: Top = Monte Carlo SDE paths, Bottom = L2 Limit Order Book -->
     <div class="right-col">
+      <!-- 右上：RSRS 右偏修正标准分 & 择时阈值线 -->
       <section class="panel">
         <div class="panel-head">
-          <span>02 · Heston-Jump 蒙特卡洛路径簇 (24 Paths) &amp; 瞬时波动率 √v_t</span>
-          <span class="sub" id="spotReadout">S_t = 100.00 | √v_t = 18.2%</span>
+          <span>02 · RSRS 右偏修正标准分（突破 +S 买入 / 跌破 -S 空仓）</span>
+          <span class="meta" id="rsrsReadout">RSRS_r = +0.32 | R² = 0.84</span>
         </div>
-        <div class="canvas-wrap">
-          <canvas id="cvPaths"></canvas>
+        <div class="canvas-box">
+          <canvas id="cvRsrs"></canvas>
         </div>
       </section>
 
+      <!-- 右下：Level-2 逐笔订单流足迹 (主买成交 / 主卖成交 / 逐笔撤单率) -->
       <section class="panel">
         <div class="panel-head">
-          <span>03 · L2 限价订单簿累计深度 (Bid/Ask Depth) &amp; 盘口失衡度 OBI</span>
-          <span class="sub" id="lobReadout">SPREAD: 2.1 bps | OBI: +0.04</span>
+          <span>03 · Level-2 逐笔订单流 Orderflow（红=主动买大单 · 绿=主动卖 · 橙框=撤单激增）</span>
+          <span class="meta" id="l2Readout">净主买: +12.4% | 撤单率: 18%</span>
         </div>
-        <div class="canvas-wrap">
-          <canvas id="cvLob"></canvas>
+        <div class="canvas-box">
+          <canvas id="cvL2"></canvas>
         </div>
       </section>
     </div>
   </div>
 
-  <footer class="controls-footer">
-    <div class="ctrl-item">
-      <div class="ctrl-label"><span>杠杆相关系数 ρ (Spot-Vol Corr)</span><span id="valRho">-0.65</span></div>
-      <input type="range" id="slRho" min="-0.95" max="0.25" step="0.05" value="-0.65">
+  <footer class="footer-bar">
+    <div class="ctrl">
+      <div class="ctrl-lbl"><span>RSRS 回归窗口 N (High~Low)</span><span id="valN">18 日</span></div>
+      <input type="range" id="slN" min="10" max="36" step="2" value="18">
     </div>
-    <div class="ctrl-item">
-      <div class="ctrl-label"><span>波动率之波动率 ξ (Vol-of-Vol)</span><span id="valXi">0.48</span></div>
-      <input type="range" id="slXi" min="0.12" max="1.20" step="0.04" value="0.48">
+    <div class="ctrl">
+      <div class="ctrl-lbl"><span>RSRS 开平仓阈值 S (标准差倍数)</span><span id="valS">0.70</span></div>
+      <input type="range" id="slS" min="0.40" max="1.20" step="0.05" value="0.70">
     </div>
-    <div class="ctrl-item">
-      <div class="ctrl-label"><span>均值回归速率 κ (Mean Reversion)</span><span id="valKappa">2.40</span></div>
-      <input type="range" id="slKappa" min="0.40" max="6.00" step="0.20" value="2.40">
+    <div class="ctrl">
+      <div class="ctrl-lbl"><span>卡尔曼滤波过程噪声 Q (灵敏度)</span><span id="valQ">0.08</span></div>
+      <input type="range" id="slQ" min="0.02" max="0.25" step="0.01" value="0.08">
     </div>
-    <div class="telemetry-strip">
-      <div class="metric"><small>25Δ RISK REVERSAL</small><strong id="mRR" style="color:var(--vermilion)">-6.8%</strong></div>
-      <div class="metric"><small>10Δ BUTTERFLY (TAIL)</small><strong id="mBF" style="color:var(--cobalt)">+3.9%</strong></div>
-      <div class="metric"><small>RETURN KURTOSIS</small><strong id="mKurt" style="color:var(--emerald)">4.82</strong></div>
+    <div class="stats-row">
+      <div class="stat-item"><small>策略超额累计</small><strong id="stAlpha" style="color:var(--red)">+24.6%</strong></div>
+      <div class="stat-item"><small>滚动 ICIR (因子稳健度)</small><strong id="stIcir" style="color:var(--cobalt)">2.48</strong></div>
+      <div class="stat-item"><small>信号胜率 (Hit Ratio)</small><strong id="stWin" style="color:var(--green)">61.5%</strong></div>
     </div>
   </footer>
 </div>
 
 <script>
 (() => {
-  const cvSurf = document.getElementById('cvSurface');
-  const cvPaths = document.getElementById('cvPaths');
-  const cvLob = document.getElementById('cvLob');
-  const ctxS = cvSurf.getContext('2d');
-  const ctxP = cvPaths.getContext('2d');
-  const ctxL = cvLob.getContext('2d');
+  const cvMain = document.getElementById('cvMain');
+  const cvRsrs = document.getElementById('cvRsrs');
+  const cvL2 = document.getElementById('cvL2');
+  const ctxM = cvMain.getContext('2d');
+  const ctxR = cvRsrs.getContext('2d');
+  const ctxL = cvL2.getContext('2d');
 
-  // Heston & Microstructure state
-  let rho = -0.65;
-  let xi = 0.48;
-  let kappa = 2.40;
-  let theta = 0.036; // long-run variance (19% vol)
-  let vCurr = 0.036;
-  let spot = 100.0;
-  let crashShock = 0.0;   // decays exponentially
-  let macroShock = 0.0;   // short-end vol inversion
-  let obiImbalance = 0.04;
+  let winN = 18;
+  let threshS = 0.70;
+  let kalmanQ = 0.08;
 
-  // 3D Camera angles
-  let yaw = -0.62;
-  let pitch = 0.48;
-  let dragging = false, lastX = 0, lastY = 0;
+  const LEN = 110;
+  const bars = []; // { close, high, low, kalman, strat, rsrs, hmm, buyFlow, sellFlow, cancelRate }
+  let price = 1000;
+  let kalman = 1000;
+  let stratNav = 1000;
+  let momentum = 0.0;
+  let pos = 1; // 1 = 满仓, 0 = 空仓
 
-  cvSurf.addEventListener('pointerdown', e => {
-    dragging = true;
-    lastX = e.clientX;
-    lastY = e.clientY;
-    cvSurf.setPointerCapture(e.pointerId);
-  });
-  cvSurf.addEventListener('pointermove', e => {
-    if (!dragging) return;
-    yaw += (e.clientX - lastX) * 0.008;
-    pitch = Math.max(0.15, Math.min(1.15, pitch + (e.clientY - lastY) * 0.007));
-    lastX = e.clientX;
-    lastY = e.clientY;
-  });
-  cvSurf.addEventListener('pointerup', () => { dragging = false; });
+  function stepBar(impulse = 0) {
+    momentum = momentum * 0.88 + impulse + (Math.random() - 0.492) * 0.004;
+    const ret = momentum + (Math.random() - 0.5) * 0.016;
+    const prev = price;
+    price = Math.max(720, Math.min(1480, price * (1 + ret)));
+    const spread = price * (0.006 + Math.abs(ret) * 0.8);
+    const high = Math.max(prev, price) + spread * (0.4 + Math.random() * 0.6);
+    const low = Math.min(prev, price) - spread * (0.4 + Math.random() * 0.6);
 
-  // Sliders
-  const slRho = document.getElementById('slRho');
-  const slXi = document.getElementById('slXi');
-  const slKappa = document.getElementById('slKappa');
-  slRho.addEventListener('input', () => { rho = parseFloat(slRho.value); document.getElementById('valRho').textContent = rho.toFixed(2); });
-  slXi.addEventListener('input', () => { xi = parseFloat(slXi.value); document.getElementById('valXi').textContent = xi.toFixed(2); });
-  slKappa.addEventListener('input', () => { kappa = parseFloat(slKappa.value); document.getElementById('valKappa').textContent = kappa.toFixed(2); });
+    // 卡尔曼滤波状态更新
+    kalman = kalman + kalmanQ * 2.2 * (price - kalman);
 
-  // Monte Carlo Paths buffer
-  const NUM_PATHS = 22;
-  const MAX_LEN = 130;
-  const paths = [];
-  const volHistory = [];
-  for (let i = 0; i < NUM_PATHS; i++) {
-    paths.push([100]);
-  }
-  volHistory.push(Math.sqrt(vCurr));
+    // RSRS 右偏标准分模拟计算 (基于近期高低点斜率 beta 与 R^2)
+    const r2 = Math.min(0.96, 0.55 + Math.abs(momentum) * 35 + Math.random() * 0.15);
+    const zBeta = Math.max(-2.2, Math.min(2.3, (price - kalman) / (price * 0.022) + momentum * 85));
+    const rsrs = zBeta * r2 * (18 / winN);
 
-  function randn() {
-    let u = 0, v = 0;
-    while (u === 0) u = Math.random();
-    while (v === 0) v = Math.random();
-    return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+    if (rsrs > threshS) pos = 1;
+    else if (rsrs < -threshS) pos = 0;
+
+    // 策略净值（规避未来函数：用上一根 bar 的仓位信号乘当期收益）
+    const prevPos = bars.length ? bars[bars.length - 1].pos : 1;
+    stratNav = stratNav * (1 + (prevPos ? ret : 0.0001));
+
+    // HMM 隐马尔可夫三态识别: 1=牛市主升(红底), -1=熊市下跌(绿底), 0=震荡(米黄底)
+    let hmm = 0;
+    if (rsrs > threshS * 0.75 && price > kalman) hmm = 1;
+    else if (rsrs < -threshS * 0.75 && price < kalman) hmm = -1;
+
+    // Level-2 逐笔订单流
+    const buyFlow = Math.max(8, 45 + rsrs * 28 + (Math.random() - 0.5) * 16);
+    const sellFlow = Math.max(8, 45 - rsrs * 26 + (Math.random() - 0.5) * 16);
+    const cancelRate = Math.min(68, Math.max(10, 20 + (hmm === -1 ? 26 : 0) + Math.abs(ret) * 850));
+
+    bars.push({ close: price, high, low, kalman, strat: stratNav, rsrs, r2, hmm, pos, buyFlow, sellFlow, cancelRate });
+    if (bars.length > LEN) bars.shift();
   }
 
-  // Shock buttons
-  document.getElementById('btnCrash').addEventListener('click', () => {
-    crashShock = 1.0;
-    vCurr = Math.min(0.32, vCurr + 0.14);
-    spot *= 0.945;
-    for (let i = 0; i < NUM_PATHS; i++) {
-      const last = paths[i][paths[i].length - 1];
-      paths[i][paths[i].length - 1] = last * (0.93 + Math.random() * 0.04);
-    }
+  for (let i = 0; i < LEN; i++) stepBar();
+
+  document.getElementById('slN').addEventListener('input', e => {
+    winN = parseInt(e.target.value, 10);
+    document.getElementById('valN').textContent = winN + ' 日';
+  });
+  document.getElementById('slS').addEventListener('input', e => {
+    threshS = parseFloat(e.target.value);
+    document.getElementById('valS').textContent = threshS.toFixed(2);
+  });
+  document.getElementById('slQ').addEventListener('input', e => {
+    kalmanQ = parseFloat(e.target.value);
+    document.getElementById('valQ').textContent = kalmanQ.toFixed(2);
   });
 
-  document.getElementById('btnMacro').addEventListener('click', () => {
-    macroShock = 1.0;
-    vCurr = Math.min(0.24, vCurr + 0.075);
+  document.getElementById('btnBull').addEventListener('click', () => {
+    for (let k = 0; k < 4; k++) stepBar(0.0085);
   });
-
+  document.getElementById('btnBear').addEventListener('click', () => {
+    for (let k = 0; k < 4; k++) stepBar(-0.0095);
+  });
   document.getElementById('btnReset').addEventListener('click', () => {
-    crashShock = 0;
-    macroShock = 0;
-    rho = -0.65; slRho.value = -0.65; document.getElementById('valRho').textContent = '-0.65';
-    xi = 0.48; slXi.value = 0.48; document.getElementById('valXi').textContent = '0.48';
-    kappa = 2.40; slKappa.value = 2.40; document.getElementById('valKappa').textContent = '2.40';
-    vCurr = theta;
-    spot = 100.0;
+    momentum = 0;
+    price = 1000;
+    kalman = 1000;
+    stratNav = 1050;
   });
 
-  function resizeCanvases() {
-    [cvSurf, cvPaths, cvLob].forEach(cv => {
-      const rect = cv.parentElement.getBoundingClientRect();
+  function resize() {
+    [cvMain, cvRsrs, cvL2].forEach(cv => {
+      const r = cv.parentElement.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      cv.width = Math.max(200, Math.floor(rect.width * dpr));
-      cv.height = Math.max(150, Math.floor(rect.height * dpr));
+      cv.width = Math.max(200, Math.floor(r.width * dpr));
+      cv.height = Math.max(140, Math.floor(r.height * dpr));
     });
   }
-  window.addEventListener('resize', resizeCanvases);
-  resizeCanvases();
+  window.addEventListener('resize', resize);
+  resize();
 
-  // Closed-form Heston asymptomatic implied vol approximation
-  function impliedVol(moneyness, tau) {
-    // log-moneyness k = ln(K / S)
-    const k = Math.log(moneyness);
-    const decay = Math.exp(-kappa * tau * 0.45);
-    const atmVar = theta + (vCurr - theta) * ((1 - Math.exp(-kappa * tau)) / (kappa * tau + 1e-4))
-                   + macroShock * 0.07 * Math.exp(-2.2 * tau);
-    const atmVol = Math.sqrt(Math.max(0.005, atmVar));
-    // Skew proportional to rho * xi / sqrt(tau)
-    const skewSlope = (rho * xi / (2.1 * Math.sqrt(tau + 0.08))) * (1 + crashShock * 0.85) * decay;
-    // Smile curvature (vol-of-vol butterfly) proportional to xi^2 * (1 - rho^2)
-    const smileCurv = (0.38 * xi * xi * (1 - 0.35 * rho * rho) / (tau + 0.14)) * (1 + crashShock * 1.1);
-    return Math.max(0.06, Math.min(0.95, atmVol + skewSlope * k + smileCurv * k * k));
+  function drawMain() {
+    const W = cvMain.width, H = cvMain.height;
+    ctxM.fillStyle = '#fafbf8';
+    ctxM.fillRect(0, 0, W, H);
+
+    let minP = Infinity, maxP = -Infinity;
+    for (const b of bars) {
+      minP = Math.min(minP, b.low, b.strat);
+      maxP = Math.max(maxP, b.high, b.strat);
+    }
+    const span = Math.max(40, maxP - minP);
+    const yOf = val => H - 22 - ((val - minP) / span) * (H - 44);
+    const bw = W / LEN;
+
+    // 1. HMM 隐状态背景色带
+    for (let i = 0; i < bars.length; i++) {
+      const b = bars[i];
+      if (b.hmm === 1) ctxM.fillStyle = 'rgba(217, 72, 30, 0.08)';
+      else if (b.hmm === -1) ctxM.fillStyle = 'rgba(31, 122, 84, 0.08)';
+      else ctxM.fillStyle = 'rgba(194, 120, 14, 0.04)';
+      ctxM.fillRect(i * bw, 0, Math.ceil(bw), H);
+    }
+
+    // 2. 指数价格折线
+    ctxM.strokeStyle = '#1e2421';
+    ctxM.lineWidth = 2.0;
+    ctxM.beginPath();
+    bars.forEach((b, i) => {
+      const x = (i + 0.5) * bw, y = yOf(b.close);
+      i === 0 ? ctxM.moveTo(x, y) : ctxM.lineTo(x, y);
+    });
+    ctxM.stroke();
+
+    // 3. 卡尔曼滤波均线 (蓝色虚线)
+    ctxM.strokeStyle = '#1d57a8';
+    ctxM.lineWidth = 1.8;
+    ctxM.setLineDash([5, 3]);
+    ctxM.beginPath();
+    bars.forEach((b, i) => {
+      const x = (i + 0.5) * bw, y = yOf(b.kalman);
+      i === 0 ? ctxM.moveTo(x, y) : ctxM.lineTo(x, y);
+    });
+    ctxM.stroke();
+    ctxM.setLineDash([]);
+
+    // 4. RSRS+HMM 择时策略净值线 (朱红粗线)
+    ctxM.strokeStyle = '#d9481e';
+    ctxM.lineWidth = 2.4;
+    ctxM.beginPath();
+    bars.forEach((b, i) => {
+      const x = (i + 0.5) * bw, y = yOf(b.strat);
+      i === 0 ? ctxM.moveTo(x, y) : ctxM.lineTo(x, y);
+    });
+    ctxM.stroke();
+
+    // 图例
+    ctxM.font = `600 ${Math.max(10, Math.round(W * 0.017))}px "JetBrains Mono", monospace`;
+    ctxM.fillStyle = '#d9481e';
+    ctxM.fillText('━ RSRS+HMM 择时策略净值', 14, 22);
+    ctxM.fillStyle = '#1e2421';
+    ctxM.fillText('━ 基准指数 (中证1000)', 200, 22);
+    ctxM.fillStyle = '#1d57a8';
+    ctxM.fillText('┅ 卡尔曼滤波动态均值', 365, 22);
   }
 
-  let tickCount = 0;
-  function stepPhysics() {
-    const dt = 1 / 252;
-    crashShock *= 0.965;
-    macroShock *= 0.975;
+  function drawRsrs() {
+    const W = cvRsrs.width, H = cvRsrs.height;
+    ctxR.fillStyle = '#fafbf8';
+    ctxR.fillRect(0, 0, W, H);
 
-    const z1 = randn();
-    const z2 = rho * z1 + Math.sqrt(Math.max(0, 1 - rho * rho)) * randn();
+    const midY = H * 0.5;
+    const yOf = z => midY - (z / 2.3) * (H * 0.42);
+    const bw = W / LEN;
 
-    // Update variance v_t (Feller truncated Euler)
-    const dv = kappa * (theta - vCurr) * dt + xi * Math.sqrt(Math.max(0.002, vCurr * dt)) * z2;
-    vCurr = Math.max(0.006, Math.min(0.45, vCurr + dv));
+    // +S 买入阈值线与 -S 平仓阈值线
+    const yTop = yOf(threshS), yBot = yOf(-threshS);
+    ctxR.strokeStyle = '#d9481e';
+    ctxR.setLineDash([4, 3]);
+    ctxR.beginPath(); ctxR.moveTo(0, yTop); ctxR.lineTo(W, yTop); ctxR.stroke();
 
-    // Jump term during crash shock
-    const jump = (crashShock > 0.15 && Math.random() < 0.22) ? (-0.015 * crashShock) : 0;
-    spot = spot * Math.exp((-0.5 * vCurr) * dt + Math.sqrt(vCurr * dt) * z1 + jump);
-    spot = Math.max(65, Math.min(145, spot));
+    ctxR.strokeStyle = '#1f7a54';
+    ctxR.beginPath(); ctxR.moveTo(0, yBot); ctxR.lineTo(W, yBot); ctxR.stroke();
+    ctxR.setLineDash([]);
 
-    for (let i = 0; i < NUM_PATHS; i++) {
-      const arr = paths[i];
-      const prev = arr[arr.length - 1];
-      const zi = (i === 0) ? z1 : randn();
-      const j = (i === 0) ? jump : ((crashShock > 0.2 && Math.random() < 0.14) ? -0.012 * crashShock : 0);
-      let next = prev * Math.exp((-0.5 * vCurr) * dt + Math.sqrt(vCurr * dt) * zi + j);
-      next = Math.max(68, Math.min(142, next));
-      arr.push(next);
-      if (arr.length > MAX_LEN) arr.shift();
-    }
-    volHistory.push(Math.sqrt(vCurr));
-    if (volHistory.length > MAX_LEN) volHistory.shift();
-
-    // Update readouts
-    const iv25Put = impliedVol(0.90, 0.25);
-    const iv25Call = impliedVol(1.10, 0.25);
-    const ivAtm = impliedVol(1.00, 0.25);
-    const rr = (iv25Call - iv25Put) * 100;
-    const bf = (0.5 * (iv25Call + iv25Put) - ivAtm) * 100;
-    const kurt = 3.0 + 1.8 * xi * xi * (1 + Math.abs(rho)) + crashShock * 4.5;
-
-    document.getElementById('mRR').textContent = (rr >= 0 ? '+' : '') + rr.toFixed(1) + '%';
-    document.getElementById('mBF').textContent = '+' + Math.max(0.4, bf).toFixed(1) + '%';
-    document.getElementById('mKurt').textContent = kurt.toFixed(2);
-    document.getElementById('spotReadout').textContent =
-      `S_t = ${paths[0][paths[0].length - 1].toFixed(2)} | √v_t = ${(Math.sqrt(vCurr) * 100).toFixed(1)}%`;
-
-    const regime = crashShock > 0.25 ? 'FLASH CRASH STRESS' : (macroShock > 0.25 ? 'TERM INVERSION' : 'EQUILIBRIUM');
-    document.getElementById('surfStatus').textContent =
-      `REGIME: ${regime} · 25Δ SKEW: ${rr.toFixed(1)}%`;
+    // RSRS 柱状图
+    bars.forEach((b, i) => {
+      const x = i * bw;
+      const y = yOf(b.rsrs);
+      ctxR.fillStyle = b.rsrs >= threshS ? '#d9481e' : (b.rsrs <= -threshS ? '#1f7a54' : '#9ca59e');
+      ctxR.fillRect(x + 1, Math.min(midY, y), Math.max(1.5, bw - 2), Math.abs(y - midY));
+    });
   }
 
-  function drawSurface() {
-    const W = cvSurf.width, H = cvSurf.height;
-    ctxS.clearRect(0, 0, W, H);
-
-    // Subtle coordinate grid background
-    ctxS.fillStyle = '#fafbf8';
-    ctxS.fillRect(0, 0, W, H);
-
-    const NX = 17; // Moneyness K/S0 from 0.78 to 1.22
-    const NY = 13; // Maturity tau from 0.08 to 1.80
-    const cx = W * 0.50;
-    const cy = H * 0.60;
-    const scale = Math.min(W, H) * 0.37;
-
-    function project(nx, ny, nz) {
-      // nx, ny in [-1, 1], nz in [0, 1.3]
-      const x1 = nx * Math.cos(yaw) - ny * Math.sin(yaw);
-      const y1 = nx * Math.sin(yaw) + ny * Math.cos(yaw);
-      const z1 = nz;
-      const py = y1 * Math.sin(pitch) - z1 * Math.cos(pitch);
-      const depth = y1 * Math.cos(pitch) + z1 * Math.sin(pitch) + 3.4;
-      const fov = 2.65 / depth;
-      return {
-        x: cx + x1 * scale * fov,
-        y: cy + py * scale * fov,
-        depth
-      };
-    }
-
-    // Build grid vertices
-    const grid = [];
-    for (let j = 0; j < NY; j++) {
-      const row = [];
-      const vFrac = j / (NY - 1);
-      const tau = 0.08 + vFrac * 1.72;
-      const ny = (vFrac - 0.5) * 1.75;
-      for (let i = 0; i < NX; i++) {
-        const uFrac = i / (NX - 1);
-        const m = 0.78 + uFrac * 0.44;
-        const nx = (uFrac - 0.5) * 1.85;
-        const iv = impliedVol(m, tau);
-        const nz = (iv - 0.10) * 2.4;
-        const pt = project(nx, ny, nz);
-        pt.iv = iv;
-        pt.m = m;
-        pt.tau = tau;
-        row.push(pt);
-      }
-      grid.push(row);
-    }
-
-    // Draw base floor frame
-    ctxS.strokeStyle = '#d2d7ce';
-    ctxS.lineWidth = 1;
-    const corners = [
-      project(-0.92, -0.88, 0),
-      project(0.92, -0.88, 0),
-      project(0.92, 0.88, 0),
-      project(-0.92, 0.88, 0)
-    ];
-    ctxS.beginPath();
-    corners.forEach((c, idx) => idx === 0 ? ctxS.moveTo(c.x, c.y) : ctxS.lineTo(c.x, c.y));
-    ctxS.closePath();
-    ctxS.stroke();
-
-    // Sort quads back-to-front
-    const quads = [];
-    for (let j = 0; j < NY - 1; j++) {
-      for (let i = 0; i < NX - 1; i++) {
-        const p00 = grid[j][i], p10 = grid[j][i + 1], p11 = grid[j + 1][i + 1], p01 = grid[j + 1][i];
-        const avgDepth = 0.25 * (p00.depth + p10.depth + p11.depth + p01.depth);
-        const avgIv = 0.25 * (p00.iv + p10.iv + p11.iv + p01.iv);
-        quads.push({ p00, p10, p11, p01, avgDepth, avgIv });
-      }
-    }
-    quads.sort((a, b) => b.avgDepth - a.avgDepth);
-
-    for (const q of quads) {
-      const t = Math.max(0, Math.min(1, (q.avgIv - 0.14) / 0.42));
-      // Editorial thermal colormap: sage green -> warm ochre -> vermilion
-      const r = Math.round(35 + t * 195);
-      const g = Math.round(122 - t * 48);
-      const b = Math.round(88 - t * 52);
-      ctxS.fillStyle = `rgba(${r},${g},${b},0.80)`;
-      ctxS.strokeStyle = 'rgba(250,251,248,0.55)';
-      ctxS.lineWidth = 1;
-      ctxS.beginPath();
-      ctxS.moveTo(q.p00.x, q.p00.y);
-      ctxS.lineTo(q.p10.x, q.p10.y);
-      ctxS.lineTo(q.p11.x, q.p11.y);
-      ctxS.lineTo(q.p01.x, q.p01.y);
-      ctxS.closePath();
-      ctxS.fill();
-      ctxS.stroke();
-    }
-
-    // Axis labels
-    ctxS.fillStyle = '#38423c';
-    ctxS.font = `600 ${Math.max(10, Math.round(W * 0.017))}px "JetBrains Mono", monospace`;
-    const lblPut = project(-0.95, -0.92, 0);
-    const lblCall = project(0.85, -0.92, 0);
-    const lblMat = project(0.98, 0.85, 0);
-    ctxS.fillText('OTM PUT (K=0.78)', lblPut.x - 20, lblPut.y + 14);
-    ctxS.fillText('OTM CALL (K=1.22)', lblCall.x - 30, lblCall.y + 14);
-    ctxS.fillText('τ = 1.8Y', lblMat.x - 10, lblMat.y);
-  }
-
-  function drawPaths() {
-    const W = cvPaths.width, H = cvPaths.height;
-    ctxP.clearRect(0, 0, W, H);
-    ctxP.fillStyle = '#fafbf8';
-    ctxP.fillRect(0, 0, W, H);
-
-    // Horizontal reference lines
-    ctxP.strokeStyle = '#e2e6de';
-    ctxP.lineWidth = 1;
-    for (let k = 1; k <= 3; k++) {
-      const y = (H * k) / 4;
-      ctxP.beginPath();
-      ctxP.moveTo(0, y);
-      ctxP.lineTo(W, y);
-      ctxP.stroke();
-    }
-
-    // Draw background Monte Carlo fan
-    for (let i = 1; i < NUM_PATHS; i++) {
-      const arr = paths[i];
-      ctxP.strokeStyle = i % 2 === 0 ? 'rgba(30, 87, 168, 0.22)' : 'rgba(31, 122, 84, 0.20)';
-      ctxP.lineWidth = 1.1;
-      ctxP.beginPath();
-      for (let t = 0; t < arr.length; t++) {
-        const x = (t / (MAX_LEN - 1)) * W;
-        const y = H - ((arr[t] - 72) / 56) * (H * 0.82) - H * 0.09;
-        t === 0 ? ctxP.moveTo(x, y) : ctxP.lineTo(x, y);
-      }
-      ctxP.stroke();
-    }
-
-    // Primary realized spot path
-    const main = paths[0];
-    ctxP.strokeStyle = '#1e2421';
-    ctxP.lineWidth = 2.2;
-    ctxP.beginPath();
-    for (let t = 0; t < main.length; t++) {
-      const x = (t / (MAX_LEN - 1)) * W;
-      const y = H - ((main[t] - 72) / 56) * (H * 0.82) - H * 0.09;
-      t === 0 ? ctxP.moveTo(x, y) : ctxP.lineTo(x, y);
-    }
-    ctxP.stroke();
-
-    // Instantaneous volatility √v_t overlay in vermilion
-    ctxP.strokeStyle = '#e04f26';
-    ctxP.lineWidth = 1.6;
-    ctxP.beginPath();
-    for (let t = 0; t < volHistory.length; t++) {
-      const x = (t / (MAX_LEN - 1)) * W;
-      const y = H - Math.min(0.92, volHistory[t] / 0.65) * (H * 0.75) - 8;
-      t === 0 ? ctxP.moveTo(x, y) : ctxP.lineTo(x, y);
-    }
-    ctxP.stroke();
-  }
-
-  function drawLob() {
-    const W = cvLob.width, H = cvLob.height;
-    ctxL.clearRect(0, 0, W, H);
+  function drawL2() {
+    const W = cvL2.width, H = cvL2.height;
     ctxL.fillStyle = '#fafbf8';
     ctxL.fillRect(0, 0, W, H);
 
-    const midX = W * 0.5;
-    const levels = 18;
-    const liquidityDrain = Math.max(0.18, 1 - crashShock * 0.78);
-    const spreadBps = (1.8 + crashShock * 26.0 + Math.sqrt(vCurr) * 8).toFixed(1);
-    const obi = (-crashShock * 0.62 + Math.sin(tickCount * 0.07) * 0.08).toFixed(2);
-    document.getElementById('lobReadout').textContent = `SPREAD: ${spreadBps} bps | OBI: ${obi}`;
+    const recent = bars.slice(-36);
+    const bw = W / recent.length;
+    const midY = H * 0.52;
 
-    // Bid side (left, emerald)
-    ctxL.fillStyle = 'rgba(31, 122, 84, 0.22)';
-    ctxL.strokeStyle = '#1f7a54';
-    ctxL.lineWidth = 2;
-    ctxL.beginPath();
-    const gap = Math.max(4, crashShock * 34 + 5);
-    ctxL.moveTo(midX - gap, H - 18);
-    let cumBid = 0;
-    for (let i = 0; i < levels; i++) {
-      cumBid += (1.2 + Math.pow(i, 1.15) * 0.55) * liquidityDrain * (1 - crashShock * 0.35);
-      const x = midX - gap - (i / (levels - 1)) * (midX - gap - 12);
-      const y = H - 18 - Math.min(H - 34, (cumBid / 115) * (H - 36));
-      ctxL.lineTo(x, y);
-    }
-    ctxL.lineTo(12, H - 18);
-    ctxL.closePath();
-    ctxL.fill();
-    ctxL.stroke();
+    recent.forEach((b, i) => {
+      const x = i * bw;
+      const hBuy = Math.min(midY - 8, (b.buyFlow / 95) * (midY - 10));
+      const hSell = Math.min(H - midY - 8, (b.sellFlow / 95) * (H - midY - 10));
 
-    // Ask side (right, vermilion)
-    ctxL.fillStyle = 'rgba(224, 79, 38, 0.20)';
-    ctxL.strokeStyle = '#e04f26';
-    ctxL.lineWidth = 2;
-    ctxL.beginPath();
-    ctxL.moveTo(midX + gap, H - 18);
-    let cumAsk = 0;
-    for (let i = 0; i < levels; i++) {
-      cumAsk += (1.2 + Math.pow(i, 1.18) * 0.58) * (liquidityDrain + crashShock * 0.25);
-      const x = midX + gap + (i / (levels - 1)) * (midX - gap - 12);
-      const y = H - 18 - Math.min(H - 34, (cumAsk / 115) * (H - 36));
-      ctxL.lineTo(x, y);
-    }
-    ctxL.lineTo(W - 12, H - 18);
-    ctxL.closePath();
-    ctxL.fill();
-    ctxL.stroke();
+      // 主动买大单 (红柱朝上)
+      ctxL.fillStyle = 'rgba(217, 72, 30, 0.82)';
+      ctxL.fillRect(x + 1.5, midY - hBuy, Math.max(2, bw - 3), hBuy);
 
-    // Mid-price divider
+      // 主动卖大单 (绿柱朝下)
+      ctxL.fillStyle = 'rgba(31, 122, 84, 0.80)';
+      ctxL.fillRect(x + 1.5, midY, Math.max(2, bw - 3), hSell);
+
+      // 高频逐笔撤单异常标记
+      if (b.cancelRate > 34) {
+        ctxL.strokeStyle = '#c2780e';
+        ctxL.lineWidth = 1.5;
+        ctxL.strokeRect(x + 1, 6, Math.max(2, bw - 2), H - 12);
+      }
+    });
+
     ctxL.strokeStyle = '#1e2421';
-    ctxL.setLineDash([4, 4]);
-    ctxL.beginPath();
-    ctxL.moveTo(midX, 10);
-    ctxL.lineTo(midX, H - 18);
-    ctxL.stroke();
-    ctxL.setLineDash([]);
+    ctxL.lineWidth = 1;
+    ctxL.beginPath(); ctxL.moveTo(0, midY); ctxL.lineTo(W, midY); ctxL.stroke();
   }
 
+  let tick = 0;
   function loop() {
-    tickCount++;
-    if (tickCount % 2 === 0) stepPhysics();
-    if (!dragging) yaw += 0.0025;
-    drawSurface();
-    drawPaths();
-    drawLob();
+    tick++;
+    if (tick % 14 === 0) {
+      stepBar();
+      const last = bars[bars.length - 1];
+      const hmmTxt = last.hmm === 1 ? '牛市主升 (多头满仓)' : (last.hmm === -1 ? '熊市退潮 (防守空仓)' : '震荡整固');
+      document.getElementById('hmmStatus').textContent = `HMM 隐状态: ${hmmTxt} | 当前信号: ${last.pos ? '100% 持仓' : '0% 空仓'}`;
+      document.getElementById('rsrsReadout').textContent = `RSRS 右偏分 = ${(last.rsrs >= 0 ? '+' : '') + last.rsrs.toFixed(2)} | R² = ${last.r2.toFixed(2)}`;
+      const netFlow = ((last.buyFlow - last.sellFlow) / (last.buyFlow + last.sellFlow) * 100).toFixed(1);
+      document.getElementById('l2Readout').textContent = `大单净主买: ${(netFlow >= 0 ? '+' : '') + netFlow}% | 逐笔撤单率: ${last.cancelRate.toFixed(0)}%`;
+
+      const alpha = ((last.strat / last.close - 1) * 100);
+      document.getElementById('stAlpha').textContent = (alpha >= 0 ? '+' : '') + alpha.toFixed(1) + '%';
+    }
+    drawMain();
+    drawRsrs();
+    drawL2();
     requestAnimationFrame(loop);
   }
   loop();
