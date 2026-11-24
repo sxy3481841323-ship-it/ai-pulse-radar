@@ -1391,8 +1391,20 @@ h1, h2, h3, h4, p { margin: 0; }
     document.getElementById("updated-text").textContent =
       "最新同步: " +
       (DATA.generated_at ? DATA.generated_at.replace("T", " ").slice(0, 16) + " UTC" : "刚刚");
+
+    const pool = DATA.api_pool || [];
+    let quotaText = "零二手自媒体";
+    if (pool.length) {
+      const p0 = pool[0];
+      const p1 = pool[1];
+      if (p0 && p0.available && p0.balance != null) {
+        quotaText = `主额度剩余 ¥${p0.balance}` + (p1 ? `（耗尽自动切备用 ¥${p1.balance || "就绪"}）` : "");
+      } else if (p1 && p1.available) {
+        quotaText = `主额度已用尽 · 已自动切备用池 (¥${p1.balance || "在线"})`;
+      }
+    }
     document.getElementById("source-mini-status").textContent =
-      `直连数据源 ${okCount}/${sources.length || 11} 在线 · 零二手自媒体`;
+      `直连数据源 ${okCount}/${sources.length || 11} 在线 · ${quotaText}`;
   }
 
   // ---------- 01 本周好玩项目渲染 ----------

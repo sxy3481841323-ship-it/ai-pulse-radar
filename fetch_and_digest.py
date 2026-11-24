@@ -15,6 +15,7 @@ import os
 import re
 import ssl
 import sys
+import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -40,14 +41,88 @@ OFFICIAL_MAX = 30
 SSL_CTX = ssl.create_default_context()
 
 
-def load_key() -> str:
-    key = os.environ.get("DEEPSEEK_API_KEY", "").strip()
+def mask_key(k: str) -> str:
+    if not k or len(k) < 12:
+        return "***"
+    return f"{k[:7]}...{k[-4:]}"
+
+
+def load_keys() -> list:
+    """
+    按严格优先级加载多个 DeepSeek API Key：
+    1. DEEPSEEK_API_KEY（主用 Key，优先把它的额度全部用完）
+    2. DEEPSEEK_API_KEY_FALLBACK（备用 Key，主 Key 余额归零或 402 时无缝接管）
+    3. DEEPSEEK_API_KEYS（可选逗号分隔列表）
+    """
+    env_map = {}
     env_path = os.path.join(ROOT, ".env")
-    if not key and os.path.exists(env_path):
+    if os.path.exists(env_path):
         for line in open(env_path, encoding="utf-8"):
-            if line.strip().startswith("DEEPSEEK_API_KEY="):
-                key = line.split("=", 1)[1].strip().strip('"').strip("'")
-    return key
+            s = line.strip()
+            if not s or s.startswith("#") or "=" not in s:
+                continue
+            k, v = s.split("=", 1)
+            env_map[k.strip()] = v.strip().strip('"').strip("'")
+
+    raw_candidates = [
+        os.environ.get("DEEPSEEK_API_KEY") or env_map.get("DEEPSEEK_API_KEY", ""),
+        os.environ.get("DEEPSEEK_API_KEY_FALLBACK") or env_map.get("DEEPSEEK_API_KEY_FALLBACK", ""),
+    ]
+    extra = os.environ.get("DEEPSEEK_API_KEYS") or env_map.get("DEEPSEEK_API_KEYS", "")
+    if extra:
+        raw_candidates.extend(extra.split(","))
+
+    ordered = []
+    for c in raw_candidates:
+        c = (c or "").strip()
+        if c and c not in ordered:
+            ordered.append(c)
+    return ordered
+
+
+def load_key() -> str:
+    keys = load_keys()
+    return keys[0] if keys else ""
+
+
+def inspect_key_pool(keys: list):
+    """
+    查询每个 Key 的实时余额，剔除已彻底归零的 Key，并返回脱敏后的额度池状态供页面展示（绝不包含真实密钥）。
+    """
+    active_keys = []
+    pool_info = []
+    for idx, k in enumerate(keys):
+        role = "主额度" if idx == 0 else f"备用#{idx}"
+        try:
+            data = http_json("https://api.deepseek.com/user/balance",
+                             {"Authorization": f"Bearer {k}"})
+            infos = data.get("balance_infos") or []
+            bal_str = infos[0].get("total_balance", "0.00") if infos else "0.00"
+            currency = infos[0].get("currency", "CNY") if infos else "CNY"
+            bal_val = float(bal_str)
+            avail = bool(data.get("is_available")) and bal_val > 0.0
+            print(f"  🔑 {role} ({mask_key(k)}): {'可用' if avail else '已耗尽'} · 余额 {bal_str} {currency}")
+            pool_info.append({
+                "slot": idx + 1,
+                "role": role,
+                "available": avail,
+                "balance": bal_str,
+                "currency": currency,
+            })
+            if avail:
+                active_keys.append(k)
+        except Exception as e:
+            # 查询余额网络抖动时仍保留在候选队列中，交给实际请求兜底
+            print(f"  🔑 {role} ({mask_key(k)}): 余额查询跳过 ({type(e).__name__})，保留候选")
+            active_keys.append(k)
+            pool_info.append({
+                "slot": idx + 1,
+                "role": role,
+                "available": True,
+                "balance": None,
+                "currency": "CNY",
+            })
+    return active_keys, pool_info
 
 
 def http(url, headers=None, data=None, timeout=25):
@@ -566,29 +641,49 @@ def run_sources(sources):
 
 
 # ----------------------------------------------------------------------------
-# DeepSeek 提纯（强制一句话讲清价值，绝不啰嗦）
+# DeepSeek 提纯（支持主备多 Key 自动故障/耗尽切换：主 Key 用空即无缝切备用 Key）
 # ----------------------------------------------------------------------------
-def deepseek_json(key, system, user, model=DIGEST_MODEL, timeout=240):
-    for attempt in range(3):
-        payload = json.dumps({
-            "model": model,
-            "reasoning_effort": "low",
-            "response_format": {"type": "json_object"},
-            "temperature": 0.2 if attempt else 0.35,
-            "max_tokens": 16384,
-            "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
-        }).encode()
-        raw = http("https://api.deepseek.com/chat/completions",
-                   {"Content-Type": "application/json", "Authorization": f"Bearer {key}"},
-                   data=payload, timeout=timeout)
-        content = json.loads(raw)["choices"][0]["message"]["content"].strip()
-        if content.startswith("```"):
-            content = re.sub(r"^```(?:json)?\s*|\s*```$", "", content, flags=re.S)
-        try:
-            return json.loads(content)
-        except Exception as e:
-            if attempt == 2:
-                raise e
+def deepseek_json(keys, system, user, model=DIGEST_MODEL, timeout=240):
+    if isinstance(keys, str):
+        keys = [keys] if keys else []
+    if not keys:
+        raise RuntimeError("无可用 DeepSeek API Key")
+
+    last_err = None
+    for k_idx, key in enumerate(keys):
+        for attempt in range(3):
+            payload = json.dumps({
+                "model": model,
+                "reasoning_effort": "low",
+                "response_format": {"type": "json_object"},
+                "temperature": 0.2 if attempt else 0.35,
+                "max_tokens": 16384,
+                "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
+            }).encode()
+            try:
+                raw = http("https://api.deepseek.com/chat/completions",
+                           {"Content-Type": "application/json", "Authorization": f"Bearer {key}"},
+                           data=payload, timeout=timeout)
+                content = json.loads(raw)["choices"][0]["message"]["content"].strip()
+                if content.startswith("```"):
+                    content = re.sub(r"^```(?:json)?\s*|\s*```$", "", content, flags=re.S)
+                return json.loads(content)
+            except urllib.error.HTTPError as e:
+                last_err = e
+                # 402 = Insufficient Balance（主 Key 额度刚用完），401 = Key 失效 -> 立即切换到下一个备用 Key
+                if e.code in (401, 402) and k_idx + 1 < len(keys):
+                    print(f"  ⚠️ Key {mask_key(key)} 返回 HTTP {e.code}（额度已用完或失效），自动切换至备用 Key {mask_key(keys[k_idx + 1])}！")
+                    break
+                if attempt == 2 and k_idx + 1 == len(keys):
+                    raise e
+            except Exception as e:
+                last_err = e
+                if attempt == 2 and k_idx + 1 < len(keys):
+                    print(f"  ⚠️ Key {mask_key(key)} 连续重试失败 ({e})，切换至备用 Key {mask_key(keys[k_idx + 1])}！")
+                    break
+                if attempt == 2 and k_idx + 1 == len(keys):
+                    raise e
+    raise last_err or RuntimeError("所有 DeepSeek API Key 均调用失败")
 
 
 COMMUNITY_SYSTEM = """你是「野生 AI 雷达」的主编。读者是一位喜欢玩 AI、学工科的大学生。
@@ -764,8 +859,13 @@ def write_feed(feed):
 
 def main():
     use_llm = "--no-llm" not in sys.argv
-    key = load_key() if use_llm else ""
-    print(f"📡 野生 AI 雷达开始抓取 · {iso(NOW)} ({WEEK_LABEL}) · 模型: {DIGEST_MODEL if key else '不使用'}")
+    raw_keys = load_keys() if use_llm else []
+    print(f"📡 野生 AI 雷达开始抓取 · {iso(NOW)} ({WEEK_LABEL}) · 模型: {DIGEST_MODEL if raw_keys else '不使用'}")
+
+    active_keys, pool_info = ([], [])
+    if raw_keys:
+        print("检查 API 额度池（优先耗尽主 Key，再自动切换备用 Key）：")
+        active_keys, pool_info = inspect_key_pool(raw_keys)
 
     print("实用 Skill 宝库：")
     skills, skill_status = run_sources(SKILL_SOURCES)
@@ -785,14 +885,19 @@ def main():
     community_raw = list(dedup.values())
 
     prev = load_previous()
-    community, briefing = build_community(key, community_raw)
-    official = build_official(key, official_raw)
+    community, briefing = build_community(active_keys, community_raw)
+    official = build_official(active_keys, official_raw)
+
+    # 提纯完成后再刷一次当前激活 Key 的最新剩余额度，方便在网页状态栏直观看到消耗进度
+    if raw_keys:
+        _, pool_info = inspect_key_pool(raw_keys)
 
     feed = {
         "schema": 4,
         "week_label": WEEK_LABEL,
         "generated_at": iso(NOW),
-        "model": DIGEST_MODEL if key else None,
+        "model": DIGEST_MODEL if active_keys else None,
+        "api_pool": pool_info or prev.get("api_pool", []),
         "skills": skills or prev.get("skills", []),
         "briefing": briefing or prev.get("briefing"),
         "community": merge(community, prev.get("community"), COMMUNITY_KEEP_DAYS, COMMUNITY_MAX,

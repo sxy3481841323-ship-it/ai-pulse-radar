@@ -24,6 +24,7 @@ jobs:
       - name: Run DeepSeek Community Hunter Script
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DEEPSEEK_API_KEY_FALLBACK: ${{ secrets.DEEPSEEK_API_KEY_FALLBACK }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python3 fetch_and_digest.py
