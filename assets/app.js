@@ -168,7 +168,7 @@
   // ---------- 顶部状态渲染 ----------
   function renderHeader() {
     if (DATA.week_label) {
-      document.getElementById("week-badge").textContent = DATA.week_label + " · 每周推陈出新";
+      document.getElementById("week-badge").textContent = DATA.week_label;
     }
     const sources = DATA.sources || [];
     const okCount = sources.filter((s) => s.ok).length;
@@ -456,8 +456,8 @@
     bodyEl.hidden = !state.skillZoneOpen;
     triggerEl.setAttribute("aria-expanded", String(state.skillZoneOpen));
     ctaEl.textContent = state.skillZoneOpen
-      ? "🔼 收起 Skill 专区"
-      : "📂 点击展开 Skill 专区 ▾";
+      ? "🔼 收起 Skill 宝库"
+      : "📂 打开 Skill 宝库 ▾";
 
     const allSkills = DATA.skills || [];
     const counts = { all: allSkills.length };

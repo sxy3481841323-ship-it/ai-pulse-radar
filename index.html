@@ -1051,13 +1051,13 @@ h1, h2, h3, h4, p { margin: 0; }
     <header class="masthead">
       <div class="masthead-top">
         <div class="masthead-meta">
-          <span class="week-pill" id="week-badge">2026年第48周 · 每周焕新</span>
+          <span class="week-pill" id="week-badge">2026年第48周</span>
           <span id="updated-text">一手数据源实时直连</span>
         </div>
         <nav class="jump-nav" aria-label="页面导航">
           <a href="#sec-playground">01 本周好玩项目</a>
           <a href="#sec-news">02 社群热帖 &amp; 企业大事记</a>
-          <button type="button" class="skill-nav-btn" id="nav-open-skills">🧰 03 点开实用 Skill 专区</button>
+          <button type="button" class="skill-nav-btn" id="nav-open-skills">🧰 03 打开 Skill 宝库</button>
         </nav>
       </div>
 
@@ -1074,13 +1074,13 @@ h1, h2, h3, h4, p { margin: 0; }
           <div>
             <div class="kicker">PLAY WITH AI · 拒绝二手废话 · 每条只用一句话讲清价值</div>
             <h1 class="site-title">野生 AI 雷达</h1>
-            <p class="site-sub">把每周真正好玩的 AI 可视化作品、一手极客热帖与能偷懒提效的实用 Skill 摊在一张清爽的纸上。</p>
+            <p class="site-sub">把真正好玩的 AI 可视化作品、一手极客热帖与实用 Skill 摊在一张清爽的纸上。</p>
           </div>
         </div>
 
         <div class="hero-right">
           <button type="button" class="open-skill-hero-btn" id="hero-open-skills">
-            <span>🧰 打开「大学 · 创业 · 生活 · 量化课」Skill 宝库</span>
+            <span>🧰 打开 Skill 宝库</span>
             <span>▾</span>
           </button>
           <div class="source-mini-status" id="source-mini-status">11 个一手社区与官方源在线</div>
@@ -1089,15 +1089,15 @@ h1, h2, h3, h4, p { margin: 0; }
     </header>
 
     <!-- ====================================================================
-         01 本周好玩的可视化项目（每周为单位推陈出新 · 置顶第一顺位）
+         01 本周好玩的可视化项目
          ==================================================================== -->
     <section class="playground-section" id="sec-playground">
       <div class="sec-bar">
         <div class="sec-bar-left">
           <span class="sec-badge vermilion">01 · WEEKLY PLAYGROUND</span>
           <div>
-            <h2>本周好玩的可视化项目（每周推陈出新）</h2>
-            <p>所有实盘已直接内联打包进页面，点击卡片即可在下方画布或全屏秒开试玩，绝不出现断连</p>
+            <h2>本周好玩的可视化项目</h2>
+            <p>所有实盘已直接内联打包进页面，点击卡片即可在下方画布或全屏秒开试玩</p>
           </div>
         </div>
         <div>
@@ -1111,10 +1111,10 @@ h1, h2, h3, h4, p { margin: 0; }
       <!-- 内联零断连实盘交互大画布 -->
       <div class="stage-container" id="stage-container"></div>
 
-      <!-- 每周从 Hugging Face Spaces / Show HN 自动抓新的好玩项目 -->
+      <!-- 从 Hugging Face Spaces / Show HN 抓取的好玩项目 -->
       <div class="weekly-fresh-box">
         <div class="weekly-fresh-head">
-          <h3>🌱 本周社区新冒出来的好玩网页 &amp; 在线 Space（自动抓新）</h3>
+          <h3>🌱 社区新冒出来的好玩网页 &amp; 在线 Space</h3>
           <span style="font-family:var(--mono);font-size:12px;color:var(--muted)">来自 Hugging Face Spaces &amp; Hacker News Show HN</span>
         </div>
         <div class="weekly-fresh-grid" id="weekly-fresh-grid"></div>
@@ -1165,18 +1165,18 @@ h1, h2, h3, h4, p { margin: 0; }
     </section>
 
     <!-- ====================================================================
-         03 可点开的实用 Skill 专区（大学工科 · 创业 · 生活 · 你的量化课助手）
+         03 可点开的实用 Skill 专区
          ==================================================================== -->
     <section class="skill-zone-section" id="sec-skills">
       <button type="button" class="skill-drawer-trigger" id="skill-drawer-trigger" aria-expanded="false">
         <div class="trigger-left">
           <span class="trigger-badge">03 · SKILL ZONE</span>
           <div>
-            <h2>点开即用 · 效率与生活 Skill 宝库（大学工科 · 创业 · 生活 · 量化课助手）</h2>
-            <p>每个 Skill 只用一句话讲明「方便在哪 / 高效在哪」，附现成提示词与安装命令，点击一键展开专区</p>
+            <h2>Skill 宝库</h2>
+            <p>每个 Skill 只用一句话讲明「方便在哪 / 高效在哪」，附现成提示词与安装命令</p>
           </div>
         </div>
-        <span class="trigger-cta" id="skill-trigger-cta">📂 点击展开 Skill 专区 ▾</span>
+        <span class="trigger-cta" id="skill-trigger-cta">📂 打开 Skill 宝库 ▾</span>
       </button>
 
       <div class="skill-zone-body" id="skill-zone-body" hidden>
@@ -1384,7 +1384,7 @@ h1, h2, h3, h4, p { margin: 0; }
   // ---------- 顶部状态渲染 ----------
   function renderHeader() {
     if (DATA.week_label) {
-      document.getElementById("week-badge").textContent = DATA.week_label + " · 每周推陈出新";
+      document.getElementById("week-badge").textContent = DATA.week_label;
     }
     const sources = DATA.sources || [];
     const okCount = sources.filter((s) => s.ok).length;
@@ -1672,8 +1672,8 @@ h1, h2, h3, h4, p { margin: 0; }
     bodyEl.hidden = !state.skillZoneOpen;
     triggerEl.setAttribute("aria-expanded", String(state.skillZoneOpen));
     ctaEl.textContent = state.skillZoneOpen
-      ? "🔼 收起 Skill 专区"
-      : "📂 点击展开 Skill 专区 ▾";
+      ? "🔼 收起 Skill 宝库"
+      : "📂 打开 Skill 宝库 ▾";
 
     const allSkills = DATA.skills || [];
     const counts = { all: allSkills.length };
