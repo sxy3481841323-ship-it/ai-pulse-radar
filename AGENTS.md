@@ -87,6 +87,12 @@
 4. **浏览器创意游戏开发、打击爽感与玩法策划（9 个）**：
    - `threejs-game-director`、`threejs-gameplay-systems`、`threejs-aaa-graphics-builder`、`phaser-core`、`game-feel`（顿帧/震屏/粒子/音效爽感）、`level-design`、`game-ui-ux`、`game-brainstorm`（反套路玩法机制脑暴）、`game-quick-design`。
 
+### 技能双向自动同步铁律（每个接手 Agent 必执行）
+为了保证主人切换回自己的电脑或更换任何其他 Agent 干活时，两边装过的 Skill 永远无缝同步、不丢失：
+1. **接手自动补齐（仓库 → 本机）**：每次 `git pull --rebase` 后，帮主人干活的 Agent **必须检测**本机全局技能目录（`~/.gemini/config/skills/`、`~/.claude/skills/`、`~/.codex/skills/` 等）是否缺少仓库 `.agents/skills/` 中的技能；**只要检测到本机没有，必须立刻自动下载/同步到本地**（直接执行 `python3 sync_skills.py` 即可自动检测并补齐所有缺失技能）。
+2. **新装必须回传（本机 → 仓库）**：只要在本机或其他 Agent 上新装了任何用于网页设计、UI、动效、3D 或游戏开发的通用 Skill，提交代码前**必须同步回仓库 `.agents/skills/<skill-name>/`**（直接运行 `python3 sync_skills.py --push <skill-name>`，会自动过滤 `.git` 并拦截任何疑似密钥），并在上方速查表和底部交接日志补充记录，一起 `git push` 到 GitHub。
+3. **隐私边界**：仅同步通用研发/设计/游戏技能；与本项目无关的个人专属隐私技能或含 `.env` 密钥的文件严禁推入仓库。
+
 ### 推荐协同组合用法
 - **打磨网页视觉与实体把玩感**：`antialgorithm` + `impeccable` + `emil-design-eng`
 - **制作浏览器创意小游戏**：`game-brainstorm` + `game-feel` + `threejs-gameplay-systems`（或 `phaser-core`）
@@ -95,26 +101,27 @@
 
 ## 5. 跨 Agent / 协作者接力工作流
 
-1. **接手第一步（同步云端）**：
-   - 先运行 `git pull --rebase`（因为 GitHub Actions 每天会自动提交 `data/feed.js` 和 `data/feed.json`，不先拉取会 push 被拒）。
+1. **接手第一步（同步云端 + 自动补齐技能）**：
+   - 先运行 `git pull --rebase && python3 sync_skills.py`（既同步 GitHub Actions 每天的定时数据更新，又自动把仓库里本机缺失的 Skill 下载补齐）。
    - 查看最近提交：`git log -n 5 --oneline`。
 2. **安全开干（建议分支修改）**：
    - 较大改动建议先切新分支（如 `git checkout -b feat/xxx`）；小修改若改崩随时 `git revert` / `git reset` 回滚。
    - **密钥安全铁律**：严禁把任何 `sk-...` 或 `ghp_...` 写入任何被 Git 跟踪的文件；本地开发统一放在已被 `.gitignore` 忽略的 `.env` 中。
 3. **改完必须本地验证再推送**：
+   - 若在当前 Agent 上新装了通用 Skill，先运行 `python3 sync_skills.py --push <skill-name>` 回传到 `.agents/skills/`。
    - 启动本地服务预览：`python3 -m http.server 8766` 并打开 `http://localhost:8766/` 检查页面排版、控制台无报错、实盘 `srcdoc` 与全屏弹窗可正常打开、Skill 宝库可展开。
    - 若改了 `demos/` 或 `data/classics.json`，务必重新打包 `data/feed.js`。
    - 若改了 `index.html` 内的 `<style>` 或 `<script>`，同步写入 `assets/style.css` 与 `assets/app.js`。
    - 推送前自查：`grep -rn "sk-" . --exclude=".env" --exclude-dir=".git"`（注意 `.sk-` 开头的 CSS class 正常，确认没有真实 API Key）。
-4. **更新本文件底部的「交接日志」**，记录改了什么、验证了什么、下一棒需要注意什么，然后 `git commit && git push`。
+4. **更新本文件底部的「交接日志」**，记录改了什么、新装了什么 Skill、下一棒需要注意什么，然后 `git commit && git push`。
 
 ---
 
 ## 交接日志（Handoff Log）
 
-- **2026-11-25（当前基准版本 · 含共享 `.agents/skills/`）**：
+- **2026-11-25（当前基准版本 · 含 `.agents/skills/` 与 `sync_skills.py` 双向同步）**：
   - 已完成三段式舒展浅色排版：可视化项目（4 个内联零断连实盘：`Astra 6.2` 直升机拆解、洛伦兹蝴蝶、六边形弹球、A股 RSRS/HMM+L2 沙盘）→ 社群热帖 & 企业大事记（全量一句话价值）→ 可点开「Skill 宝库」。
   - 已按用户反馈清理所有 `01/02/03` 序号、标题中的「量化」字样以及多余括号文案。
-  - 已将 26 个高定网页 UI、微交互动效、生成艺术、3D/Shader 与浏览器游戏开发 Skills 同步打包至仓库 `.agents/skills/`（剔除了 `.git` 与个人量化技能），任意协作者或 Agent 克隆仓库即可直接共享调用。
+  - 已将 26 个高定网页 UI、微交互动效、生成艺术、3D/Shader 与浏览器游戏开发 Skills 同步打包至仓库 `.agents/skills/`，并新增 `sync_skills.py` 与「技能双向自动同步铁律」（任意 Agent 接手检测到缺失即自动下载到本地，新装技能也同步回传仓库）。
   - 已接入主/备 DeepSeek API Key 自动切换（`DEEPSEEK_API_KEY` → `DEEPSEEK_API_KEY_FALLBACK`），本地 `.env` 与 GitHub Actions Secrets 已就绪。
-  - 下一位 Agent 接手时注意：保持极简、浅色纸感、一句话大白话和内联零断连机制，改完记得重打包 `data/feed.js` 并同步 `assets/`。
+  - 下一位 Agent 接手时注意：动手前先跑 `git pull --rebase && python3 sync_skills.py`；保持极简、浅色纸感、一句话大白话和内联零断连机制，改完记得重打包 `data/feed.js` 并同步 `assets/`。
