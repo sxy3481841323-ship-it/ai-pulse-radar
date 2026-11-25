@@ -71,11 +71,14 @@
 
 ---
 
-## 4. 仓库内置共享 Skills（`.agents/skills/`，开箱即用）
+## 4. 仓库内置共享 Skills（`.agents/skills/`，跨所有未来项目通用）
 
-本仓库已在根目录 `.agents/skills/` 同步内置了 **26 个破除传统 AI 套路的网页设计与游戏开发 Skill**。
-- **如果你使用的是 Antigravity**：将本仓库设成工作区后会自动发现并按需加载这些技能，无需任何额外配置。
-- **如果你使用的是 Claude Code / Codex / Cursor / Windsurf**：执行任务前请根据需要直接读取对应 `.agents/skills/<skill-name>/SKILL.md` 及同目录下的 `references/`。
+> **重要定位说明**：`.agents/skills/` 里的 26 个技能与 `sync_skills.py` **绝不是仅服务于当前这个网页的一次性配置**！它是主人与协作者面向**未来所有游戏开发、主题网页设计、3D/动效与独立项目**的通用共享技能母库。
+> - **仓库内相对路径**：`.agents/skills/<skill-name>/SKILL.md`（Antigravity / Codex 打开工作区自动识别）。
+> - **同步到本机全局（让全电脑所有新项目永久可用）**：运行 `python3 sync_skills.py`，会自动安装到 `~/.gemini/config/skills/`、`~/.claude/skills/`、`~/.codex/skills/`。之后主人另开任何新的游戏或网站文件夹都能直接调用。
+
+- **如果你使用的是 Antigravity**：将本仓库设成工作区后会自动发现并按需加载这些技能；运行一次 `python3 sync_skills.py` 后，以后在其他独立工程也能永久共享。
+- **如果你使用的是 Claude Code / Codex / Cursor / Windsurf**：执行任务前请运行 `python3 sync_skills.py`，或根据需要直接读取对应 `.agents/skills/<skill-name>/SKILL.md` 及同目录下的 `references/`。
 
 ### 26 个共享技能分类速查
 1. **反 AI 塑料感网页审美与 UI 设计（6 个）**：
