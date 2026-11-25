@@ -14,6 +14,7 @@
 ## 2. 目录结构
 
 - `AGENTS.md`：**跨 Agent 与朋友协同接力说明书（必读）**
+- `.agents/skills/`：**仓库内置共享 Skill 宝库**（26 个通用网页 UI 设计、动效微交互、生成艺术、3D/Shader 与浏览器游戏开发技能，克隆即自动可用）
 - `index.html`：主页面（内联样式与交互脚本，分「可视化项目」「社群一手热帖 & 企业大事记」「Skill 宝库」三块）
 - `assets/style.css` & `assets/app.js`：与 `index.html` 保持同步的样式与前端脚本镜像
 - `demos/`：独立单文件可交互实盘 HTML（`helicopter-kestrel/astra-6-2.html`、`chaos-attractor/deepseek-v4-pro.html`、`hexagon-ball/deepseek-v4-pro.html`、`quant-vol-lob/deepseek-v4-pro.html`）

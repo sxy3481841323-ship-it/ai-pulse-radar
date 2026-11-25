@@ -67,10 +67,33 @@
 - `data/classics.json`：4 个主打可视化项目的元数据、操作要点与完整 Prompt。
 - `data/feed.json` & `data/feed.js`：实时抓取与提纯结果（`feed.js` 赋值 `window.RADAR`，支持本地直接双击 `index.html` 打开）。
 - `.github/workflows/daily_digest.yml`：每天 UTC 00:00（北京时间 08:00）自动运行 `python3 fetch_and_digest.py` 并提交更新 `data/feed.js` 与 `data/feed.json`（使用仓库 Secrets 中的 `DEEPSEEK_API_KEY` 与 `DEEPSEEK_API_KEY_FALLBACK`）。
+- `.agents/skills/`：仓库内置共享 Skill 宝库（共 26 个高定网页 UI、物理微交互、生成艺术、3D/Shader、浏览器游戏开发技能，克隆仓库后自动生效）。
 
 ---
 
-## 4. 跨 Agent / 协作者接力工作流
+## 4. 仓库内置共享 Skills（`.agents/skills/`，开箱即用）
+
+本仓库已在根目录 `.agents/skills/` 同步内置了 **26 个破除传统 AI 套路的网页设计与游戏开发 Skill**。
+- **如果你使用的是 Antigravity**：将本仓库设成工作区后会自动发现并按需加载这些技能，无需任何额外配置。
+- **如果你使用的是 Claude Code / Codex / Cursor / Windsurf**：执行任务前请根据需要直接读取对应 `.agents/skills/<skill-name>/SKILL.md` 及同目录下的 `references/`。
+
+### 26 个共享技能分类速查
+1. **反 AI 塑料感网页审美与 UI 设计（6 个）**：
+   - `antialgorithm`（破除默认平庸创意大脑）、`impeccable`（含 `/bolder` `/quieter` `/polish` `/delight` `/overdrive` `/critique` 等 48 份风格调教手册）、`taste-skill`（`design-taste-frontend`，三旋钮高定前端）、`frontend-design`（去 AI 味前端结构规范）、`ui-ux-pro-max`（配色/字体/风格词典检索）、`interface-design`（功能型工具面板一致性）。
+2. **治好“静态 PPT 感”与生成艺术（6 个）**：
+   - `emil-design-eng`、`animate`、`gestures`、`review-animations`（Emil Kowalski 弹簧物理惯性、300ms 内跟手微交互与 1:1 拖拽）、`algorithmic-art`（p5.js 流场与数学视觉奇观）、`canvas-design`（版画/海报视觉构图）。
+3. **硬核 3D / WebGL / GLSL Shader（5 个）**：
+   - `threejs-fundamentals`、`threejs-shaders`、`threejs-materials`、`threejs-lighting`、`threejs-postprocessing`。
+4. **浏览器创意游戏开发、打击爽感与玩法策划（9 个）**：
+   - `threejs-game-director`、`threejs-gameplay-systems`、`threejs-aaa-graphics-builder`、`phaser-core`、`game-feel`（顿帧/震屏/粒子/音效爽感）、`level-design`、`game-ui-ux`、`game-brainstorm`（反套路玩法机制脑暴）、`game-quick-design`。
+
+### 推荐协同组合用法
+- **打磨网页视觉与实体把玩感**：`antialgorithm` + `impeccable` + `emil-design-eng`
+- **制作浏览器创意小游戏**：`game-brainstorm` + `game-feel` + `threejs-gameplay-systems`（或 `phaser-core`）
+
+---
+
+## 5. 跨 Agent / 协作者接力工作流
 
 1. **接手第一步（同步云端）**：
    - 先运行 `git pull --rebase`（因为 GitHub Actions 每天会自动提交 `data/feed.js` 和 `data/feed.json`，不先拉取会 push 被拒）。
@@ -89,8 +112,9 @@
 
 ## 交接日志（Handoff Log）
 
-- **2026-11-25（当前基准版本）**：
+- **2026-11-25（当前基准版本 · 含共享 `.agents/skills/`）**：
   - 已完成三段式舒展浅色排版：可视化项目（4 个内联零断连实盘：`Astra 6.2` 直升机拆解、洛伦兹蝴蝶、六边形弹球、A股 RSRS/HMM+L2 沙盘）→ 社群热帖 & 企业大事记（全量一句话价值）→ 可点开「Skill 宝库」。
   - 已按用户反馈清理所有 `01/02/03` 序号、标题中的「量化」字样以及多余括号文案。
+  - 已将 26 个高定网页 UI、微交互动效、生成艺术、3D/Shader 与浏览器游戏开发 Skills 同步打包至仓库 `.agents/skills/`（剔除了 `.git` 与个人量化技能），任意协作者或 Agent 克隆仓库即可直接共享调用。
   - 已接入主/备 DeepSeek API Key 自动切换（`DEEPSEEK_API_KEY` → `DEEPSEEK_API_KEY_FALLBACK`），本地 `.env` 与 GitHub Actions Secrets 已就绪。
   - 下一位 Agent 接手时注意：保持极简、浅色纸感、一句话大白话和内联零断连机制，改完记得重打包 `data/feed.js` 并同步 `assets/`。
