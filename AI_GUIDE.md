@@ -14,8 +14,8 @@
 ## 2. 目录结构
 
 - `AGENTS.md`：**跨 Agent 与朋友协同接力说明书（必读）**
-- `.agents/skills/`：**仓库内置共享 Skill 宝库**（26 个通用网页 UI 设计、动效微交互、生成艺术、3D/Shader 与浏览器游戏开发技能，克隆即自动可用）
-- `sync_skills.py`：**跨 Agent 技能双向自动同步工具**（自动检测并补齐本机缺失技能，或将新装技能回传到 `.agents/skills/`）
+- `.agents/skills/`：共享库入口；通用技能源位于平级的 `../agent-skills/skills/`。
+- `sync_skills.py`：委托平级共享库安装或导入技能的入口，以 `--agent` 选择客户端。
 - `index.html`：主页面（内联样式与交互脚本，分「可视化项目」「社群一手热帖 & 企业大事记」「Skill 宝库」三块）
 - `assets/style.css` & `assets/app.js`：与 `index.html` 保持同步的样式与前端脚本镜像
 - `demos/`：独立单文件可交互实盘 HTML（`helicopter-kestrel/astra-6-2.html`、`chaos-attractor/deepseek-v4-pro.html`、`hexagon-ball/deepseek-v4-pro.html`、`quant-vol-lob/deepseek-v4-pro.html`）
@@ -28,10 +28,10 @@
 
 ```bash
 # 1. 拉取云端最新自动更新并自动补齐本机缺失的共享技能（动手前必跑）
-git pull --rebase && python3 sync_skills.py
+git pull --rebase && python3 sync_skills.py --agent antigravity
 
 # 2. 若在当前 Agent 新装了通用技能，同步回仓库 .agents/skills/
-python3 sync_skills.py --push <skill-name>
+python3 sync_skills.py --import <skill-name> --source <本机技能根目录>
 
 # 3. 抓取全部一手源并用 DeepSeek 提纯（自动读取 .env 主备 Key）
 python3 fetch_and_digest.py

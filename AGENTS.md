@@ -67,51 +67,33 @@
 - `data/classics.json`：4 个主打可视化项目的元数据、操作要点与完整 Prompt。
 - `data/feed.json` & `data/feed.js`：实时抓取与提纯结果（`feed.js` 赋值 `window.RADAR`，支持本地直接双击 `index.html` 打开）。
 - `.github/workflows/daily_digest.yml`：每天 UTC 00:00（北京时间 08:00）自动运行 `python3 fetch_and_digest.py` 并提交更新 `data/feed.js` 与 `data/feed.json`（使用仓库 Secrets 中的 `DEEPSEEK_API_KEY` 与 `DEEPSEEK_API_KEY_FALLBACK`）。
-- `.agents/skills/`：仓库内置共享 Skill 宝库（共 26 个高定网页 UI、物理微交互、生成艺术、3D/Shader、浏览器游戏开发技能，克隆仓库后自动生效）。
+- `.agents/skills/`：共享库入口和项目专属技能位置；通用技能统一维护在平级的 `../agent-skills/skills/`。
 
 ---
 
-## 4. 仓库内置共享 Skills（`.agents/skills/`，跨所有未来项目通用）
+## 4. 跨项目共享技能库
 
-> **重要定位说明**：`.agents/skills/` 里的 26 个技能与 `sync_skills.py` **绝不是仅服务于当前这个网页的一次性配置**！它是主人与协作者面向**未来所有游戏开发、主题网页设计、3D/动效与独立项目**的通用共享技能母库。
-> - **仓库内相对路径**：`.agents/skills/<skill-name>/SKILL.md`（Antigravity / Codex 打开工作区自动识别）。
-> - **同步到本机全局（让全电脑所有新项目永久可用）**：运行 `python3 sync_skills.py`，会自动安装到 `~/.gemini/config/skills/`、`~/.claude/skills/`、`~/.codex/skills/`。之后主人另开任何新的游戏或网站文件夹都能直接调用。
+<!-- shared-agent-skills:start -->
+## 跨项目共享技能规则（所有 AI 必读）
 
-- **如果你使用的是 Antigravity**：将本仓库设成工作区后会自动发现并按需加载这些技能；运行一次 `python3 sync_skills.py` 后，以后在其他独立工程也能永久共享。
-- **如果你使用的是 Claude Code / Codex / Cursor / Windsurf**：执行任务前请运行 `python3 sync_skills.py`，或根据需要直接读取对应 `.agents/skills/<skill-name>/SKILL.md` 及同目录下的 `references/`。
-
-### 26 个共享技能分类速查
-1. **反 AI 塑料感网页审美与 UI 设计（6 个）**：
-   - `antialgorithm`（破除默认平庸创意大脑）、`impeccable`（含 `/bolder` `/quieter` `/polish` `/delight` `/overdrive` `/critique` 等 48 份风格调教手册）、`taste-skill`（`design-taste-frontend`，三旋钮高定前端）、`frontend-design`（去 AI 味前端结构规范）、`ui-ux-pro-max`（配色/字体/风格词典检索）、`interface-design`（功能型工具面板一致性）。
-2. **治好“静态 PPT 感”与生成艺术（6 个）**：
-   - `emil-design-eng`、`animate`、`gestures`、`review-animations`（Emil Kowalski 弹簧物理惯性、300ms 内跟手微交互与 1:1 拖拽）、`algorithmic-art`（p5.js 流场与数学视觉奇观）、`canvas-design`（版画/海报视觉构图）。
-3. **硬核 3D / WebGL / GLSL Shader（5 个）**：
-   - `threejs-fundamentals`、`threejs-shaders`、`threejs-materials`、`threejs-lighting`、`threejs-postprocessing`。
-4. **浏览器创意游戏开发、打击爽感与玩法策划（9 个）**：
-   - `threejs-game-director`、`threejs-gameplay-systems`、`threejs-aaa-graphics-builder`、`phaser-core`、`game-feel`（顿帧/震屏/粒子/音效爽感）、`level-design`、`game-ui-ux`、`game-brainstorm`（反套路玩法机制脑暴）、`game-quick-design`。
-
-### 技能双向自动同步铁律（每个接手 Agent 必执行）
-为了保证主人切换回自己的电脑或更换任何其他 Agent 干活时，两边装过的 Skill 永远无缝同步、不丢失：
-1. **接手自动补齐（仓库 → 本机）**：每次 `git pull --rebase` 后，帮主人干活的 Agent **必须检测**本机全局技能目录（`~/.gemini/config/skills/`、`~/.claude/skills/`、`~/.codex/skills/` 等）是否缺少仓库 `.agents/skills/` 中的技能；**只要检测到本机没有，必须立刻自动下载/同步到本地**（直接执行 `python3 sync_skills.py` 即可自动检测并补齐所有缺失技能）。
-2. **新装必须回传（本机 → 仓库）**：只要在本机或其他 Agent 上新装了任何用于网页设计、UI、动效、3D 或游戏开发的通用 Skill，提交代码前**必须同步回仓库 `.agents/skills/<skill-name>/`**（直接运行 `python3 sync_skills.py --push <skill-name>`，会自动过滤 `.git` 并拦截任何疑似密钥），并在上方速查表和底部交接日志补充记录，一起 `git push` 到 GitHub。
-3. **隐私边界**：仅同步通用研发/设计/游戏技能；与本项目无关的个人专属隐私技能或含 `.env` 密钥的文件严禁推入仓库。
-
-### 推荐协同组合用法
-- **打磨网页视觉与实体把玩感**：`antialgorithm` + `impeccable` + `emil-design-eng`
-- **制作浏览器创意小游戏**：`game-brainstorm` + `game-feel` + `threejs-gameplay-systems`（或 `phaser-core`）
-
----
+- 统一技能源：`https://github.com/sxy3481841323-ship-it/agent-skills`；本机位置为与本项目平级的 `../agent-skills/`。
+- 开始创意、设计、3D、动效或游戏任务前，先读 `../agent-skills/AGENTS.md` 和相应技能；若共享库尚未克隆，先克隆到该平级目录。
+- 所有新装、导入或创建的通用技能，必须完整存入 `../agent-skills/skills/<skill-name>/`，更新索引、验证后保存到共享仓库，再同步到 Agent 全局目录。不得只装在某个项目或某一台电脑后不回传。
+- 项目 `.agents/skills/` 只允许真正项目专属的技能。不要复制通用技能，也不要用本项目规则覆盖其他项目。
+- 通过 `python3 ../agent-skills/sync_skills.py --agent codex`、`--agent antigravity` 或 `--agent claude-code` 安装；其他客户端用 `--target` 指定实际技能目录。已有文件默认保留，同名冲突先核对。
+- 项目业务约束、用户明确指令和现有未提交改动始终优先。不会自动识别全局技能的客户端，应直接读取共享库中完整的技能目录。
+<!-- shared-agent-skills:end -->
 
 ## 5. 跨 Agent / 协作者接力工作流
 
 1. **接手第一步（同步云端 + 自动补齐技能）**：
-   - 先运行 `git pull --rebase && python3 sync_skills.py`（既同步 GitHub Actions 每天的定时数据更新，又自动把仓库里本机缺失的 Skill 下载补齐）。
+   - 先运行 `git pull --rebase && python3 sync_skills.py --agent <当前客户端>`（既同步 GitHub Actions 每天的定时数据更新，又自动把仓库里本机缺失的 Skill 下载补齐）。
    - 查看最近提交：`git log -n 5 --oneline`。
 2. **安全开干（建议分支修改）**：
    - 较大改动建议先切新分支（如 `git checkout -b feat/xxx`）；小修改若改崩随时 `git revert` / `git reset` 回滚。
    - **密钥安全铁律**：严禁把任何 `sk-...` 或 `ghp_...` 写入任何被 Git 跟踪的文件；本地开发统一放在已被 `.gitignore` 忽略的 `.env` 中。
 3. **改完必须本地验证再推送**：
-   - 若在当前 Agent 上新装了通用 Skill，先运行 `python3 sync_skills.py --push <skill-name>` 回传到 `.agents/skills/`。
+   - 新装通用技能须通过 `python3 sync_skills.py --import <skill-name> --source <本机技能根目录>` 完整回传共享母库，并更新索引、验证后保存到共享仓库。
    - 启动本地服务预览：`python3 -m http.server 8766` 并打开 `http://localhost:8766/` 检查页面排版、控制台无报错、实盘 `srcdoc` 与全屏弹窗可正常打开、Skill 宝库可展开。
    - 若改了 `demos/` 或 `data/classics.json`，务必重新打包 `data/feed.js`。
    - 若改了 `index.html` 内的 `<style>` 或 `<script>`，同步写入 `assets/style.css` 与 `assets/app.js`。
@@ -127,4 +109,6 @@
   - 已按用户反馈清理所有 `01/02/03` 序号、标题中的「量化」字样以及多余括号文案。
   - 已将 26 个高定网页 UI、微交互动效、生成艺术、3D/Shader 与浏览器游戏开发 Skills 同步打包至仓库 `.agents/skills/`，并新增 `sync_skills.py` 与「技能双向自动同步铁律」（任意 Agent 接手检测到缺失即自动下载到本地，新装技能也同步回传仓库）。
   - 已接入主/备 DeepSeek API Key 自动切换（`DEEPSEEK_API_KEY` → `DEEPSEEK_API_KEY_FALLBACK`），本地 `.env` 与 GitHub Actions Secrets 已就绪。
-  - 下一位 Agent 接手时注意：动手前先跑 `git pull --rebase && python3 sync_skills.py`；保持极简、浅色纸感、一句话大白话和内联零断连机制，改完记得重打包 `data/feed.js` 并同步 `assets/`。
+  - 下一位 Agent 接手时注意：动手前先跑 `git pull --rebase && python3 sync_skills.py --agent <当前客户端>`；保持极简、浅色纸感、一句话大白话和内联零断连机制，改完记得重打包 `data/feed.js` 并同步 `assets/`。
+
+- **2026-11-26（共享技能集中维护）**：原有 26 个技能完整汇入独立 `agent-skills` 库。本项目保留同步入口与自身规则；新装通用技能回传共享库。未改动网页、抓取逻辑与数据。
