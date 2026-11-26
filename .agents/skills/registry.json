@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "type": "external-shared-library",
+  "repository": "https://github.com/sxy3481841323-ship-it/agent-skills",
+  "registry_url": "https://raw.githubusercontent.com/sxy3481841323-ship-it/agent-skills/main/registry.json",
+  "local_root": "../agent-skills/skills",
+  "legacy_ids": [
+    "phaser-core",
+    "algorithmic-art",
+    "ui-ux-pro-max",
+    "canvas-design",
+    "review-animations",
+    "threejs-game-director",
+    "threejs-postprocessing",
+    "game-brainstorm",
+    "level-design",
+    "game-quick-design",
+    "threejs-gameplay-systems",
+    "gestures",
+    "game-feel",
+    "threejs-materials",
+    "interface-design",
+    "frontend-design",
+    "game-ui-ux",
+    "impeccable",
+    "antialgorithm",
+    "threejs-shaders",
+    "threejs-fundamentals",
+    "taste-skill",
+    "emil-design-eng",
+    "threejs-aaa-graphics-builder",
+    "threejs-lighting",
+    "animate"
+  ],
+  "aliases": {
+    "taste-skill": "design-taste-frontend"
+  }
+}

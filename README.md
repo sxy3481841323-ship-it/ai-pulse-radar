@@ -5,56 +5,21 @@
 这个仓库**并不是「野生 AI 雷达」这一个网页的一次性专用代码库**，它同时承担 **两个核心角色**：
 
 1. **线上网页项目「野生 AI 雷达」**：展示好玩的可视化实盘、一句话讲清价值的极客社群热帖与企业大事记，以及按场景分类的可点开 Skill 宝库。
-2. **跨项目、跨 Agent 的通用共享 Skill 母库（`.agents/skills/` + `sync_skills.py`）**：收录了 **26 个**破除传统 AI 套路的网页视觉、物理微交互、生成艺术、3D/Shader 与浏览器游戏开发技能——**供你和协作者以后开任意新游戏、新网站、新创意项目永久复用，而非仅服务于本网页。**
+2. **跨项目共享技能库入口**：通用创意、设计、动效、3D 和游戏技能集中维护于独立的 `agent-skills` 仓库；本项目保留同步入口与自身业务规则。
 
 ---
 
-## 一、Skill 在仓库里的相对位置，以及怎么用到你以后所有项目里？
+## 一、跨项目共享技能库
 
-### 1. 仓库里的标准相对路径
-```text
-.agents/skills/<skill-name>/SKILL.md
-```
-- 只要任何 AI 助手（**Antigravity / Codex / Gemini CLI** 等支持 `.agents/skills/` 发现机制的 Agent）打开本仓库，就会自动识别这 26 个技能。
-- 其他助手（**Claude Code / Cursor / Windsurf**）可直接按相对路径 `.agents/skills/<skill-name>/SKILL.md` 读取，或直接同步到本机全局目录让全电脑所有项目永久生效。
-
-### 2. 一键同步到本机全局目录（全电脑所有新项目直接用）
-以后你要**另起炉灶做一个全新游戏或全新网站**，不想每次都在新文件夹里重新装一遍 Skill，只需要在本仓库运行一次：
+通用技能统一维护于 [agent-skills](https://github.com/sxy3481841323-ship-it/agent-skills)，本机与三个项目平级。完整目录见共享库 `CATALOG.md`，机器可读索引为 `registry.json`。
 
 ```bash
-python3 sync_skills.py
+python3 sync_skills.py --agent antigravity
+# Codex：python3 sync_skills.py --agent codex
+# Claude Code：python3 sync_skills.py --agent claude-code
 ```
 
-脚本会自动探测你本机正在使用的 AI 助手全局目录，把仓库 `.agents/skills/` 下的 26 个技能**补齐到对应的全局位置**：
-- **Antigravity**：`~/.gemini/config/skills/<skill-name>/SKILL.md`
-- **Claude Code**：`~/.claude/skills/<skill-name>/SKILL.md`
-- **Codex**：`~/.codex/skills/<skill-name>/SKILL.md`
-
-同步完成后，你**新建任何游戏或网站工程文件夹**，打开你的 AI 就能直接点名调用全套技能，无需再次安装。
-
-### 3. 双向回传：在别的电脑 / 别的 Agent 上新装了 Skill 怎么办？
-如果你或朋友在别的 Agent 上新装了好用的通用设计/游戏开发 Skill，只需在本仓库跑一句回传命令：
-
-```bash
-python3 sync_skills.py --push <新技能名称>
-```
-
-脚本会自动把本机的新技能拷贝回仓库的 `.agents/skills/<新技能名称>/`（自动过滤 `.git` 并拦截任何疑似密钥），提交推送到 GitHub 后，下次你切回自己电脑或换任何 Agent 接手，都会自动检测并下载补齐。
-
----
-
-## 二、收录的 26 个通用 Skill（游戏开发 + 反套路网页设计）
-
-| 分类 | 包含技能目录（位于 `.agents/skills/`） | 用途一句话 |
-| :--- | :--- | :--- |
-| **浏览器游戏开发与玩法策划（9 个）** | `game-brainstorm`、`game-quick-design`、`game-feel`、`level-design`、`game-ui-ux`、`phaser-core`、`threejs-game-director`、`threejs-gameplay-systems`、`threejs-aaa-graphics-builder` | 从零脑暴反套路玩法循环、做 2D/3D 浏览器游戏骨架、注入顿帧/震屏/音效“爽感”与 HUD 界面 |
-| **硬核 3D / WebGL / Shader（5 个）** | `threejs-fundamentals`、`threejs-shaders`、`threejs-materials`、`threejs-lighting`、`threejs-postprocessing` | Three.js 场景搭建、PBR 物理材质、HDR 光照、自定义 GLSL Shader 与后期特效 |
-| **物理微交互动效与生成艺术（6 个）** | `emil-design-eng`、`animate`、`gestures`、`review-animations`、`algorithmic-art`、`canvas-design` | 弹簧物理惯性、跟手拖拽、可打断过渡动画、p5.js 生成艺术与版画海报设计 |
-| **反 AI 塑料感网页审美（6 个）** | `antialgorithm`、`impeccable`、`taste-skill`、`frontend-design`、`ui-ux-pro-max`、`interface-design` | 打破千篇一律圆角渐变 SaaS 模板，实现实体工业、瑞士网格、复古桌面等高定质感 |
-
-> **开新游戏时的推荐启动组合口令**：
-> 新建游戏项目文件夹后，直接对你的 AI 说：
-> *“先调用全局里的 `game-brainstorm` 和 `antialgorithm` 帮我构思一个反套路的游戏核心机制；确认后再用 `threejs-game-director` + `game-feel`（或 `phaser-core` + `game-feel`）做出带打击感和音效的可玩原型。”*
+同名内容不同会提示冲突并保留本地副本。新装通用技能必须完整回传共享库，更新索引并保存，再同步到 Agent 的全局目录。读取 GitHub 上的 SKILL.md 可以参考方法；自动发现和使用配套资源需要下载完整目录。
 
 ---
 
@@ -75,10 +40,10 @@ python3 sync_skills.py --push <新技能名称>
 
 ```bash
 # 1. 拉取云端最新更新，并自动把仓库缺失的 Skill 下载补齐到本机
-git pull --rebase && python3 sync_skills.py
+git pull --rebase && python3 sync_skills.py --agent antigravity
 
-# 2. 在本机新装了通用 Skill 后，同步回仓库 .agents/skills/
-python3 sync_skills.py --push <skill-name>
+# 2. 在本机新装了通用 Skill 后，回传到平级的 agent-skills 共享库
+python3 sync_skills.py --import <skill-name> --source <本机技能根目录>
 
 # 3. 抓取全部一手源并用 DeepSeek 提纯（支持主/备双 Key 自动切换）
 python3 fetch_and_digest.py
