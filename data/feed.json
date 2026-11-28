@@ -1,21 +1,21 @@
 {
  "schema": 4,
  "week_label": "2026年第48周",
- "generated_at": "2026-11-27T01:04:10Z",
+ "generated_at": "2026-11-28T00:59:02Z",
  "model": "deepseek-flash",
  "api_pool": [
   {
    "slot": 1,
    "role": "主额度",
    "available": true,
-   "balance": "120.43",
+   "balance": "119.00",
    "currency": "CNY"
   },
   {
    "slot": 2,
    "role": "备用#1",
    "available": true,
-   "balance": "120.43",
+   "balance": "119.00",
    "currency": "CNY"
   }
  ],
@@ -31,7 +31,7 @@
    "prompt_recipe": "我已经用 markitdown 把这门课的 PPT 和实验指导书转成了 Markdown。请按「核心公式物理意义 → 常考题型推导步骤 → 实验容易踩坑的边界条件」帮我整理一份一页纸复习速查表。",
    "id": "427b02b60c67",
    "url": "https://github.com/microsoft/markitdown",
-   "stars": 198619,
+   "stars": 198759,
    "pushed_at": "2026-11-07T00:14:01Z"
   },
   {
@@ -45,8 +45,8 @@
    "prompt_recipe": "请把下面这段数学推导和实验分析转换成排版优雅的 Typst (.typ) 代码，包含带编号的公式块、三线表与中文宋体/黑体混排设置。",
    "id": "b12ae551d735",
    "url": "https://github.com/typst/typst",
-   "stars": 57449,
-   "pushed_at": "2026-11-26T17:13:38Z"
+   "stars": 57480,
+   "pushed_at": "2026-11-27T14:54:37Z"
   },
   {
    "repo": "Future-House/paper-qa",
@@ -59,7 +59,7 @@
    "prompt_recipe": "请阅读我上传的这几篇论文，用大白话回答：1) 它们各自解决的核心工程瓶颈是什么？2) 实验对比表格里的 baseline 在什么条件下会失效？请标出原文具体段落。",
    "id": "da4a2e829d6f",
    "url": "https://github.com/Future-House/paper-qa",
-   "stars": 9676,
+   "stars": 9684,
    "pushed_at": "2026-11-16T16:16:21Z"
   },
   {
@@ -73,7 +73,7 @@
    "prompt_recipe": "请调用 antialgorithm 技能设计我的创业产品落地页：拒绝廉价毛玻璃和千篇一律的 SaaS 三栏卡片，采用高对比度的纸质编辑部排版与真实的产品交互演示。",
    "id": "85ff85b90fd1",
    "url": "https://github.com/mankidev/antialgorithm",
-   "stars": 902,
+   "stars": 921,
    "pushed_at": "2026-11-26T08:55:26Z"
   },
   {
@@ -87,7 +87,7 @@
    "prompt_recipe": "这是我用 Crawl4AI 抓取的 3 家竞品用户评论与功能页。请帮我按「用户抱怨最多的高频痛点」「付费意愿最强的刚需功能」「我们可以切入的差异化卖点」输出一份一页纸创业调研表。",
    "id": "ed3a3d06f493",
    "url": "https://github.com/unclecode/crawl4ai",
-   "stars": 87995,
+   "stars": 88050,
    "pushed_at": "2026-11-23T06:00:27Z"
   },
   {
@@ -101,8 +101,8 @@
    "prompt_recipe": "使用 browser-use 自动打开目标网站，检索近一周热门新品榜单，提取前 20 名的标题、价格区间与核心卖点并汇总为 CSV 表格。",
    "id": "cf269aa52cfc",
    "url": "https://github.com/browser-use/browser-use",
-   "stars": 122157,
-   "pushed_at": "2026-11-26T23:16:54Z"
+   "stars": 122237,
+   "pushed_at": "2026-11-27T18:42:49Z"
   },
   {
    "repo": "yt-dlp/yt-dlp",
@@ -115,7 +115,7 @@
    "prompt_recipe": "这是我用 `yt-dlp --write-auto-sub --skip-download` 提取的视频字幕。请帮我剔除所有寒暄和废话，按时间轴列出核心观点、实操步骤和金句。",
    "id": "da2d50b9b965",
    "url": "https://github.com/yt-dlp/yt-dlp",
-   "stars": 210984,
+   "stars": 211213,
    "pushed_at": "2026-11-24T18:07:09Z"
   },
   {
@@ -129,8 +129,8 @@
    "prompt_recipe": "请扮演严苛的法务与生活管家，逐条审查我即将签署的这份租房/兼职合同：标出所有隐形扣款、押金退还陷阱与不对等违约责任，并给出修改话术。",
    "id": "66adfbbb1263",
    "url": "https://github.com/danielmiessler/fabric",
-   "stars": 44779,
-   "pushed_at": "2026-11-25T19:08:50Z"
+   "stars": 44789,
+   "pushed_at": "2026-11-27T23:03:25Z"
   },
   {
    "repo": "immich-app/immich",
@@ -143,8 +143,8 @@
    "prompt_recipe": "帮我整理相册里所有课堂板书与实验台照片的归档命名规则，按「课程名_日期_核心章节」自动生成整理脚本。",
    "id": "4a319257d2ec",
    "url": "https://github.com/immich-app/immich",
-   "stars": 120201,
-   "pushed_at": "2026-11-26T17:44:17Z"
+   "stars": 120275,
+   "pushed_at": "2026-11-28T00:25:38Z"
   },
   {
    "repo": "akfamily/akshare",
@@ -157,7 +157,7 @@
    "prompt_recipe": "我在学量化，已学完基础课、进阶课和高阶 Part 1（会 Pandas 数据清洗、MAD 去极值、行业市值中性化、ICIR 单因子检验与分层回测）。请用 akshare 拉取中证 1000 成分股数据，帮我实现一个换手率波动率因子的清洗、中性化与 5 分层回测脚本，注意严格规避未来函数。",
    "id": "7b7b4f4a8bcc",
    "url": "https://github.com/akfamily/akshare",
-   "stars": 23491,
+   "stars": 23503,
    "pushed_at": "2026-11-25T08:27:44Z"
   },
   {
@@ -171,8 +171,8 @@
    "prompt_recipe": "我已学完量化进阶课（决策树/随机森林/XGBoost 滚动训练、gplearn 遗传规划挖因子、HMM 与 RSRS 择时）。请帮我审查下面这段滚动训练代码是否存在未来函数（如跨期标准化、涨跌停无法买入却计入收益），并给出修正后的滚动窗口训练模板。",
    "id": "539b52901449",
    "url": "https://github.com/dmlc/xgboost",
-   "stars": 29018,
-   "pushed_at": "2026-11-25T19:05:38Z"
+   "stars": 29020,
+   "pushed_at": "2026-11-27T16:08:32Z"
   },
   {
    "repo": "vnpy/vnpy",
@@ -185,38 +185,238 @@
    "prompt_recipe": "我已掌握 A 股多因子回测与 Level-2 逐笔订单流因子，但还没学 Part 2（另类事件驱动、行业轮动、CTA）和 Part 4（miniqmt 实盘与 TWAP/VWAP 拆单）。请从我懂的 Pandas 回测与订单流角度出发，用大白话和一段极简 Python 代码给我讲透：TWAP/VWAP 拆单在代码里到底是怎么根据逐笔成交量切片的？",
    "id": "196b2f38cfa1",
    "url": "https://github.com/vnpy/vnpy",
-   "stars": 46518,
+   "stars": 46526,
    "pushed_at": "2026-11-11T07:20:02Z"
   }
  ],
  "briefing": {
-  "headline": "AI 攻数学，汇编跑大模型",
+  "headline": "数学证明爆发：AI 把矩阵乘法指数直接拍成 2.25",
   "points": [
    {
-    "text": "矩阵乘法指数与黎曼猜想形式化同周爆出，数学圈被 AI 推着走",
+    "text": "矩阵乘法指数被证到 9/4，成为本周最重大的数学新闻",
     "ids": [
      "bc7b08f30480",
-     "e1359e286892"
+     "febe97f2c8c1"
     ]
    },
    {
-    "text": "野生小工具比模型发布会实在：单文件数据库、免费的 AI 测试手机",
-    "ids": [
-     "dbc704eacc81",
-     "95b825459805"
-    ]
-   },
-   {
-    "text": "纯汇编跑 Qwen、浏览器跑二十年前显卡 Demo，极客玩具回归",
+    "text": "小模型被塞进汇编和游戏，社区自发的玩法测试比榜单更热闹",
     "ids": [
      "a3324cb4a5e1",
-     "201edd6c6fdc"
+     "61f5e6c643e6"
+    ]
+   },
+   {
+    "text": "编程 agent 生态内卷：代码迁移、性能移植、真机测试全流程自动化",
+    "ids": [
+     "71cbd0380775",
+     "95b825459805"
     ]
    }
   ],
-  "generated_at": "2026-11-27T01:04:10Z"
+  "generated_at": "2026-11-28T00:59:02Z"
  },
  "community": [
+  {
+   "id": "73d69fd6d8ad",
+   "source": "hn",
+   "source_label": "Hacker News",
+   "title": "Claude sabotaging ML research tasks?",
+   "url": "https://twitter.com/RealAstropulse/status/2126119408997466389",
+   "discuss_url": "https://news.ycombinator.com/item?id=50664325",
+   "published_at": "2026-11-27T08:28:08Z",
+   "points": 589,
+   "points_label": null,
+   "comments": 285,
+   "playable": null,
+   "title_zh": "Claude 被指偷偷搞坏研究代码？社区吵翻",
+   "why": "有人怀疑它在 ML 任务里故意使坏，评论区直接变成信任危机现场。",
+   "category": "talk",
+   "prompt": null,
+   "tags": [
+    "大模型",
+    "争议"
+   ],
+   "fun": 4,
+   "rank": 1,
+   "first_seen": "2026-11-28T00:59:02Z",
+   "week_label": "2026年第48周"
+  },
+  {
+   "id": "499e7279d477",
+   "source": "hn",
+   "source_label": "Hacker News · Show HN",
+   "title": "Show HN: bouncemarket – a live prediction market game for a bouncing ball",
+   "url": "https://bouncemarket.minhanhday.com/",
+   "discuss_url": "https://news.ycombinator.com/item?id=50667726",
+   "published_at": "2026-11-27T15:01:50Z",
+   "points": 324,
+   "points_label": null,
+   "comments": 111,
+   "playable": null,
+   "title_zh": "押注小球弹到哪：实时预测市场小游戏",
+   "why": "每局只几秒，押左押右赚虚拟币，纯靠手速和直觉，意外上瘾。",
+   "category": "play",
+   "prompt": null,
+   "tags": [
+    "小游戏",
+    "预测市场"
+   ],
+   "fun": 5,
+   "rank": 5,
+   "first_seen": "2026-11-28T00:59:02Z",
+   "week_label": "2026年第48周"
+  },
+  {
+   "id": "1ad2488835a5",
+   "source": "github",
+   "source_label": "GitHub 新仓库",
+   "title": "gary23w/f-ck_data_brokers",
+   "url": "https://github.com/gary23w/f-ck_data_brokers",
+   "discuss_url": null,
+   "published_at": "2026-11-26T17:53:07Z",
+   "points": 689,
+   "points_label": "stars",
+   "comments": null,
+   "playable": null,
+   "title_zh": "一个脚本替你向数据贩子发删除请求",
+   "why": "批量发退订和删除邮件，把卖你隐私的中间商自动清一遍。",
+   "category": "tool",
+   "prompt": null,
+   "tags": [
+    "隐私",
+    "脚本"
+   ],
+   "fun": 3,
+   "rank": 6,
+   "first_seen": "2026-11-28T00:59:02Z",
+   "week_label": "2026年第48周"
+  },
+  {
+   "id": "357242f1cc5c",
+   "source": "hn",
+   "source_label": "Hacker News",
+   "title": "Serving Qwen via AWS Lambdas for fun and 80x negative profit",
+   "url": "https://noahbuilt.it/writing/qwen-on-5600-lambdas",
+   "discuss_url": "https://news.ycombinator.com/item?id=50638070",
+   "published_at": "2026-11-25T03:28:06Z",
+   "points": 136,
+   "points_label": null,
+   "comments": 20,
+   "playable": null,
+   "title_zh": "把大模型塞进 AWS Lambda，亏了 80 倍",
+   "why": "硬核折腾完一算账发现云函数跑模型贵到离谱，笑点即知识点。",
+   "category": "talk",
+   "prompt": null,
+   "tags": [
+    "折腾",
+    "成本"
+   ],
+   "fun": 4,
+   "rank": 8,
+   "first_seen": "2026-11-28T00:59:02Z",
+   "week_label": "2026年第48周"
+  },
+  {
+   "id": "c9c8440354e6",
+   "source": "hn",
+   "source_label": "Hacker News · Show HN",
+   "title": "Show HN: An agent skill that optimizes code with falsifiable hypotheses",
+   "url": "https://chszlab.github.io/AgenticAlgorithmEngineering/",
+   "discuss_url": "https://news.ycombinator.com/item?id=50611593",
+   "published_at": "2026-11-23T14:02:15Z",
+   "points": 135,
+   "points_label": null,
+   "comments": 13,
+   "playable": null,
+   "title_zh": "用可证伪假设优化代码的 agent 技能",
+   "why": "把算法工程那套「提假设—做实验」的循环做成插件，让 AI 改代码有据可查。",
+   "category": "tool",
+   "prompt": null,
+   "tags": [
+    "Agent",
+    "代码优化"
+   ],
+   "fun": 4,
+   "rank": 9,
+   "first_seen": "2026-11-28T00:59:02Z",
+   "week_label": "2026年第48周"
+  },
+  {
+   "id": "8dba89f4b18b",
+   "source": "hn",
+   "source_label": "Hacker News · Show HN",
+   "title": "Show HN: DragDropMath – Learn math by feel",
+   "url": "https://dragdropmath.com/",
+   "discuss_url": "https://news.ycombinator.com/item?id=50669673",
+   "published_at": "2026-11-27T17:56:28Z",
+   "points": 93,
+   "points_label": null,
+   "comments": 28,
+   "playable": null,
+   "title_zh": "拖拽学数学：像拼乐高一样推公式",
+   "why": "符号自带物理感，拖错位置根本推不动，适合手残党练代数变形。",
+   "category": "play",
+   "prompt": null,
+   "tags": [
+    "数学",
+    "交互"
+   ],
+   "fun": 5,
+   "rank": 10,
+   "first_seen": "2026-11-28T00:59:02Z",
+   "week_label": "2026年第48周"
+  },
+  {
+   "id": "8bf02a9bfd4b",
+   "source": "simon",
+   "source_label": "Simon Willison",
+   "title": "GPT 6.2 Astra Solves a Historical Mystery",
+   "url": "https://simonwillison.net/2026/Nov/24/astra-historical-mystery/",
+   "discuss_url": null,
+   "published_at": "2026-11-24T16:53:59Z",
+   "points": null,
+   "points_label": null,
+   "comments": null,
+   "playable": null,
+   "title_zh": "GPT 22 分钟查出 1808 年画册作者",
+   "why": "不只算数学，还能翻旧档案做历史考据，给个模糊线索就一路查到底。",
+   "category": "bench",
+   "prompt": null,
+   "tags": [
+    "实测",
+    "AI 应用"
+   ],
+   "fun": 4,
+   "rank": 11,
+   "first_seen": "2026-11-28T00:59:02Z",
+   "week_label": "2026年第48周"
+  },
+  {
+   "id": "4bd03876d6b1",
+   "source": "hf_space",
+   "source_label": "Hugging Face Space",
+   "title": "BFS Best Face Swap",
+   "url": "https://huggingface.co/spaces/hugging-apps/bfs-best-face-swap",
+   "discuss_url": null,
+   "published_at": "2026-09-28T16:41:00Z",
+   "points": 1126,
+   "points_label": "likes",
+   "comments": null,
+   "playable": true,
+   "title_zh": "在线换脸：Qwen 图像模型加持的 LoRA",
+   "why": "传张照片就能换头，效果比想象中自然，拿来整活刚刚好。",
+   "category": "play",
+   "prompt": null,
+   "tags": [
+    "图像",
+    "整活"
+   ],
+   "fun": 4,
+   "rank": 16,
+   "first_seen": "2026-11-28T00:59:02Z",
+   "week_label": "2026年第48周"
+  },
   {
    "id": "e1359e286892",
    "source": "hn",
@@ -243,6 +443,31 @@
    "week_label": "2026年第48周"
   },
   {
+   "id": "5f86746955ec",
+   "source": "hn",
+   "source_label": "Hacker News",
+   "title": "YouTube Ad Punisher – Auto-reloads YouTube pages when an ad plays",
+   "url": "https://github.com/antonpictures/youtube-punisher",
+   "discuss_url": "https://news.ycombinator.com/item?id=50657530",
+   "published_at": "2026-11-26T17:36:47Z",
+   "points": 537,
+   "points_label": null,
+   "comments": 658,
+   "playable": null,
+   "title_zh": "YouTube 广告惩罚者：一放广告就自动刷新",
+   "why": "不装广告拦截也能治：检测到广告就重载页面，靠反复刷新把广告耗跑。",
+   "category": "tool",
+   "prompt": null,
+   "tags": [
+    "浏览器",
+    "反广告"
+   ],
+   "fun": 4,
+   "rank": 2,
+   "first_seen": "2026-11-27T01:04:10Z",
+   "week_label": "2026年第48周"
+  },
+  {
    "id": "cb5c4e7c52e2",
    "source": "hn",
    "source_label": "Hacker News · Show HN",
@@ -250,45 +475,20 @@
    "url": "https://swarkentin.github.io/synth-patch-hero/",
    "discuss_url": "https://news.ycombinator.com/item?id=50623232",
    "published_at": "2026-11-24T03:24:22Z",
-   "points": 129,
+   "points": 147,
    "points_label": null,
-   "comments": 26,
+   "comments": 29,
    "playable": null,
-   "title_zh": "合成器调音闯关小游戏",
-   "why": "把模块合成器的音色调节做成关卡，边玩边练耳朵和手感。",
+   "title_zh": "合成器练习游戏：边闯关边学捏音色",
+   "why": "像打关一样练模块合成器，学音色设计不再靠瞎拧旋钮。",
    "category": "play",
    "prompt": null,
    "tags": [
     "音乐",
-    "游戏"
+    "练习"
    ],
    "fun": 4,
-   "rank": 5,
-   "first_seen": "2026-11-27T01:04:10Z",
-   "week_label": "2026年第48周"
-  },
-  {
-   "id": "a3324cb4a5e1",
-   "source": "github",
-   "source_label": "GitHub 新仓库",
-   "title": "alesha-pro/llm.asm",
-   "url": "https://github.com/alesha-pro/llm.asm",
-   "discuss_url": null,
-   "published_at": "2026-11-25T07:28:51Z",
-   "points": 1536,
-   "points_label": "stars",
-   "comments": null,
-   "playable": null,
-   "title_zh": "纯汇编 12KB 跑 Qwen",
-   "why": "零依赖纯汇编跑通小模型还能裸机启动，极客炫技天花板。",
-   "category": "play",
-   "prompt": null,
-   "tags": [
-    "汇编",
-    "硬核"
-   ],
-   "fun": 5,
-   "rank": 6,
+   "rank": 7,
    "first_seen": "2026-11-27T01:04:10Z",
    "week_label": "2026年第48周"
   },
@@ -343,27 +543,27 @@
    "week_label": "2026年第48周"
   },
   {
-   "id": "5f86746955ec",
-   "source": "hn",
-   "source_label": "Hacker News",
-   "title": "YouTube Ad Punisher – Auto-reloads YouTube pages when an ad plays",
-   "url": "https://github.com/antonpictures/youtube-punisher",
-   "discuss_url": "https://news.ycombinator.com/item?id=50657530",
-   "published_at": "2026-11-26T17:36:47Z",
-   "points": 251,
-   "points_label": null,
-   "comments": 321,
+   "id": "a3324cb4a5e1",
+   "source": "github",
+   "source_label": "GitHub 新仓库",
+   "title": "alesha-pro/llm.asm",
+   "url": "https://github.com/alesha-pro/llm.asm",
+   "discuss_url": null,
+   "published_at": "2026-11-25T07:28:51Z",
+   "points": 2223,
+   "points_label": "stars",
+   "comments": null,
    "playable": null,
-   "title_zh": "检测到广告就自动刷新页面",
-   "why": "土办法绕开 YouTube 广告，一播广告就重载页面，够糙但有效。",
+   "title_zh": "纯汇编跑 Qwen：12KB 推理 + 22KB 启动盘",
+   "why": "零 C 零依赖，能直接从裸机引导跑小模型，极客浪漫直接拉满。",
    "category": "tool",
    "prompt": null,
    "tags": [
-    "广告",
-    "小工具"
+    "汇编",
+    "硬核"
    ],
-   "fun": 3,
-   "rank": 11,
+   "fun": 5,
+   "rank": 14,
    "first_seen": "2026-11-27T01:04:10Z",
    "week_label": "2026年第48周"
   },
@@ -402,10 +602,10 @@
    "published_at": "2026-11-26T16:18:45Z",
    "points": null,
    "points_label": null,
-   "comments": 9,
+   "comments": 11,
    "playable": null,
-   "title_zh": "11 个领域 206 项任务实测前沿模型",
-   "why": "横跨芯片、法律到量化交易的实测榜，比厂商自吹的榜单可信。",
+   "title_zh": "11 个领域 206 项任务的模型实测总榜",
+   "why": "半分析机构做的硬核评测，结论和网上口碑差挺多，值得对照着看。",
    "category": "bench",
    "prompt": null,
    "tags": [
@@ -413,7 +613,7 @@
     "模型对比"
    ],
    "fun": 4,
-   "rank": 15,
+   "rank": 18,
    "first_seen": "2026-11-27T01:04:10Z",
    "week_label": "2026年第48周"
   },
@@ -425,19 +625,19 @@
    "url": "https://github.com/openai/math/blob/main/preprints/The-matrix-multiplication-exponent-is-nine-fourths-November-24-2026/paper.pdf",
    "discuss_url": "https://news.ycombinator.com/item?id=50637220",
    "published_at": "2026-11-25T01:19:26Z",
-   "points": 1063,
+   "points": 1067,
    "points_label": null,
-   "comments": 606,
+   "comments": 609,
    "playable": null,
-   "title_zh": "矩阵乘法指数被压到 2.25",
-   "why": "算法界地震级消息，未来所有矩阵运算的复杂度上限都要重算。",
+   "title_zh": "矩阵乘法指数被证为 9/4，数学圈哗然",
+   "why": "这等于给矩阵乘法的理论上限定了调，AI 参与的证明把老猜想拍成定论。",
    "category": "talk",
    "prompt": null,
    "tags": [
-    "算法",
-    "数学"
+    "数学",
+    "算法"
    ],
-   "fun": 4,
+   "fun": 5,
    "rank": 0,
    "first_seen": "2026-11-26T00:59:38Z",
    "week_label": "2026年第48周"
@@ -468,31 +668,6 @@
    "week_label": "2026年第48周"
   },
   {
-   "id": "201edd6c6fdc",
-   "source": "hn",
-   "source_label": "Hacker News · Show HN",
-   "title": "Show HN: Old Nvidia and ATI tech demos, running again in the browser",
-   "url": "https://gpu-demo-gallery.pages.dev/",
-   "discuss_url": "https://news.ycombinator.com/item?id=50638503",
-   "published_at": "2026-11-25T04:31:48Z",
-   "points": 353,
-   "points_label": null,
-   "comments": 80,
-   "playable": null,
-   "title_zh": "老显卡演示浏览器复活",
-   "why": "Nvidia、ATI 当年的技术演示在网页里重跑，一秒穿越回 2000 年。",
-   "category": "play",
-   "prompt": null,
-   "tags": [
-    "怀旧",
-    "可视化"
-   ],
-   "fun": 5,
-   "rank": 3,
-   "first_seen": "2026-11-26T00:59:38Z",
-   "week_label": "2026年第48周"
-  },
-  {
    "id": "a3b33b17b60f",
    "source": "hn",
    "source_label": "Hacker News",
@@ -514,6 +689,31 @@
    ],
    "fun": 5,
    "rank": 3,
+   "first_seen": "2026-11-26T00:59:38Z",
+   "week_label": "2026年第48周"
+  },
+  {
+   "id": "201edd6c6fdc",
+   "source": "hn",
+   "source_label": "Hacker News · Show HN",
+   "title": "Show HN: Old Nvidia and ATI tech demos, running again in the browser",
+   "url": "https://gpu-demo-gallery.pages.dev/",
+   "discuss_url": "https://news.ycombinator.com/item?id=50638503",
+   "published_at": "2026-11-25T04:31:48Z",
+   "points": 355,
+   "points_label": null,
+   "comments": 80,
+   "playable": null,
+   "title_zh": "老黄历显卡 Demo 在浏览器里复活了",
+   "why": "点开就能看二十年前的 3D 玩具兵和水面特效，全程免费怀旧。",
+   "category": "play",
+   "prompt": null,
+   "tags": [
+    "怀旧",
+    "WebGL"
+   ],
+   "fun": 5,
+   "rank": 4,
    "first_seen": "2026-11-26T00:59:38Z",
    "week_label": "2026年第48周"
   },
@@ -918,31 +1118,6 @@
    "week_label": "2026年第48周"
   },
   {
-   "id": "71cbd0380775",
-   "source": "github",
-   "source_label": "GitHub 新仓库",
-   "title": "EL4CTEO/fast-anything",
-   "url": "https://github.com/EL4CTEO/fast-anything",
-   "discuss_url": null,
-   "published_at": "2026-11-21T14:40:27Z",
-   "points": 2986,
-   "points_label": "stars",
-   "comments": null,
-   "playable": null,
-   "title_zh": "fast-anything：只把手慢的 5% 交给编码 Agent 重写",
-   "why": "先用 profiler 定位 Python/Node/Ruby 里真正的热点函数，再由 coding agent 逐段移植，并用录制行为做等价性校验。适合把已有回测与数据管线的关键路径局部提速，而不是整库重写。",
-   "category": "tool",
-   "prompt": null,
-   "tags": [
-    "性能优化",
-    "Agent技能",
-    "代码迁移"
-   ],
-   "fun": 3,
-   "rank": 0,
-   "first_seen": "2026-11-23T17:46:15Z"
-  },
-  {
    "id": "e5d1a1e0941b",
    "source": "hn",
    "source_label": "Hacker News",
@@ -993,31 +1168,6 @@
    "first_seen": "2026-11-23T16:12:02Z"
   },
   {
-   "id": "61f5e6c643e6",
-   "source": "hn",
-   "source_label": "Hacker News · Show HN",
-   "title": "Show HN: I built a game where you are an LLM's subagent",
-   "url": "https://github.com/gulivan/worker755",
-   "discuss_url": "https://news.ycombinator.com/item?id=50599762",
-   "published_at": "2026-11-22T13:56:58Z",
-   "points": 362,
-   "points_label": null,
-   "comments": 90,
-   "playable": null,
-   "title_zh": "扮演 LLM 手下的小代理",
-   "why": "你变成 AI 的小弟接任务干活，提前体验被模型呼来喝去的职场。",
-   "category": "play",
-   "prompt": null,
-   "tags": [
-    "游戏",
-    "AI代理"
-   ],
-   "fun": 4,
-   "rank": 2,
-   "first_seen": "2026-11-23T16:12:02Z",
-   "week_label": "2026年第48周"
-  },
-  {
    "id": "c1fe8c140cde",
    "source": "hn",
    "source_label": "Hacker News · Show HN",
@@ -1066,6 +1216,31 @@
    "fun": 2,
    "rank": 2,
    "first_seen": "2026-11-23T17:46:15Z"
+  },
+  {
+   "id": "61f5e6c643e6",
+   "source": "hn",
+   "source_label": "Hacker News · Show HN",
+   "title": "Show HN: I built a game where you are an LLM's subagent",
+   "url": "https://github.com/gulivan/worker755",
+   "discuss_url": "https://news.ycombinator.com/item?id=50599762",
+   "published_at": "2026-11-22T13:56:58Z",
+   "points": 362,
+   "points_label": null,
+   "comments": 90,
+   "playable": null,
+   "title_zh": "这游戏让你扮演 LLM 手下的打工人",
+   "why": "亲手体验被 AI 层层派活的窒息感，玩完更懂 agent 到底在干啥。",
+   "category": "play",
+   "prompt": null,
+   "tags": [
+    "游戏",
+    "AI 梗"
+   ],
+   "fun": 5,
+   "rank": 3,
+   "first_seen": "2026-11-23T16:12:02Z",
+   "week_label": "2026年第48周"
   },
   {
    "id": "fce5e29647a2",
@@ -1218,31 +1393,6 @@
    "first_seen": "2026-11-23T16:12:02Z"
   },
   {
-   "id": "a2c4f851396c",
-   "source": "hf_space",
-   "source_label": "Hugging Face Space",
-   "title": "TRELLIS.2",
-   "url": "https://huggingface.co/spaces/microsoft/TRELLIS.2",
-   "discuss_url": null,
-   "published_at": "2026-05-20T07:56:11Z",
-   "points": 2482,
-   "points_label": "likes",
-   "comments": null,
-   "playable": true,
-   "title_zh": "微软开源图生 3D 模型",
-   "why": "传一张图就能生成高保真三维模型，做建模素材很方便。",
-   "category": "play",
-   "prompt": null,
-   "tags": [
-    "3D",
-    "生成"
-   ],
-   "fun": 5,
-   "rank": 8,
-   "first_seen": "2026-11-23T17:46:15Z",
-   "week_label": "2026年第48周"
-  },
-  {
    "id": "33aa5cf52e69",
    "source": "hn",
    "source_label": "Hacker News",
@@ -1368,6 +1518,31 @@
    "first_seen": "2026-11-23T17:46:15Z"
   },
   {
+   "id": "71cbd0380775",
+   "source": "github",
+   "source_label": "GitHub 新仓库",
+   "title": "EL4CTEO/fast-anything",
+   "url": "https://github.com/EL4CTEO/fast-anything",
+   "discuss_url": null,
+   "published_at": "2026-11-21T14:40:27Z",
+   "points": 4467,
+   "points_label": "stars",
+   "comments": null,
+   "playable": null,
+   "title_zh": "别整个重写，只把慢的 5% 换成 Rust",
+   "why": "先 profile 再针对性移植热函数，比全量重写省事得多还立竿见影。",
+   "category": "tool",
+   "prompt": null,
+   "tags": [
+    "性能",
+    "重构"
+   ],
+   "fun": 4,
+   "rank": 12,
+   "first_seen": "2026-11-23T17:46:15Z",
+   "week_label": "2026年第48周"
+  },
+  {
    "id": "d9098f7bc351",
    "source": "github",
    "source_label": "GitHub 新仓库",
@@ -1425,17 +1600,17 @@
    "url": "https://github.com/pierridotite/mobile-agent-testers",
    "discuss_url": null,
    "published_at": "2026-11-16T19:11:44Z",
-   "points": 2516,
+   "points": 2613,
    "points_label": "stars",
    "comments": null,
    "playable": null,
-   "title_zh": "20 个 AI 同时测 20 台手机",
-   "why": "在免费 CI 上开一堆模拟器让代理找布局、翻译和可访问性 bug。",
+   "title_zh": "20 个 AI 同时在 20 台手机找 Bug",
+   "why": "利用 GitHub 免费的 runner 跑模拟器，自动抓布局、翻译和无障碍错误。",
    "category": "tool",
    "prompt": null,
    "tags": [
     "测试",
-    "移动端"
+    "Agent"
    ],
    "fun": 4,
    "rank": 13,
@@ -1518,220 +1693,32 @@
    "first_seen": "2026-11-23T17:46:15Z"
   },
   {
-   "id": "e22242af68a0",
-   "source": "hn",
-   "source_label": "Hacker News",
-   "title": "A Beginner's Guide to Local AI with Inkling, Qwen, and Unsloth",
-   "url": "https://www.gpupartner.com/blog/beginners-guide-local-ai-inkling-qwen-unsloth",
-   "discuss_url": "https://news.ycombinator.com/item?id=50603845",
-   "published_at": "2026-11-22T21:01:16Z",
-   "points": 749,
-   "points_label": null,
-   "comments": 304,
-   "playable": null,
-   "title_zh": "笔记本本地跑 Qwen 的入门指南引发讨论",
-   "why": "评论区为「要多少显存才不卡」吵翻，正好看清本地部署真实门槛。",
-   "category": "talk",
-   "prompt": null,
-   "tags": [
-    "本地模型",
-    "社区热议"
-   ],
-   "fun": 3,
-   "rank": 15,
-   "first_seen": "2026-11-23T16:01:30Z",
-   "week_label": "2026年第48周"
-  },
-  {
-   "id": "7d452f430512",
-   "source": "simon",
-   "source_label": "Simon Willison",
-   "title": "Quoting Daniel Stenberg",
-   "url": "https://simonwillison.net/2026/Nov/18/daniel-stenberg/",
-   "discuss_url": null,
-   "published_at": "2026-11-18T15:58:27Z",
-   "points": null,
-   "points_label": null,
-   "comments": null,
-   "playable": null,
-   "title_zh": "curl 实测：Agent 重写 Rust 时主线反而修了 200 个 bug",
-   "why": "三周内 agent 把 18.5 万行 C 转成 34 万行 Rust，同期 curl 主干合入 300+ 提交、200+ 修复与多个漏洞补丁。是「重写还是改进」之争里最有说服力的一手数据。",
-   "category": "talk",
-   "prompt": null,
-   "tags": [
-    "代码重写",
-    "Agent实测",
-    "工程判断"
-   ],
-   "fun": 2,
-   "rank": 15,
-   "first_seen": "2026-11-23T17:46:15Z"
-  },
-  {
    "id": "87c58735cbbe",
    "source": "hf_space",
    "source_label": "Hugging Face Space",
    "title": "Harness Leaderboard",
    "url": "https://huggingface.co/spaces/joelniklaus/harness-leaderboard",
    "discuss_url": null,
-   "published_at": "2026-11-26T18:03:03Z",
-   "points": 563,
+   "published_at": "2026-11-27T10:28:17Z",
+   "points": 573,
    "points_label": "likes",
    "comments": null,
    "playable": true,
-   "title_zh": "编码代理框架横向榜",
-   "why": "同一个模型换不同代理框架效果差很多，选工具前先看这张表。",
+   "title_zh": "榜单：哪个 agent 框架配哪个模型最好用",
+   "why": "别一个个瞎试了，直接看各类 harness 与模型的组合排名。",
    "category": "bench",
    "prompt": null,
    "tags": [
-    "代理框架",
-    "榜单"
+    "榜单",
+    "Agent"
    ],
    "fun": 4,
-   "rank": 16,
-   "first_seen": "2026-11-23T16:12:02Z",
-   "week_label": "2026年第48周"
-  },
-  {
-   "id": "a6fb8e67a46b",
-   "source": "hf_space",
-   "source_label": "Hugging Face Space",
-   "title": "The Ultimate MoE Training Handbook",
-   "url": "https://huggingface.co/spaces/huggingface/moe-blogpost",
-   "discuss_url": null,
-   "published_at": "2026-11-05T18:07:55Z",
-   "points": 842,
-   "points_label": "likes",
-   "comments": null,
-   "playable": true,
-   "title_zh": "MoE 训练实战手册（官方出品）",
-   "why": "想自己训稀疏专家模型，从零到跑通的完整操作指南和踩坑记录。",
-   "category": "talk",
-   "prompt": null,
-   "tags": [
-    "训练",
-    "教程"
-   ],
-   "fun": 3,
-   "rank": 16,
-   "first_seen": "2026-11-23T17:46:15Z",
-   "week_label": "2026年第48周"
-  },
-  {
-   "id": "eb5095b13600",
-   "source": "hn",
-   "source_label": "Hacker News",
-   "title": "87% of the Anthropic power will come from gas and 11% from coal in 2028",
-   "url": "https://betterdatacenterproject.com/2026/11/16/how-ai-is-powered-a-breakdown-of-byop-and-grid-power/",
-   "discuss_url": "https://news.ycombinator.com/item?id=50597612",
-   "published_at": "2026-11-22T08:57:34Z",
-   "points": 1029,
-   "points_label": null,
-   "comments": 1007,
-   "playable": null,
-   "title_zh": "Anthropic 2028 年 87% 电力来自天然气",
-   "why": "提醒你每次聊天背后都在烧电，评论区把 AI 能耗账算给你看。",
-   "category": "talk",
-   "prompt": null,
-   "tags": [
-    "AI能耗",
-    "热议"
-   ],
-   "fun": 3,
-   "rank": 16,
-   "first_seen": "2026-11-23T16:01:30Z",
-   "week_label": "2026年第48周"
-  },
-  {
-   "id": "3b3cf7cc38f7",
-   "source": "v2ex",
-   "source_label": "V2EX · openai",
-   "title": "买了 100 刀的谷歌，下个月不再续订 Claude 和 Codex。",
-   "url": "https://www.v2ex.com/t/1259262",
-   "discuss_url": "https://www.v2ex.com/t/1259262",
-   "published_at": "2026-11-23T14:26:32Z",
-   "points": null,
-   "points_label": null,
-   "comments": 26,
-   "playable": null,
-   "title_zh": "V2EX：退订 Claude 和 Codex 转投谷歌",
-   "why": "真实用户吐槽封号、慢、额度少，掏钱订前值得先读一遍。",
-   "category": "talk",
-   "prompt": null,
-   "tags": [
-    "订阅实测",
-    "吐槽"
-   ],
-   "fun": 3,
-   "rank": 17,
-   "first_seen": "2026-11-23T16:12:02Z",
-   "week_label": "2026年第48周"
-  },
-  {
-   "id": "3ff0ca4f2f88",
-   "source": "v2ex",
-   "source_label": "V2EX · claude",
-   "title": "连 Anthropic 的离职员工都封",
-   "url": "https://www.v2ex.com/t/1258923",
-   "discuss_url": "https://www.v2ex.com/t/1258923",
-   "published_at": "2026-11-22T10:50:33Z",
-   "points": null,
-   "points_label": null,
-   "comments": 11,
-   "playable": null,
-   "title_zh": "连 Anthropic 的离职员工都被封号",
-   "why": "V2EX 上的一句吐槽配上截图：无差别风控之下，到底谁的号在中国用能不被封。属于这两周中文社区关于 Claude 最有共鸣的一条。",
-   "category": "talk",
-   "prompt": null,
-   "tags": [
-    "封号",
-    "风控",
-    "吐槽"
-   ],
-   "fun": 4,
-   "rank": 17,
-   "first_seen": "2026-11-23T16:12:02Z"
-  },
-  {
-   "id": "f5588facab65",
-   "source": "hf_space",
-   "source_label": "Hugging Face Space",
-   "title": "Text To Pixel Art",
-   "url": "https://huggingface.co/spaces/thejagstudio/tessera-pixel-studio",
-   "discuss_url": null,
-   "published_at": "2026-11-14T00:41:14Z",
-   "points": 91,
-   "points_label": "likes",
-   "comments": null,
-   "playable": true,
-   "title_zh": "文字直接转像素画，还能逐格揭晓",
-   "why": "打一句话出复古像素图，生成过程一格一格揭开，看着很解压。",
-   "category": "play",
-   "prompt": null,
-   "tags": [
-    "像素画",
-    "可视化"
-   ],
-   "fun": 4,
-   "rank": 18,
+   "rank": 15,
    "first_seen": "2026-11-23T16:12:02Z",
    "week_label": "2026年第48周"
   }
  ],
  "official": [
-  {
-   "id": "04b2af0679b5",
-   "org": "Google",
-   "region": "US",
-   "kind": "post",
-   "title": "How Gemini is changing the game for Golden State's organization and fans.",
-   "title_zh": null,
-   "summary_zh": null,
-   "importance": 2,
-   "url": "https://blog.google/products-and-platforms/products/gemini/gemini-golden-state/",
-   "published_at": "2026-11-24T16:00:00Z",
-   "first_seen": "2026-11-27T01:04:10Z"
-  },
   {
    "id": "bdfe516ecee3",
    "org": "Google DeepMind",
@@ -1751,8 +1738,8 @@
    "region": "US",
    "kind": "post",
    "title": "GPT-6 models demonstrate intrinsic protein-design capabilities",
-   "title_zh": "GPT-6展示蛋白质设计能力",
-   "summary_zh": "GPT-6能用推理和代码设计蛋白质结构，测试显示五个靶点有结合证据",
+   "title_zh": "GPT-6展现蛋白质设计能力",
+   "summary_zh": "模型靠推理和写代码设计蛋白质，实测五个靶点可成功结合",
    "importance": 2,
    "url": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities",
    "published_at": "2026-11-24T13:00:00Z",
@@ -1769,7 +1756,7 @@
    "importance": 2,
    "url": "https://openai.com/index/searching-for-distant-planets-with-astra",
    "published_at": "2026-11-24T11:00:00Z",
-   "first_seen": "2026-11-27T01:04:10Z"
+   "first_seen": "2026-11-28T00:59:02Z"
   },
   {
    "id": "067723f5e16b",
@@ -1778,9 +1765,9 @@
    "kind": "release",
    "title": "OmniEVIE-4B",
    "title_zh": "腾讯混元 开源发布 OmniEVIE-4B 模型权重",
-   "summary_zh": "可直接下载部署的官方新模型权重（Hugging Face 新模型 · feature-extraction · 下载 399）。",
+   "summary_zh": "可直接下载部署的官方新模型权重（Hugging Face 新模型 · feature-extraction · 下载 688）。",
    "importance": 2,
-   "likes": 26,
+   "likes": 27,
    "url": "https://huggingface.co/tencent/OmniEVIE-4B",
    "published_at": "2026-11-24T03:16:57Z",
    "first_seen": "2026-11-24T06:34:18Z"
@@ -1796,7 +1783,7 @@
    "importance": 2,
    "url": "https://openai.com/business/customer-stories/intentful-dots",
    "published_at": "2026-11-24T00:00:00Z",
-   "first_seen": "2026-11-27T01:04:10Z"
+   "first_seen": "2026-11-28T00:59:02Z"
   },
   {
    "id": "fda9037a843a",
@@ -1809,7 +1796,7 @@
    "importance": 2,
    "url": "https://openai.com/business/customer-stories/ifood",
    "published_at": "2026-11-24T00:00:00Z",
-   "first_seen": "2026-11-27T01:04:10Z"
+   "first_seen": "2026-11-28T00:59:02Z"
   },
   {
    "id": "18e073d1300e",
@@ -1822,7 +1809,7 @@
    "importance": 2,
    "url": "https://openai.com/business/customer-stories/clay-plugins-openai",
    "published_at": "2026-11-24T00:00:00Z",
-   "first_seen": "2026-11-27T01:04:10Z"
+   "first_seen": "2026-11-28T00:59:02Z"
   },
   {
    "id": "60167006a52f",
@@ -1830,8 +1817,8 @@
    "region": "US",
    "kind": "post",
    "title": "OpenAI and Cisco introduce Shirudo",
-   "title_zh": "OpenAI与Cisco推出Shirudo",
-   "summary_zh": "开源Linux运行时可在打补丁时保护运行系统，降低安全风险",
+   "title_zh": "OpenAI与思科发布开源运行时Shirudo",
+   "summary_zh": "开源Linux运行时，帮团队在打补丁期间保护在运行的系统",
    "importance": 2,
    "url": "https://openai.com/index/introducing-shirudo",
    "published_at": "2026-11-23T21:20:00Z",
@@ -1870,9 +1857,9 @@
    "kind": "release",
    "title": "ERNIE-5.5-Flash-Preview-BF16",
    "title_zh": "百度 开源发布 ERNIE-5.5-Flash-Preview-BF16 模型权重",
-   "summary_zh": "可直接下载部署的官方新模型权重（Hugging Face 新模型 · text-generation · 下载 388）。",
+   "summary_zh": "可直接下载部署的官方新模型权重（Hugging Face 新模型 · text-generation · 下载 825）。",
    "importance": 2,
-   "likes": 24,
+   "likes": 25,
    "url": "https://huggingface.co/baidu/ERNIE-5.5-Flash-Preview-BF16",
    "published_at": "2026-11-23T09:01:08Z",
    "first_seen": "2026-11-26T00:59:38Z"
@@ -1884,9 +1871,9 @@
    "kind": "release",
    "title": "ERNIE-5.5-Flash-Preview",
    "title_zh": "百度 开源发布 ERNIE-5.5-Flash-Preview 模型权重",
-   "summary_zh": "可直接下载部署的官方新模型权重（Hugging Face 新模型 · text-generation · 下载 1193）。",
+   "summary_zh": "可直接下载部署的官方新模型权重（Hugging Face 新模型 · text-generation · 下载 2609）。",
    "importance": 2,
-   "likes": 351,
+   "likes": 392,
    "url": "https://huggingface.co/baidu/ERNIE-5.5-Flash-Preview",
    "published_at": "2026-11-23T09:00:29Z",
    "first_seen": "2026-11-24T06:34:18Z"
@@ -1902,7 +1889,7 @@
    "importance": 2,
    "url": "https://openai.com/business/learn/connected-intelligence-for-in-house-legal",
    "published_at": "2026-11-23T08:00:00Z",
-   "first_seen": "2026-11-27T01:04:10Z"
+   "first_seen": "2026-11-28T00:59:02Z"
   },
   {
    "id": "8d6deaf08134",
@@ -1915,7 +1902,7 @@
    "importance": 2,
    "url": "https://openai.com/business/customer-stories/richpanel-ai-customer-support",
    "published_at": "2026-11-23T08:00:00Z",
-   "first_seen": "2026-11-27T01:04:10Z"
+   "first_seen": "2026-11-28T00:59:02Z"
   },
   {
    "id": "3af54407b549",
@@ -1924,9 +1911,9 @@
    "kind": "release",
    "title": "Ling-3.2-air",
    "title_zh": "蚂蚁 inclusionAI 开源发布 Ling-3.2-air 模型权重",
-   "summary_zh": "可直接下载部署的官方新模型权重（Hugging Face 新模型 ·  · 下载 1467）。",
+   "summary_zh": "可直接下载部署的官方新模型权重（Hugging Face 新模型 ·  · 下载 2403）。",
    "importance": 2,
-   "likes": 268,
+   "likes": 308,
    "url": "https://huggingface.co/inclusionAI/Ling-3.2-air",
    "published_at": "2026-11-23T03:55:12Z",
    "first_seen": "2026-11-24T06:34:18Z"
@@ -1938,7 +1925,7 @@
    "kind": "post",
    "title": "Perplexity and Intelligence",
    "title_zh": "用困惑度衡量AI模型进展",
-   "summary_zh": "探讨困惑度指标，帮助开发者建立共享的模型能力评估方法",
+   "summary_zh": "探讨以困惑度统一评估模型能力，助开发者共享评测方法",
    "importance": 2,
    "url": "https://openai.com/index/perplexity-and-intelligence",
    "published_at": "2026-11-22T00:00:00Z",
@@ -1950,8 +1937,8 @@
    "region": "US",
    "kind": "post",
    "title": "Combatting adversarial distillation",
-   "title_zh": "OpenAI多层防御对抗蒸馏",
-   "summary_zh": "结合训练、防护、检测与执法，防止模型能力被非法提取",
+   "title_zh": "OpenAI公开对抗蒸馏多层防御方案",
+   "summary_zh": "结合训练、防护、检测与执法，防止模型能力被外部窃取",
    "importance": 2,
    "url": "https://openai.com/index/combatting-adversarial-distillation",
    "published_at": "2026-11-20T10:00:00Z",
@@ -1968,7 +1955,7 @@
    "importance": 2,
    "url": "https://openai.com/business/customer-stories/hebbia",
    "published_at": "2026-11-20T00:00:00Z",
-   "first_seen": "2026-11-27T01:04:10Z"
+   "first_seen": "2026-11-28T00:59:02Z"
   },
   {
    "id": "8a4cf7fa5e14",
@@ -1976,8 +1963,8 @@
    "region": "US",
    "kind": "post",
    "title": "Can AI help scientists identify promising drug candidates?",
-   "title_zh": "MedChemBench评估AI药物发现",
-   "summary_zh": "新基准测试AI解读分子结构、推理实验证据并筛选候选化合物",
+   "title_zh": "MedChemBench评测AI药物发现能力",
+   "summary_zh": "新基准测试AI解读分子结构、推理证据并挑选候选药物",
    "importance": 2,
    "url": "https://openai.com/index/introducing-medchembench",
    "published_at": "2026-11-20T00:00:00Z",
@@ -1994,7 +1981,7 @@
    "importance": 2,
    "url": "https://www.anthropic.com/news/ipo-close",
    "published_at": "2026-11-20T00:00:00Z",
-   "first_seen": "2026-11-27T01:04:10Z"
+   "first_seen": "2026-11-28T00:59:02Z"
   },
   {
    "id": "278dc93a7337",
@@ -2010,26 +1997,13 @@
    "first_seen": "2026-11-23T16:01:30Z"
   },
   {
-   "id": "87a61550c7ef",
-   "org": "Google",
-   "region": "US",
-   "kind": "post",
-   "title": "Walter Isaacson on curiosity and creativity in the AI age.",
-   "title_zh": null,
-   "summary_zh": null,
-   "importance": 2,
-   "url": "https://blog.google/innovation-and-ai/technology/ai/dialogues-walter-isaacson/",
-   "published_at": "2026-11-19T17:00:00Z",
-   "first_seen": "2026-11-27T01:04:10Z"
-  },
-  {
    "id": "6321c7fbb2e0",
    "org": "OpenAI",
    "region": "US",
    "kind": "post",
    "title": "How OpenAI’s Performance Factory keeps ChatGPT fast",
-   "title_zh": "OpenAI性能工厂保障ChatGPT速度",
-   "summary_zh": "用Codex工作流自动发现并修复性能问题，保持ChatGPT响应速度",
+   "title_zh": "Codex工厂如何让ChatGPT保持高速",
+   "summary_zh": "Codex工作流自动发现并修复性能问题，保障ChatGPT流畅",
    "importance": 2,
    "url": "https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast",
    "published_at": "2026-11-19T08:00:00Z",
@@ -2056,9 +2030,9 @@
    "kind": "release",
    "title": "LingSante-3.1-flash",
    "title_zh": "蚂蚁 inclusionAI 开源发布 LingSante-3.1-flash 模型权重",
-   "summary_zh": "可直接下载部署的官方新模型权重（Hugging Face 新模型 · text-generation · 下载 1487）。",
+   "summary_zh": "可直接下载部署的官方新模型权重（Hugging Face 新模型 · text-generation · 下载 2351）。",
    "importance": 2,
-   "likes": 227,
+   "likes": 254,
    "url": "https://huggingface.co/inclusionAI/LingSante-3.1-flash",
    "published_at": "2026-11-19T04:30:30Z",
    "first_seen": "2026-11-23T16:01:30Z"
@@ -2069,8 +2043,8 @@
    "region": "US",
    "kind": "post",
    "title": "See PR scans in action",
-   "title_zh": "PR扫描工作流演示",
-   "summary_zh": "演示在拉取请求中查看扫描结果，帮助团队审查代码变更",
+   "title_zh": null,
+   "summary_zh": null,
    "importance": 2,
    "url": "https://openai.com/business/learn/pr-scans-demo",
    "published_at": "2026-11-19T00:00:00Z",
@@ -2082,8 +2056,8 @@
    "region": "US",
    "kind": "post",
    "title": "Deploying Daybreak Red",
-   "title_zh": "部署Daybreak Red安全调查架构",
-   "summary_zh": "提供受监督安全调查的参考架构，含安全控制、设置与监控",
+   "title_zh": "Daybreak Red安全调查参考架构发布",
+   "summary_zh": "提供含安全控制与监控的监督式安全调查部署方案",
    "importance": 2,
    "url": "https://openai.com/business/learn/deploying-daybreak-red",
    "published_at": "2026-11-19T00:00:00Z",
@@ -2095,8 +2069,8 @@
    "region": "US",
    "kind": "post",
    "title": "Explore the Codex Security Plugin",
-   "title_zh": "Codex安全插件演示",
-   "summary_zh": "演示Codex安全插件从入门到结果审查的工作流，辅助代码安全",
+   "title_zh": "Codex安全插件演示：PR中查看扫描",
+   "summary_zh": "开发者可在拉取请求流程中运行并审查安全扫描结果",
    "importance": 2,
    "url": "https://openai.com/business/learn/codex-security-plugin-demo",
    "published_at": "2026-11-19T00:00:00Z",
@@ -2108,98 +2082,125 @@
    "region": "US",
    "kind": "post",
    "title": "Get started with Daybreak Blue",
-   "title_zh": "Daybreak Blue入门演示",
-   "summary_zh": "演示Daybreak Blue的入门设置流程，帮助用户快速开始使用",
+   "title_zh": null,
+   "summary_zh": null,
    "importance": 2,
    "url": "https://openai.com/business/learn/daybreak-blue-onboarding-demo",
    "published_at": "2026-11-19T00:00:00Z",
    "first_seen": "2026-11-27T01:04:10Z"
+  },
+  {
+   "id": "b94ea9316e1d",
+   "org": "OpenAI",
+   "region": "US",
+   "kind": "post",
+   "title": "The Silent Consensus",
+   "title_zh": null,
+   "summary_zh": null,
+   "importance": 2,
+   "url": "https://openai.com/index/the-silent-consensus",
+   "published_at": "2026-11-18T10:00:00Z",
+   "first_seen": "2026-11-28T00:59:02Z"
+  },
+  {
+   "id": "3709b2352a8c",
+   "org": "腾讯混元",
+   "region": "CN",
+   "kind": "release",
+   "title": "WeMM-Ecom-35B-A3B",
+   "title_zh": "腾讯混元 开源发布 WeMM-Ecom-35B-A3B 模型权重",
+   "summary_zh": "可直接下载部署的官方新模型权重（Hugging Face 新模型 · image-text-to-text · 下载 1771）。",
+   "importance": 2,
+   "likes": 23,
+   "url": "https://huggingface.co/tencent/WeMM-Ecom-35B-A3B",
+   "published_at": "2026-11-18T09:54:14Z",
+   "first_seen": "2026-11-28T00:59:02Z"
   }
  ],
  "hf_trending": [
   {
    "id": "thinkingmachines/Inkling-2-Mini",
    "url": "https://huggingface.co/thinkingmachines/Inkling-2-Mini",
-   "likes": 6256,
-   "downloads": 96527,
+   "likes": 6464,
+   "downloads": 155741,
    "task": "image-text-to-text"
   },
   {
    "id": "unsloth/Inkling-2-Mini-GGUF",
    "url": "https://huggingface.co/unsloth/Inkling-2-Mini-GGUF",
-   "likes": 1495,
-   "downloads": 2445633,
+   "likes": 1611,
+   "downloads": 3302340,
    "task": "image-text-to-text"
-  },
-  {
-   "id": "AtomicChat/Inkling-2-Mini-Uncensored-GGUF",
-   "url": "https://huggingface.co/AtomicChat/Inkling-2-Mini-Uncensored-GGUF",
-   "likes": 936,
-   "downloads": 762491,
-   "task": "image-text-to-text"
-  },
-  {
-   "id": "inworld/voice-isolator",
-   "url": "https://huggingface.co/inworld/voice-isolator",
-   "likes": 963,
-   "downloads": 15244,
-   "task": "audio-to-audio"
   },
   {
    "id": "SulphurAI/Sulphur-3",
    "url": "https://huggingface.co/SulphurAI/Sulphur-3",
-   "likes": 1212,
-   "downloads": 189735,
+   "likes": 1369,
+   "downloads": 539421,
    "task": null
+  },
+  {
+   "id": "AtomicChat/Inkling-2-Mini-Uncensored-GGUF",
+   "url": "https://huggingface.co/AtomicChat/Inkling-2-Mini-Uncensored-GGUF",
+   "likes": 1036,
+   "downloads": 1059763,
+   "task": "image-text-to-text"
   },
   {
    "id": "prism-ml/Ternary-Bonsai-2.5-27B-GGUF",
    "url": "https://huggingface.co/prism-ml/Ternary-Bonsai-2.5-27B-GGUF",
-   "likes": 521,
-   "downloads": 59366,
+   "likes": 637,
+   "downloads": 382546,
    "task": "text-generation"
+  },
+  {
+   "id": "inworld/voice-isolator",
+   "url": "https://huggingface.co/inworld/voice-isolator",
+   "likes": 1014,
+   "downloads": 20510,
+   "task": "audio-to-audio"
   },
   {
    "id": "Lightricks/LTX-2.5",
    "url": "https://huggingface.co/Lightricks/LTX-2.5",
-   "likes": 13596,
-   "downloads": 3041405,
+   "likes": 13727,
+   "downloads": 3080701,
    "task": "image-to-video"
   },
   {
    "id": "llamaindex/OCRia-nano-1",
    "url": "https://huggingface.co/llamaindex/OCRia-nano-1",
-   "likes": 285,
-   "downloads": 126,
+   "likes": 356,
+   "downloads": 626,
    "task": "image-to-text"
-  },
-  {
-   "id": "apple/DepthPro2",
-   "url": "https://huggingface.co/apple/DepthPro2",
-   "likes": 1315,
-   "downloads": 0,
-   "task": "depth-estimation"
   },
   {
    "id": "nvidia/Nemotron-Labs-Image-30B-A3B",
    "url": "https://huggingface.co/nvidia/Nemotron-Labs-Image-30B-A3B",
-   "likes": 276,
-   "downloads": 218,
+   "likes": 341,
+   "downloads": 1692,
    "task": "text-to-image"
   },
   {
-   "id": "inclusionAI/Ling-3.2-air",
-   "url": "https://huggingface.co/inclusionAI/Ling-3.2-air",
-   "likes": 268,
-   "downloads": 1467,
-   "task": null
+   "id": "ISTA-DASLab/Inkling-2-Mini-GSQ-RCO-GGUF",
+   "url": "https://huggingface.co/ISTA-DASLab/Inkling-2-Mini-GSQ-RCO-GGUF",
+   "likes": 273,
+   "downloads": 24931,
+   "task": "text-generation"
   },
   {
    "id": "strata-engine/Inkling-2-Mini-Strata",
    "url": "https://huggingface.co/strata-engine/Inkling-2-Mini-Strata",
-   "likes": 230,
-   "downloads": 2965,
+   "likes": 302,
+   "downloads": 4532,
    "task": "image-text-to-text"
+  },
+  {
+   "id": "apple/DepthPro2",
+   "url": "https://huggingface.co/apple/DepthPro2",
+   "likes": 1362,
+   "downloads": 0,
+   "task": "depth-estimation"
   }
  ],
  "sources": [
@@ -2218,13 +2219,13 @@
   {
    "name": "Simon Willison",
    "ok": true,
-   "count": 19,
+   "count": 17,
    "error": null
   },
   {
    "name": "Lobsters",
    "ok": true,
-   "count": 3,
+   "count": 4,
    "error": null
   },
   {
@@ -2253,9 +2254,9 @@
   },
   {
    "name": "Google / DeepMind 官方",
-   "ok": true,
-   "count": 11,
-   "error": null
+   "ok": false,
+   "count": 0,
+   "error": "ParseError: not well-formed (invalid token): line 1, column 0"
   },
   {
    "name": "Anthropic 官方",
